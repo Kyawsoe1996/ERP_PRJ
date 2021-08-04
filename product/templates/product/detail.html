@@ -1,4 +1,6 @@
+
 {% extends "layouts/base.html" %}
+{% load static %}
 {% load crispy_forms_tags %}
 {% block title %} Page Blank {% endblock %} 
 
@@ -8,9 +10,48 @@
 {% endblock stylesheets %}
 
 {% block content %}
+    <h5 class="mb-5">Product Detail View</h5>
+       <!-- [ Hover-table ] start -->
+
+       <p> {{product.name}} </p>
+       <p> {{product.get_type_display}} </p>
+       <p> {{product.category.name}} </p>
+       <p> {{product.uom.name}} </p>
+       <p> {{product.slug}} </p>
+
+
+       <p> {{product.sale_price}} </p>
+       <p> {{product.purchase_price}} </p>
+       <img src="{{product.barcode.url}}">
+
+       <img src="{{product.image.url}}">
+       
+
+       
+    <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" 
+        class="nav-item active">
+        <a href="{% url 'product:product-update' product.id %}" class="nav-link "><span class="pcoded-micon">
+            <i class="feather icon-edit">
+
+            </i></span><span class="pcoded-mtext">Edit</span></a>
+    </li>
+
+    <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" 
+        class="nav-item active">
+        <a href="{% url 'product:product-delete' product.id %}" class="nav-link "><span class="pcoded-micon">
+            <i class="feather icon-delete">
+
+            </i></span><span class="pcoded-mtext">Delete</span></a>
+    </li>
+
+        
+
+
+
+
 
 
 {% endblock content %}
 
-<!-- Specific Page JS goes HERE  -->
+    <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}{% endblock javascripts %}

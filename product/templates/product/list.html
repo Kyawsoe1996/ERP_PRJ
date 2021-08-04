@@ -9,8 +9,78 @@
 
 {% block content %}
 
+<div class="col-xl-12 col-md-12">
+    <div class="card Recent-Users">
+        <div class="card-header">
+            <a href="{% url 'product:product' %}" class="float-right btn btn-primary">Create</a>
+            <h5>Product</h5>
+        </div>
+        <div class="card-block px-0 py-3">
+            <div class="table-responsive">
+                <table id="table" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Category</th>
+                            <th>Uom</th>
+                            <th>Barcode</th>
+                            <th>Sale P</th>
+                            <th>Purchase P</th>
+                            <th>Slug</th>
+                            <th>Operations</th>
+                           
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
 
+                        
+                        {% for p  in product_lists  %}
+                            
+                       
+                            
+                        <tr class="unread">
+                            <td>{{forloop.counter}}</td>
+                            <td><a href="{{p.get_absolute_url}}">
+                                <img class="rounded-circle" style="width:40px;" 
+                                src="{{p.image.url}}" alt="activity-user">
+                                </a>
+                            </td>
+                            <td>
+                                {{p.name}}
+                            </td>
+                            <td>{{p.get_type_display}}</td>
+                            <td>{{p.category.name}}</td>
+                            <td>{{p.uom.name}}</td>
+                            <td><img class="rounded-circle" style="width:60px;" src="{{p.barcode.url}}" alt="activity-user"></td>
+                            <td>{{p.sale_price}}</td>
+                            <td>{{p.purchase_price}} </td>
+                           <td> {{p.slug}} </td>
+                              
+                            <td><a href="{% url 'product:product-update' p.id %}" 
+                                class="label theme-bg2 text-white f-12">Edit</a>
+                                <a href="{% url 'product:product-delete' p.id %}" 
+                                class="label theme-bg text-white f-12">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                       
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+<!-- <script type = "text/javascript">
+    $(document).ready(function(){
+        $('#table').DataTable();
+    });
+</script> -->
+{% endblock javascripts %}

@@ -41,4 +41,27 @@ class ProductUOMForm(forms.ModelForm):
             self.fields[i].widget.attrs.update({'class':'form-control'})
         self.fields['name'].widget.attrs['placeholder'] = "Enter UOM Name"
 
+class ProductForm(forms.ModelForm):
+  
+
+    class Meta:
+        
+
+        model = Product
+        fields = ['name','type','category','uom','image','slug','barcode']
+    
+    def __init__(self,*args, **kwargs):
+        super(ProductForm,self).__init__(*args, **kwargs)
+
+        for i in self.fields:
+            self.fields[i].widget.attrs.update({'class':'form-control'})
+        self.fields['name'].widget.attrs['placeholder'] = "Enter Name"
+        self.fields['slug'].widget.attrs['placeholder'] = "Fill Slugname"
+
+        self.fields['category'].empty_label = "Select Category"
+        self.fields['uom'].empty_label = "Select UOM"
+
+
+
+
 
