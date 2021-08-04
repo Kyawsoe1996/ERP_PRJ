@@ -21,7 +21,7 @@
                         <a href="/" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
                     </li>
 
-                    <!-- CUSTOM ADDING -->
+                    <!-- CUSTOMER ADDING -->
                     <li class="nav-item pcoded-menu-caption">
                         <label>Customer</label>
                     </li>
@@ -32,6 +32,19 @@
 
 
                     <!-- ............................ -->
+
+
+                    <!-- PRODUCT ADDING -->
+                    <li data-username="Authentication Sign up Sign in reset password Change password Personal information profile settings map form subscribe" class="nav-item pcoded-hasmenu">
+                        <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-lock"></i></span><span class="pcoded-mtext">Product</span></a>
+                        <ul class="pcoded-submenu">
+                            <li class=""><a href="{% url 'product:prod' %}" class="">Product</a></li>
+                            <li class=""><a href="{% url 'product:product-category-list' %}" class="">Product Category</a></li>
+                            <li class=""><a href="{% url 'product:product-uom' %}" class="">Product UOM</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- .......................................... -->
 
                     <li class="nav-item pcoded-menu-caption">
                         <label>UI Element</label>

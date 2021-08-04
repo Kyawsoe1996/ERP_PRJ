@@ -1,0 +1,69 @@
+{% extends "layouts/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %} Page Blank {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+{% endblock stylesheets %}
+
+{% block content %}
+    <h1>Product Category Page</h1>
+    <div class="auth-wrapper">
+        <div class="auth-content">
+            <div class="auth-bg">
+                <span class="r"></span>
+                <span class="r s"></span>
+                <span class="r s"></span>
+                <span class="r"></span>
+            </div>
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="mb-4">
+                        <i class="feather icon-user-plus auth-icon"></i>
+                    </div>
+                    <h3 class="mb-2">Category</h3>
+    
+                    <span class="mb-0 text-muted">
+                        <!-- {% if msg %}
+                            {{ msg | safe }}
+                        {% else %}
+                            Add your credentials
+                        {% endif %}  -->
+                        
+                       
+                            
+                    </span>
+    
+                    <br />
+                    <br />
+    
+                    <form role="form" method="post" action="" enctype="multipart/form-data">
+    
+                        {% csrf_token %}                    
+    
+                        <div class="input-group mb-3">
+                            
+                            {{form.name}}
+                        </div>
+                        <span class="text-danger">{{ form.name.errors }}</span>
+    
+                       
+    
+                        
+                        
+                       
+                        <button type="submit" name="register" class="btn btn-primary shadow-2 mb-4">Create</button>
+    
+                    </form>
+    
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

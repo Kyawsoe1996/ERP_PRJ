@@ -27,6 +27,9 @@ urlpatterns = [
     #Customer URL COnfig
     # path("customer/",include('customer.urls')),
     path('customer/',include('customer.urls',namespace="customer")),
+    path('product/',include('product.urls',namespace="product")),
+
+    
 ]
 
 if settings.DEBUG:
