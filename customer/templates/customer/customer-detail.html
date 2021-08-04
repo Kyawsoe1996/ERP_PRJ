@@ -1,0 +1,49 @@
+
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %} Page Blank {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+{% endblock stylesheets %}
+
+{% block content %}
+    <h5 class="mb-5">Customer Detail View</h5>
+       <!-- [ Hover-table ] start -->
+
+       <p> {{customer.name}} </p>
+       <p> {{customer.email}} </p>
+       <p> {{customer.country.name}} </p>
+       <p> {{customer.address}} </p>
+       <img src="{{customer.image.url}}">
+
+       
+    <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" 
+        class="nav-item active">
+        <a href="{% url 'customer:customer-update' customer.id %}" class="nav-link "><span class="pcoded-micon">
+            <i class="feather icon-edit">
+
+            </i></span><span class="pcoded-mtext">Edit</span></a>
+    </li>
+
+    <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" 
+        class="nav-item active">
+        <a href="{% url 'customer:customer-delete' customer.id %}" class="nav-link "><span class="pcoded-micon">
+            <i class="feather icon-delete">
+
+            </i></span><span class="pcoded-mtext">Delete</span></a>
+    </li>
+
+        
+
+
+
+
+
+
+{% endblock content %}
+
+    <!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

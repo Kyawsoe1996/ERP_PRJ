@@ -1,0 +1,111 @@
+
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %} Page Blank {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+{% endblock stylesheets %}
+
+{% block content %}
+    <a  href="{% url 'customer:cus' %}" class="float-right btn btn-primary btn-sm mt-2">Add new customer</a>
+    <h5 class="mb-5">Customer lists</h5>
+    
+       <!-- [ Hover-table ] start -->
+
+
+    
+
+    <div class="row">
+        {% for customer in customer_lists  %}
+        
+        <div class="col-md-3 col-xl-3">
+            <div class="card card-social">
+                <div class="card-block border-bottom">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-auto">
+                            <!-- <i class="fab fa-facebook-f text-primary f-36"></i> -->
+                            <a href="{{customer.get_absolute_url}}"><img src="{{customer.image.url}}"" width="30%" tex-align="center" 
+                                height="50px" alt="API" style="display: block; margin-left: auto; margin-right: auto;
+                                    width: 50%;"> </a>
+
+                            <p class="text-center">Name:{{customer.name}}</p>
+                            <p class="text-center">Location: {{customer.country.name}}</p>
+                            <p class="text-center">Email: {{customer.email}}</p>
+                            <p class="text-center">Address: {{customer.address}}</p>
+                            
+                        </div>
+                        <!-- <div class="col text-right">
+                            <h3>12,281</h3>
+                            <h5 class="text-c-green mb-0">+7.2% <span class="text-muted">Total Likes</span></h5>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="card-block">
+                    <div class="row align-items-center justify-content-center card-active">
+                        <div class="col-6">
+                            <h6 class="text-center m-b-10"><span class="text-muted m-r-5">Orders:</span>35,098</h6>
+                            <div class="progress">
+                                <div class="progress-bar progress-c-theme" role="progressbar" style="width:60%;height:6px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <h6 class="text-center  m-b-10"><span class="text-muted m-r-5">Purchases:</span>3,539</h6>
+                            <div class="progress">
+                                <div class="progress-bar progress-c-theme2" role="progressbar" style="width:45%;height:6px;" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+        
+
+
+<!-- <div class="tab-content" id="myTabContent">
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Activity</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th class="text-right"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <h6 class="m-0"><img class="rounded-circle m-r-10" style="width:40px;" src="/static/assets/images/user/avatar-1.jpg" alt="activity-user">Ida Jorgensen</h6>
+                </td>
+                <td>
+                    <h6 class="m-0">The quick brown fox</h6>
+                </td>
+                <td>
+                    <h6 class="m-0">3:28 PM</h6>
+                </td>
+                <td>
+                    <h6 class="m-0 text-c-green">Done</h6>
+                </td>
+                <td class="text-right"><i class="fas fa-circle text-c-green f-10"></i></td>
+            </tr>
+        </tbody>
+  
+
+    </table>
+
+</div> -->
+
+
+
+
+{% endblock content %}
+
+    <!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
