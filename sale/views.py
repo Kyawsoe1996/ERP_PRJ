@@ -42,7 +42,15 @@ def create_so(request):
             for form in formset:
                 
                 so_line_obj = form.save(commit=False)
+
                 so_line_obj.sale_order = so_form_obj
+                #unique_together_issue_check
+
+                for so_line in so_form_obj.so_lines.all():
+                    if so_line.product.id == so_line_obj.product.id:
+                        return HttpResponse("This %s  already duplicate" % so_line.product.name)
+
+
                 so_line_obj.save()
         else:
             return HttpResponse("Something went wrong with your form")
