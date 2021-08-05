@@ -28,6 +28,8 @@ urlpatterns = [
     # path("customer/",include('customer.urls')),
     path('customer/',include('customer.urls',namespace="customer")),
     path('product/',include('product.urls',namespace="product")),
+    path('sale/',include('sale.urls',namespace="sale")),
+
 
     
 ]

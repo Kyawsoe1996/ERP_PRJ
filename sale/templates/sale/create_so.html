@@ -1,0 +1,142 @@
+{% extends "layouts/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %} Page Blank {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+{% endblock stylesheets %}
+
+{% block content %}
+    
+
+    <!-- <input type="button" class="btn btn-primary btn-sm flaot-right mt-2" value="Add More" id="add_more"> -->
+    <!-- <button class="btn float-right mt-2 btn-primary btn-sm" id="add_more">Add</button> -->
+    <form id="myForm" class="col-12 offset-3 " method="POST" action="">
+        {% csrf_token %}
+    <div class="row spacer">
+    <div class="col-2">
+        <label>{{so_form.ref.label}}</label>
+    </div>
+    <div class="col-4">
+        <div class="input-group">
+            {{so_form.ref}}
+        </div>
+    </div>
+    </div>
+
+
+    <div class="row spacer">
+        <div class="col-2">
+            <label>{{so_form.order_date.label}}</label>
+        </div>
+        <div class="col-4">
+            <div class="input-group mb-3">
+                {{so_form.order_date}}
+            </div>
+        </div>
+        </div>
+
+
+    <div class="row spacer">
+        <div class="col-2">
+            <label>{{so_form.customer.label}}</label>
+        </div>
+        <div class="col-4">
+            <div class="input-group mb-3">
+                {{so_form.customer}}
+            </div>
+        </div>
+        </div>
+
+
+    <div class="row spacer">
+        <div class="col-2">
+            <label>{{so_form.status.label}}</label>
+        </div>
+        <div class="col-4">
+            <div class="input-group mb-3">
+                {{so_form.status}}
+            </div>
+        </div>
+        </div>
+
+    
+        {{ formset.management_form }}
+        <h5> Add Sale Order Line</h5>
+        <table id="table-product" class="table">
+            <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                
+            </tr>
+
+            </thead>
+            {% for form in formset %}
+                <tbody class="formset-instances">
+
+                <tr>
+                    <td>{{ form.product }}</td>
+                    <td>{{ form.quantity }}</td>
+                   
+                    
+                </tr>
+
+                </tbody>
+            {% endfor %}
+        </table>
+        
+   
+
+
+
+    
+
+    <div class="row spacer text-center">
+        <div class="col-4 offset-2">
+            <button type="submit" class="btn btn-block btn-primary">Create</button>
+        </div>
+    </div>
+    </form>
+    {% endblock content %}
+
+
+
+    <!-- Specific Page JS goes HERE  -->
+    {% block javascripts %}
+
+
+    <script>
+
+    function cloneMore(selector, type) {
+        var newElement = $(selector).clone(true);
+        var total = $('#id_' + type + '-TOTAL_FORMS').val();
+        newElement.find(':input').each(function() {
+            var name = $(this).attr('name').replace('-' + (total-1) + '-','-' + total + '-');
+            var id = 'id_' + name;
+            $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
+        });
+        newElement.find('label').each(function() {
+            var newFor = $(this).attr('for').replace('-' + (total-1) + '-','-' + total + '-');
+            $(this).attr('for', newFor);
+        });
+        total++;
+        $('#id_' + type + '-TOTAL_FORMS').val(total);
+        $(selector).after(newElement);
+    }
+
+
+    
+        $('#add_more').click(function() {
+            cloneMore('div.table:last', 'service');
+        });
+
+
+        $(function () {
+        $('#myForm tbody tr').formset();
+    })
+    </script>
+    {% endblock javascripts %}    
+
+

@@ -2,8 +2,13 @@ from django.db import models
 from django.db.models.fields import related
 from customer.models import Customer
 from product.models import Product
+import  datetime
 
 # Create your models here.
+
+
+
+
 STATUS = (
     ('q', 'Quotation'),
     ('d', 'Draft'),
@@ -30,6 +35,14 @@ class SaleOrder(models.Model):
 
     def __str__(self):
         return self.ref
+    
+    
+    
+
+       
+
+
+
 
 class SaleOrderLine(models.Model):
     sale_order = models.ForeignKey(SaleOrder,related_name="so_lines",on_delete=models.CASCADE)
