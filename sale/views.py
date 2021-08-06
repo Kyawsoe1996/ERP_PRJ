@@ -44,6 +44,7 @@ def create_so(request):
                 so_line_obj = form.save(commit=False)
 
                 so_line_obj.sale_order = so_obj
+                so_line_obj.sub_total = so_line_obj.get_subtotal()
                 #unique_together_issue_check
 
                 for so_line in so_obj.so_lines.all():
@@ -52,6 +53,8 @@ def create_so(request):
 
 
                 so_line_obj.save()
+            so_obj.total_price = so_obj.sale_order_total()
+            so_obj.save()
         else:
             return HttpResponse("Something went wrong with your form")
                 

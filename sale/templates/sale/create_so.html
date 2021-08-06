@@ -31,7 +31,7 @@
         </div>
     </div>
         
-    <form id="myForm" class="col-12 offset-3 " method="POST" action="">
+    <form id="myForm" class="col-12 offset-1 " method="POST" action="">
         {% csrf_token %}
     <div class="row spacer">
     <div class="col-2">
@@ -89,6 +89,7 @@
             <tr>
                 <th>Product</th>
                 <th>Quantity</th>
+                <!-- <th>Price</th> -->
                 
             </tr>
 
@@ -99,6 +100,8 @@
                 <tr>
                     <td>{{ form.product }}</td>
                     <td>{{ form.quantity }}</td>
+                    <!-- <td>{{ form.price }}</td> -->
+
                    
                     
                 </tr>
@@ -155,6 +158,20 @@
 
         $(function () {
         $('#myForm tbody tr').formset();
+
+
+        $("#id_form-0-product").change(function() {
+        var id =  $(this).children("option:selected").val();
+        console.log(id)
+        });
+        
+        $( "select" ).on( "click", function( event ) {
+        event.preventDefault();
+        console.log( $( this ).serialize() );
+        });
+        
+
+        
     })
     </script>
     {% endblock javascripts %}    

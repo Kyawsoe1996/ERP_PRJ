@@ -32,7 +32,7 @@ class SaleOrderForm(forms.ModelForm):
         
 
 
-SaleOrderLineFormSet = modelformset_factory(SaleOrderLine,fields=('product','quantity'))
+SaleOrderLineFormSet = modelformset_factory(SaleOrderLine,fields=('product','quantity',))
 
 # AuthorFormSet = modelformset_factory(Author, fields=('name', 'title'))
 
