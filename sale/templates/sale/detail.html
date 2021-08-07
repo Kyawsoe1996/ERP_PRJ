@@ -1,0 +1,107 @@
+{% extends "layouts/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %} Page Blank {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+
+<div class="col-xl-12">
+    <div class="card">
+        <div class="card-header">
+            <!-- <a href="{% url 'sale:create-so' %}" class="float-right btn btn-primary">Create</a> -->
+            <h5>SO Detail</h5>
+            <span class="d-block m-t-5">View some <code>detail</code></span>
+           
+            
+        </div>
+       
+    </div>
+  
+</div>
+<!-- #Custom -->
+<div class="float-right">
+<nav aria-label="Page navigation examplef ">
+    <ul class="pagination">
+        
+        
+        {% for key,value in status  %}
+            
+           
+            
+            {% if so_obj.get_status_display == value %}
+            <li class="page-item active">
+                {% else %}
+                <li class="page-item"></li>
+            {% endif %}
+                
+            
+                <a class="page-link text-secondary" href="#!">{{value}}</a></li>
+        {% endfor %}
+    </ul>
+</nav>
+</div>
+
+
+
+<div class="row mt-7">
+    <div class="col-md-6">
+        <p>REF:</p>
+        {{so_obj.ref}}
+        <p>Customer:</p>
+        {{so_obj.customer.name}}
+    </div>
+    <div class="col-md-6">
+        <p>Order Date:</p>
+        {{so_obj.order_date}}
+    </div>
+</div>
+
+<div class="card-block table-border-style">
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Sub Total</th>
+                 
+
+                   
+                    
+                </tr>
+            </thead>
+            <tbody>
+                
+                {% for so_line  in so_obj.so_lines.all  %}
+                <tr>
+                  
+                    <td>{{forloop.counter}}</td>
+                    <td>{{so_line.product.name}}</td>
+                    <td>{{so_line.quantity}}</td>
+                    <td>{{so_line.product.sale_price}}</td>
+                    <td>{{so_line.sub_total}}</td>
+                   
+                   
+                </tr>
+                {% endfor %}
+                    
+                
+               
+            </tbody>
+        </table>
+    </div>
+</div>
+<h5 class="text text-primary float-right">Total Price : {{so_obj.total_price}}</h5>
+
+{% endblock content %}
+
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

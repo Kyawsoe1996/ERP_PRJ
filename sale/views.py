@@ -5,6 +5,7 @@ from sale.models import SaleOrder,SaleOrderLine
 import datetime
 from django.forms import inlineformset_factory
 # Create your views here.
+from sale.models import STATUS
 
 def create_so_num():
         code = 'SO '
@@ -67,8 +68,41 @@ def create_so(request):
             
 
         return HttpResponse("post method called")
+
+def SOListView(request):
+    context = {
+        "so_lists":SaleOrder.objects.all()
+    }
+    return render(request,"sale/list.html",context)
+
+
+def SODetialView(request,id):
+    
+    try:
+        so_obj = SaleOrder.objects.get(pk=id)
+    except:
+        context = {
+            "page":"Sale Order Detail",
+            "detail":"Sale Order detail can't found"
+        }
+        return render(request,"page-404.html",context)
+    
+    context = {
+        "status":STATUS,
+        "so_obj":so_obj
+    }
+    return render(request,"sale/detail.html",context)
+
         
         
     
     
+  
+  
+  
+  
     # return HttpResponse("CReate SO Page")
+
+def frontend(request):
+
+    return render(request,"frontend/index.html")

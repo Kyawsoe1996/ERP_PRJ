@@ -1,0 +1,72 @@
+{% extends "layouts/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %} Page Blank {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+
+<div class="col-xl-12">
+    <div class="card">
+        <div class="card-header">
+            <a href="{% url 'sale:create-so' %}" class="float-right btn btn-primary">Create</a>
+            <h5>SO Lists</h5>
+            <span class="d-block m-t-5">Make some <code>operations</code></span>
+           
+        </div>
+        <div class="card-block table-border-style">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>REF</th>
+                            <th>Order_Date</th>
+                            <th>Customer</th>
+                            <th>Total Price</th>
+                            <th>Status</th>
+
+                            <th class="float-right">Operations</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        {% for so  in so_lists  %}
+                        <tr>
+                          
+                            <td>{{forloop.counter}}</td>
+                            <td>{{so.ref}}</td>
+                            <td>{{so.order_date}}</td>
+                            <td>{{so.customer.name}}</td>
+                            <td>{{so.total_price}}</td>
+                            <td>{{so.get_status_display}}</td>
+                            <!-- <td>{{so.ref}}</td> -->
+
+                            <td class="float-right" >
+                                <a class="btn btn-primary btn-sm" href="{% url 'sale:so-detail' so.id %}">View</a>
+
+                                <!-- <a class="btn btn-success btn-sm" href="#">Edit</a>
+                                <a class="btn btn-danger btn-sm" href="#">Delete</a> -->
+                            </td>
+                        </tr>
+                        {% endfor %}
+                            
+                        
+                       
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

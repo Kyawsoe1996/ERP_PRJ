@@ -31,6 +31,8 @@ urlpatterns = [
     path('sale/',include('sale.urls',namespace="sale")),
 
 
+
+
     
 ]
 
