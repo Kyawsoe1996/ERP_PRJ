@@ -16,4 +16,9 @@
 <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
 <!-- formset script -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.formset/1.2.2/jquery.formset.min.js"></script>
+<!-- It don't work in heroku -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.formset/1.2.2/jquery.formset.min.js"></script> -->
+
+<script src="{% url 'frontend/main/js/jquery.formset.js' %}"></script>
+<!-- {% static 'frontend/main/css/base.css' %} -->
+
