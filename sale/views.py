@@ -67,7 +67,8 @@ def create_so(request):
             
             
 
-        return HttpResponse("post method called")
+        # return HttpResponse("post method called")
+        return redirect("sale:so-list")
 
 def SOListView(request):
     context = {
