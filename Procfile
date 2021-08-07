@@ -1,1 +1,1 @@
-web : gunicorn ERP.wsgi
+web: gunicorn ERP.wsgi
