@@ -25,7 +25,7 @@ SECRET_KEY = 'b50@c_pa%qz$#y@-m1-b(dvsar@j9*g1((42m16a0#hly^+jl6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1','mydjangoerpapp.herokuapp.com']
+ALLOWED_HOSTS = ['localhost','127.0.0.1','mydjangoerpapp.herokuapp.com','0.0.0.0']
 
 
 # Application definition
@@ -85,15 +85,35 @@ WSGI_APPLICATION = 'ERP.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+#local
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'erp_project',
+#         'USER': 'postgres',
+#         'PASSWORD': 'shamu',
+#         'HOST': 'localhost'
+#     }
+# }
+
+# postgres://uvkhnnygrudhid:d4e66234b91b9c905b8ff55ec9de3f14f7086c17b68e512952ecca919c2331ee@ec2-34-204-128-77.compute-1.amazonaws.com:5432/d9evm2d96p0tno
+
+# For Heroku Production
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'erp_project',
-        'USER': 'postgres',
-        'PASSWORD': 'shamu',
-        'HOST': 'localhost'
+        'NAME': 'd9evm2d96p0tno',
+        'USER': 'uvkhnnygrudhid',
+        'PASSWORD': 'd4e66234b91b9c905b8ff55ec9de3f14f7086c17b68e512952ecca919c2331ee',
+        'HOST': 'ec2-34-204-128-77.compute-1.amazonaws.com',
+        'PORT': 5432,
     }
 }
+
 
 
 # Password validation
