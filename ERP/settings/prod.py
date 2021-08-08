@@ -11,6 +11,7 @@ env = environ.Env(
 )
 
 DEBUG = env('DEBUG')
+
 SECRET_KEY = env('SECRET_KEY')
 ALLOWED_HOSTS =['mydjangoerpapp.herokuapp.com']
 
@@ -31,5 +32,5 @@ DATABASES = {
     }
 }
 
-# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
