@@ -12,7 +12,7 @@ env = environ.Env(
 
 DEBUG = env('DEBUG')
 SECRET_KEY = env('SECRET_KEY')
-ALLOWED_HOSTS =['mydjangoerpapp.herokuapp.com','127.0.0.1','localhost']
+ALLOWED_HOSTS =['mydjangoerpapp.herokuapp.com']
 
 
 # For Heroku Production
