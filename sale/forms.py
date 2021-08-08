@@ -3,7 +3,7 @@ from django.forms import modelformset_factory
 
 from sale.models import SaleOrder, SaleOrderLine
 import datetime
-
+from customer.models  import Customer
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -28,7 +28,8 @@ class SaleOrderForm(forms.ModelForm):
         self.fields['customer'].empty_label = "Select Customer"
         # self.fields["order_date"].initial = datetime.date.today()
         self.fields["order_date"] = forms.DateField(widget=DateInput(format=('%Y-%m-%d'),attrs={'class':'form-control'}), initial=datetime.date.today())
-
+        self.fields["customer"].queryset = Customer.objects.filter(is_customer=True)
+        
         
 
 

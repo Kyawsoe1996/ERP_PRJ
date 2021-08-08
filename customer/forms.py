@@ -39,7 +39,7 @@ class CustomerForm(forms.ModelForm):
         self.fields['email'].widget.attrs['placeholder'] = self.fields['email'].label
         self.fields['address'].widget.attrs['placeholder'] = "Enter your full address"
         self.fields['image'].widget.attrs['placeholder'] = "Image"
-       
+        
 
         for i in self.fields:
             self.fields[i].widget.attrs.update({'class':'form-control'})
