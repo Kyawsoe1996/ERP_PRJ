@@ -7,7 +7,7 @@ from .base import *
 
 env = environ.Env(
     # set casting, default value
-    DEBUG=(bool, True)
+    DEBUG=(bool, False)
 )
 
 DEBUG = env('DEBUG')
