@@ -6,3 +6,20 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 DEBUG = False
 ALLOWED_HOSTS =['mydjangoerpapp.herokuapp.com','127.0.0.1','localhost']
+
+
+# For Heroku Production
+DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd9evm2d96p0tno',
+        'USER': 'uvkhnnygrudhid',
+        'PASSWORD': 'd4e66234b91b9c905b8ff55ec9de3f14f7086c17b68e512952ecca919c2331ee',
+        'HOST': 'ec2-34-204-128-77.compute-1.amazonaws.com',
+        'PORT': 5432,
+    }
+}
