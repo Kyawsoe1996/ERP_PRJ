@@ -1,0 +1,61 @@
+{% extends "layouts/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %} Page Blank {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+
+<div class="col-xl-12">
+    <div class="card">
+        <div class="card-header">
+            <a href="{% url 'inventory:warehouse' %}" class="float-right btn btn-primary">Create</a>
+            <h5>Warehouse Lists</h5>
+            <span class="d-block m-t-5">Make some <code>operations</code></span>
+           
+        </div>
+        <div class="card-block table-border-style">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th class="float-right">Operations</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        {% for warehouse  in object_list  %}
+                        <tr>
+                          
+                            <td>{{forloop.counter}}</td>
+                            <td>{{warehouse.name}}</td>
+                            <td class="float-right" >
+                                <a  class="label theme-bg2 text-white f-12" href="{% url 'inventory:warehouse-detail' warehouse.id %}">View</a>
+
+                                <a class="label theme-bg text-white f-12" href="{% url 'inventory:warehouse-update' warehouse.id %}">Edit</a>
+                                <a class="label theme-bg text-white f-12" href="{% url 'inventory:warehouse-delete' warehouse.id %}">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                            
+                        
+                       
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
