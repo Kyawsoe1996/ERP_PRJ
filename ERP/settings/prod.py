@@ -12,8 +12,8 @@ env = environ.Env(
 
 DEBUG = env('DEBUG')
 
-# SECRET_KEY = env('SECRET_KEY')
-SECRET_KEY = 'jgdkfjdljfdkfjdlfjdlkfjdlkfdkfjdkfldjfldjfldfjdk'
+SECRET_KEY = env('SECRET_KEY')
+
 
 ALLOWED_HOSTS =['mydjangoerpapp.herokuapp.com']
 
