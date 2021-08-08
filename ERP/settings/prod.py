@@ -1,10 +1,17 @@
 import os
+import environ
 from .base import *
 
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
+# SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 # SECRET_KEY = 'b50@c_pa%qz$#y@-m1-b(dvsar@j9*g1((42m16a0#hly^+jl6'
 
-DEBUG = False
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+
+DEBUG = env('DEBUG')
+SECRET_KEY = env('SECRET_KEY')
 ALLOWED_HOSTS =['mydjangoerpapp.herokuapp.com','127.0.0.1','localhost']
 
 
@@ -23,3 +30,5 @@ DATABASES = {
         'PORT': 5432,
     }
 }
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
