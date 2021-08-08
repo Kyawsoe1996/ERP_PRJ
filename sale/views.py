@@ -4,6 +4,7 @@ from sale.forms import SaleOrderForm,SaleOrderLineFormSet
 from sale.models import SaleOrder,SaleOrderLine
 import datetime
 from django.forms import inlineformset_factory
+import os
 # Create your views here.
 from sale.models import STATUS
 
@@ -90,7 +91,8 @@ def SODetialView(request,id):
     
     context = {
         "status":STATUS,
-        "so_obj":so_obj
+        "so_obj":so_obj,
+        "os":os.environ.get("MY_VAR")
     }
     return render(request,"sale/detail.html",context)
 
