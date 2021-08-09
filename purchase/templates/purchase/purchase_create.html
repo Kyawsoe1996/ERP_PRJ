@@ -1,0 +1,60 @@
+
+
+
+
+
+
+{% extends "layouts/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %} Page Blank {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+{% endblock stylesheets %}
+
+{% block content %}
+    
+
+    <!-- <input type="button" class="btn btn-primary btn-sm flaot-right mt-2" value="Add More" id="add_more"> -->
+    
+    <!-- <button class="btn float-right mt-2 btn-primary btn-sm" id="add_more">Add</button> -->
+    <div class="row">
+        <div class="col-md-12 offset-3">
+            
+            <div class="container">
+                <div class="card">
+                    <div class="card-header">
+                        Create PO
+                    </div>
+                    <div class="card-body col-4">
+                         {% crispy form %}
+                    </div>
+                </div>
+            </div>
+               
+            
+        </div>
+    </div>
+    
+    
+        
+  
+    {% endblock content %}
+
+
+
+    <!-- Specific Page JS goes HERE  -->
+    {% block javascripts %}
+
+
+    <script>
+
+   
+
+        
+ 
+    </script>
+    {% endblock javascripts %}    
+
+

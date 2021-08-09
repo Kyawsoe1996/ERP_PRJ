@@ -1,0 +1,73 @@
+{% extends "layouts/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %} Page Blank {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+
+<div class="col-xl-12">
+    <div class="card">
+        <div class="card-header">
+            <a href="{% url 'purchase:purchase-order' %}" class="float-right btn btn-primary">Create</a>
+            <h5>SO Lists</h5>
+            <span class="d-block m-t-5">Make some <code>operations</code></span>
+           
+        </div>
+        <div class="card-block table-border-style">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>REF</th>
+                            <th>Purchase_Date</th>
+                            <th>Vendor</th>
+                            <th>Total Price</th>
+                            <th>Status</th>
+
+                            <th class="float-right">Operations</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        {% for po  in po_lists  %}
+                        <tr>
+                          
+                            <td>{{forloop.counter}}</td>
+                            <td>{{po.ref}}</td>
+                            <td>{{po.purchase_date}}</td>
+                            <td>{{po.vendor.name}}</td>
+                            <td>{{po.total_price}}</td>
+                            <td>{{po.get_status_display}}</td>
+                            <!-- <td>{{so.ref}}</td> -->
+
+                            <td class="float-right" >
+                                <a class="btn btn-primary btn-sm" href="{% url 'purchase:purchase-detail' po.id %}">View</a>
+                                <a class="btn btn-secondary btn-sm" href="{% url 'purchase:purchase-update' po.id %}">Edit</a>
+                                
+                                <!-- <a class="btn btn-success btn-sm" href="#">Edit</a>
+                                <a class="btn btn-danger btn-sm" href="#">Delete</a> -->
+                            </td>
+                        </tr>
+                        {% endfor %}
+                            
+                        
+                       
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
