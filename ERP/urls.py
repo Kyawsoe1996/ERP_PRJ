@@ -32,6 +32,8 @@ urlpatterns = [
     path('inventory/',include('inventory.urls',namespace="inventory")),
     path('purchase/',include('purchase.urls',namespace="purchase")),
     path('invoice/',include('invoice.urls',namespace="invoice")),
+    path('ie/',include('imp_exp.urls',namespace="imp-exp")),
+
 
 
     

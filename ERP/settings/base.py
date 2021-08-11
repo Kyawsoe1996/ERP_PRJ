@@ -65,7 +65,9 @@ INSTALLED_APPS = [
     'sale',
     'inventory',
     'purchase',
-    'invoice'
+    'invoice',
+    'import_export', #this is module
+    'imp_exp'       #this is custom app
 
 ]
 

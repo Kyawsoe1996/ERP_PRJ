@@ -25,6 +25,7 @@
                         <tr>
                             <th>#</th>
                             <th>Name</th>
+                            <th>Vendor</th>
                             <th class="float-right">Operations</th>
                             
                         </tr>
@@ -36,6 +37,8 @@
                           
                             <td>{{forloop.counter}}</td>
                             <td>{{warehouse.name}}</td>
+                            <td>{{warehouse.vendor.name}}</td>
+
                             <td class="float-right" >
                                 <a  class="label theme-bg2 text-white f-12" href="{% url 'inventory:warehouse-detail' warehouse.id %}">View</a>
 

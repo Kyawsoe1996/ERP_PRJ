@@ -23,7 +23,7 @@ class WarehouseListView(ListView):
 
 class WarehouseCreateView(CreateView):
     model = Warehouse
-    fields = ['name']
+    fields = ['name','vendor']
     success_message = "New student successfully added."
     success_url = reverse_lazy('inventory:warehouse-list')
 
@@ -32,7 +32,11 @@ class WarehouseCreateView(CreateView):
         if form_class is None:
             form_class = self.get_form_class()
         form = super(WarehouseCreateView, self).get_form(form_class)
-     
+        for i in form.fields:
+            form.fields[i].widget.attrs.update({'class':'form-control'})
+
+        form.fields['vendor'].empty_label = "Select Vendor"
+
         form.fields['name'].widget = forms.TextInput(attrs={'placeholder': 'Enter name','class':'form-control'})
         return form
 
@@ -45,7 +49,7 @@ class WarehouseDetailView(DetailView):
 
 class WarehouseUpdateView(UpdateView):
     model = Warehouse
-    fields = ['name']
+    fields = ['name','vendor']
     success_url = reverse_lazy('inventory:warehouse-list')
 
 
@@ -53,7 +57,8 @@ class WarehouseUpdateView(UpdateView):
         if form_class is None:
             form_class = self.get_form_class()
         form = super(WarehouseUpdateView, self).get_form(form_class)
-     
+        for i in form.fields:
+            form.fields[i].widget.attrs.update({'class':'form-control'})
         form.fields['name'].widget = forms.TextInput(attrs={'placeholder': 'Enter name','class':'form-control'})
         return form
 
