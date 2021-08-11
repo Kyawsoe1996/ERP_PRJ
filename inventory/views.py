@@ -129,20 +129,21 @@ class LocationCreateView(CreateView):
         location_obj.save()
 
         
-        if list:
-            mydataFrame = pd.DataFrame()
-            dict = {
-                "name":skipped_data
-            }
-            mydataFrame = pd.DataFrame(dict)
-            
-            desktop = os.path.join(os.environ.get("HOME"), "Desktop/wrong_product.xlsx")
-            mydataFrame.to_excel(desktop, index = False, header=True)
+        if len(skipped_data) == 0:
+            return super(LocationCreateView, self).form_valid(form)
+        mydataFrame = pd.DataFrame()
+        dict = {
+            "name":skipped_data
+        }
+        mydataFrame = pd.DataFrame(dict)
+        
+        desktop = os.path.join(os.environ.get("HOME"), "Desktop/wrong_product.xlsx")
+        mydataFrame.to_excel(desktop, index = False, header=True)
 
-            messages.info(self.request,"Wrong data in the  Desktop... Check")
+        messages.info(self.request,"Wrong data in the  Desktop... Check")
 
-            return redirect("/")
-        return super(LocationCreateView, self).form_valid(form)
+        return redirect("/")
+        
        
 
 
