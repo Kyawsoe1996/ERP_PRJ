@@ -31,6 +31,8 @@ urlpatterns = [
     path('sale/',include('sale.urls',namespace="sale")),
     path('inventory/',include('inventory.urls',namespace="inventory")),
     path('purchase/',include('purchase.urls',namespace="purchase")),
+    path('invoice/',include('invoice.urls',namespace="invoice")),
+
 
     
 

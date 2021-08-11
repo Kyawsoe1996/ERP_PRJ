@@ -4,6 +4,7 @@ from customer.models import Customer
 from product.models import Product
 import  datetime
 from django.urls import reverse
+# from invoice.models import Invoice
 
 # Create your models here.
 
@@ -28,6 +29,7 @@ class PurchaseOrder(models.Model):
     created_date = models.DateTimeField(auto_now=True)
     status = models.CharField(choices=STATUS,default='q',max_length=2)
     total_price = models.FloatField(blank=True,null=True)
+    # invoice_ids = models.ManyToManyField(Invoice,blank=True)
 
     def purchase_order_total(self):
         total = 0

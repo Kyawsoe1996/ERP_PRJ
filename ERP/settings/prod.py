@@ -3,6 +3,7 @@ import environ
 from .base import *
 
 # SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
+#open this line to update on heroku.. for database migrate
 # SECRET_KEY = 'b50@c_pa%qz$#y@-m1-b(dvsar@j9*g1((42m16a0#hly^+jl6'
 
 env = environ.Env(
