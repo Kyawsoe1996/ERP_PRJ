@@ -30,6 +30,9 @@ class Location(models.Model):
     name = models.CharField(max_length=20)
     warehouse_id = models.ForeignKey(Warehouse,related_name="locations",on_delete=models.CASCADE)
     products = models.ManyToManyField(Product)
+    # product_upload = models.FieldFile(blank=True,null=True)
+    product_name_csv_file = models.FileField(upload_to='product-name-lists',blank=True, null=True)
+
 
     class Meta:
 

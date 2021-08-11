@@ -46,7 +46,20 @@
         <div class="loader-track">
             <div class="loader-fill"></div>
         </div>
-    </div>    
+    </div>  
+    
+    <div class="mt-1 pt-3">
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+              {{ message }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            {% endfor %}
+        {% endif %}
+        </div>
     
     <!-- Top Bar -->
     {% include 'includes/navigation.html' %}

@@ -4,7 +4,11 @@ from .views import(
         WarehouseCreateView,
         WarehouseDetailView,
         WarehouseUpdateView,
-        WarehouseDeleteView
+        WarehouseDeleteView,
+
+        #Location
+        LocationListView,
+        LocationCreateView
 
 ) 
 
@@ -19,5 +23,11 @@ urlpatterns = [
     path('warehouse/update/<int:pk>/', WarehouseUpdateView.as_view(),name='warehouse-update'),
     path('warehouse/delete/<int:pk>/', WarehouseDeleteView.as_view(),name='warehouse-delete'),
 
+
+    #location
+    path("location/list",LocationListView,name="location-list"),
     
+    path("location/",LocationCreateView.as_view(),name="location"),
+
+
 ]
