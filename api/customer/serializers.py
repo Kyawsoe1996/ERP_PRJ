@@ -92,23 +92,5 @@ class CustomerSerializer(CountryFieldMixin,serializers.ModelSerializer):
         user.username = instance.name
         user.save()
         instance.save()
-
-
-
-
-
-        
-        
         return instance
-        # owner = validated_data.pop("owner")
-        # acc = User.objects.get(username=owner['username'])
-        # instance.title = validated_data.get('title',instance.title)
-        # instance.code = validated_data.get('title',instance.code)
-        # instance.linenos = validated_data.get('linenos',instance.linenos)
-        # instance.style = validated_data.get('style',instance.style)
-        # instance.owner = acc
-        # instance.highlighted = validated_data.get("highlighted",instance.highlighted)
-        # instance.save()
-        # return instance
-       
        
