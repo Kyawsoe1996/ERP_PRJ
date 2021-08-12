@@ -38,7 +38,8 @@ class Location(models.Model):
 
         verbose_name = 'Location'
         verbose_name_plural = 'Locations'
-
+    
+    
     def __str__(self):
         return self.name
 
@@ -54,8 +55,15 @@ class Stock(models.Model):
         verbose_name = 'Stock'
         verbose_name_plural = 'Stocks'
 
+  
+        
+
     def __str__(self):
-        return self.location_id.name
+        p_name =self.product_id.name
+        qty = self.quantity
+        location = self.location_id.name
+        name = f" {location}-{qty}-{p_name}"
+        return name
 
 
 

@@ -76,6 +76,9 @@ class Product(models.Model):
         
         return reverse('product:product-detail', kwargs={'id': self.id})
 
+
+   
+
     #getting stock total count product detail page
     def get_total_stock_quantity(self):
         total = 0
@@ -83,14 +86,18 @@ class Product(models.Model):
             total +=  stock.quantity
         return total
 
-    def get_all_location_for_product(self):
+    def get_all_location_for_product_and_relative_qty(self):
         # import pdb;pdb.set_trace()
         location_lits = []
+        qty_lists = []
         for stock  in self.stocks.all():
             location_obj = stock.location_id
             location_lits.append(location_obj)
-            
-        return location_lits
+            qty_lists.append(stock.quantity)
+        
+        stock_location_and_its_quantity =list(zip(location_lits, qty_lists))
+        
+        return stock_location_and_its_quantity
 
         
 

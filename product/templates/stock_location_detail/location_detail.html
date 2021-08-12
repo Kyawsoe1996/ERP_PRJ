@@ -1,10 +1,84 @@
-<p>
-    Stock Location Detail
-</p>
+{% extends "layouts/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %} Page Blank {% endblock %} 
 
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
 
-<ul>
-    <li>Lo1</li>
-    <li>Lo2</li>
+{% endblock stylesheets %}
 
-</ul>
+{% block content %}
+
+<div class="col-xl-12 col-md-12">
+    <div class="card Recent-Users">
+        <div class="card-header">
+            <a href="{% url 'product:product' %}" class="float-right btn btn-primary">Create</a>
+            <h5>Product Stock</h5>
+        </div>
+        <div class="card-block px-0 py-3">
+            <div class="table-responsive">
+                <table id="table" class="table table-hover">
+                    <h5>{{product.name}}</h5>
+                    <a href="{{product.get_absolute_url}}">
+                        <img class="rounded-circle" style="width:40px;" 
+                        src="{{product.image.url}}" alt="activity-user">
+                        </a>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                          
+                            
+                            <th>Location</th>
+                            <th>Quantity</th>
+                            <!-- <th>Category</th>
+                            <th>Uom</th>
+                            <th>Barcode</th>
+                            <th>Sale P</th>
+                            <th>Purchase P</th>
+                            <th>Slug</th>
+                            <th>Operations</th>
+                            -->
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        
+                       
+                            
+                       
+                       
+                       {% for location in product.get_all_location_for_product_and_relative_qty  %}
+                           
+                      
+                                
+                        <tr class="unread">
+                            <td>{{forloop.counter}}</td>
+                           
+                           {% for location in location  %}
+                               
+                           
+                            <td> {{location}}</td>
+                            {% endfor %}
+
+                            
+                        </tr>
+                        {% endfor %}
+                      
+                       
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<!-- <script type = "text/javascript">
+    $(document).ready(function(){
+        $('#table').DataTable();
+    });
+</script> -->
+{% endblock javascripts %}

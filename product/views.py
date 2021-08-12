@@ -154,7 +154,10 @@ def ProductDelete(request,id):
 
 def ProductStockDetail(request,id):
     product = Product.objects.get(id=id)
+    context = {
+        "product":product
+    }
     
-    return render(request,"stock_location_detail/location_detail.html",)
+    return render(request,"stock_location_detail/location_detail.html",context)
 
 

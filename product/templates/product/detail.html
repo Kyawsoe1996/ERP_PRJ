@@ -14,21 +14,14 @@
        <!-- [ Hover-table ] start -->
        <!-- ...............On hand..................... -->
         <div class="col-md-12">
-            <div class="col-md-6"></div>
-            <div class="col-md-6 float-right">
+            <div class="col-md-2"></div>
+            <div class="col-md-2 float-right">
                 <div class="card">
                     <div class="card-header">
                        
                         
                         <a href="{% url 'product:stock-detail' product.id %}">On Hand {{product.get_total_stock_quantity}} </a>
-                        <ul>
-                            
-                            {% for location in product.get_all_location_for_product  %}
-                            <li> {{location}}</li>
-                            {% endfor %}
-                                
-                            
-                        </ul>
+                        
                     </div>
                 </div>
             </div>
