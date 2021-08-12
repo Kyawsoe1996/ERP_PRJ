@@ -161,3 +161,8 @@ class LocationCreateView(CreateView):
 
 
 
+def StockView(request):
+    return render(request,"stock/stock.html")
+
+
+

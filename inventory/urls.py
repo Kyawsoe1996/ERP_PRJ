@@ -8,7 +8,11 @@ from .views import(
 
         #Location
         LocationListView,
-        LocationCreateView
+        LocationCreateView,
+
+
+        #stock
+        StockView,
 
 ) 
 
@@ -28,6 +32,11 @@ urlpatterns = [
     path("location/list",LocationListView,name="location-list"),
     
     path("location/",LocationCreateView.as_view(),name="location"),
+
+
+    #stock
+    path("stock",StockView,name="stock"),
+
 
 
 ]
