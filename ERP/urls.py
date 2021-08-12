@@ -34,6 +34,10 @@ urlpatterns = [
     path('invoice/',include('invoice.urls',namespace="invoice")),
     path('ie/',include('imp_exp.urls',namespace="imp-exp")),
 
+    #ALL-API
+    path('api/',include('api.urls',namespace="api")),
+
+
 
 
     

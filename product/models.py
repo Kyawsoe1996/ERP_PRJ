@@ -1,3 +1,4 @@
+# from inventory.models import Stock
 from django.db import models
 
 from django.shortcuts import reverse
@@ -74,6 +75,24 @@ class Product(models.Model):
     def get_absolute_url(self):
         
         return reverse('product:product-detail', kwargs={'id': self.id})
+
+    #getting stock total count product detail page
+    def get_total_stock_quantity(self):
+        total = 0
+        for stock in self.stocks.all():
+            total +=  stock.quantity
+        return total
+
+    def get_all_location_for_product(self):
+        # import pdb;pdb.set_trace()
+        location_lits = []
+        for stock  in self.stocks.all():
+            location_obj = stock.location_id
+            location_lits.append(location_obj)
+            
+        return location_lits
+
+        
 
     def save(self, *args, **kwargs):          # overriding save() 
         COD128 = barcode.get_barcode_class('code128')

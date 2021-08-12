@@ -29,7 +29,6 @@ def CustomerView(request,id=0):
                 country = form.cleaned_data.get('country')
                 is_customer = form.cleaned_data.get('is_customer')
                 is_vendor = form.cleaned_data.get('is_vendor')
-
                 user = User.objects.get_or_create(username=username,email=email,password=password)
                 user[0].set_password(password)
                 user[0].save()

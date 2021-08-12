@@ -1,3 +1,5 @@
+from inventory.models import Location,Stock
+
 from product.forms import ProductUOMForm,ProductCategroyForm,ProductForm
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
@@ -128,14 +130,17 @@ def ProductList(request):
 def ProductDetail(request,id):
     try:
         product_obj = Product.objects.get(pk=id)
+
     except:
         context = {
             "page":"Product Detail",
             "detail":"Product detail can't found"
         }
         return render(request,"page-404.html",context)
+   
     context = {
-        "product":product_obj
+        "product":product_obj,
+        
     }
 
     return render(request,"product/detail.html",context)
@@ -144,5 +149,12 @@ def ProductDelete(request,id):
     product_obj = Product.objects.get(pk=id)
     product_obj.delete()
     return redirect("product:product-list")
+
+
+
+def ProductStockDetail(request,id):
+    product = Product.objects.get(id=id)
+    
+    return render(request,"stock_location_detail/location_detail.html",)
 
 
