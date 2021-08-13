@@ -1,0 +1,8 @@
+
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+       <span>Get Stock Sample Import</span> <a href="{% url 'imp-exp:stock' %}">HERE</a>
+    {{ form.as_p }}
+    <input type="submit" value="Save">
+</form>

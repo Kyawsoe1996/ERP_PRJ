@@ -65,6 +65,11 @@ class Stock(models.Model):
         name = f" {location}-{qty}-{p_name}"
         return name
 
+class StockUpload(models.Model):
+  date_uploaded       = models.DateTimeField(auto_now=True)
+  csv_file            = models.FileField(upload_to='stock_upload')
+
+  
 
 
 

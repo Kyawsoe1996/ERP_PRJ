@@ -2,7 +2,12 @@ from django.contrib import admin
 
 # Register your models here.
 
-from inventory.models import Warehouse,Location,Stock
+from inventory.models import (
+    Warehouse,
+    Location,
+    Stock,
+    StockUpload
+    )
 
 
 from import_export.admin import ImportExportModelAdmin
@@ -18,4 +23,5 @@ class StockAdmin(ImportExportModelAdmin):
 admin.site.register(Warehouse,WareHouseADMin)
 admin.site.register(Location)
 admin.site.register(Stock,StockAdmin)
+admin.site.register(StockUpload)
 

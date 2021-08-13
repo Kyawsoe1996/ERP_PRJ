@@ -12,7 +12,7 @@ from .views import(
 
 
         #stock
-        StockView,
+        StockUploadCreateView,
 
 ) 
 
@@ -35,7 +35,7 @@ urlpatterns = [
 
 
     #stock
-    path("stock",StockView,name="stock"),
+    path("stock-upload/",StockUploadCreateView.as_view(),name="stock-upload-view"),
 
 
 

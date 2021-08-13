@@ -1,17 +1,11 @@
-from django.db.models import fields
-from django.db.models.query import QuerySet
-from pkg_resources import require
-from rest_framework import serializers
-from django.contrib.auth.models import User
-from django.http import HttpResponse,JsonResponse
-from rest_framework.response import Response
+
+from api.serializers import *
 from customer.models import Customer
 #for adding the country field ,, casues it pop error sometime  thats why i added it
 from django_countries.serializers import CountryFieldMixin
 
 
-#Validator Rest Framework, phone_number validate on Account Serializer
-from rest_framework.validators import UniqueValidator
+
 
 
 class CustomerSerializer(CountryFieldMixin,serializers.ModelSerializer):

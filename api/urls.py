@@ -14,6 +14,8 @@ app_name = "api"
 
 urlpatterns = [
      path('customer/',include('api.customer.urls','customer_api')),
+     path('product/',include('api.product.urls','product_api')),
+
     
 
 

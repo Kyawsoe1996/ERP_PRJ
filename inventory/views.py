@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
-from inventory.models import Warehouse,Location
+from inventory.models import Warehouse,Location,StockUpload,Stock
 from django.utils import timezone
 from django.urls import reverse_lazy
 from django import forms
@@ -161,8 +161,28 @@ class LocationCreateView(CreateView):
 
 
 
-def StockView(request):
-    return render(request,"stock/stock.html")
+class StockUploadCreateView(CreateView):
+    model = StockUpload
+    template_name = 'stock/stock_form.html'
+    fields = ['csv_file']
+    success_message = "Stock successfully added."
+    success_url = reverse_lazy('inventory:location-list')
+
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        import pdb;pdb.set_trace()
+        csv_file = self.request.FILES['csv_file']
+        df = pd.read_csv (csv_file)
+        for index, row in df.iterrows():
+            print (row["Product"], row["Location"])
+      
+        return redirect("inventory:location-list")
+        # return super(StockUploadCreateView, self).form_valid(form)
+        
+
+
+
 
 
 
