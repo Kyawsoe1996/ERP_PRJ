@@ -17,6 +17,19 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf.urls.static import static
 from django.conf import settings
+from rest_framework.schemas import get_schema_view
+from rest_framework.documentation import include_docs_urls
+
+from rest_framework import routers
+from rest_framework.authtoken.views import obtain_auth_token
+from rest_framework.schemas.coreapi import AutoSchema
+
+from rest_framework.routers import DefaultRouter
+
+from rest_framework import routers
+
+router = DefaultRouter()
+from rest_framework.schemas.coreapi import AutoSchema
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,6 +49,23 @@ urlpatterns = [
 
     #ALL-API
     path('api/',include('api.urls',namespace="api")),
+
+    #REST FRAMEWORK
+    #Add later
+    # path(r'api/', include('rest_framework.urls', namespace='rest_framework')),
+    # path('api-token-auth/', obtain_auth_token, name='api-token-auth'),
+    # path(r'', include(router.urls)),
+
+    #OPENAPIdocs
+    path('docs/',include_docs_urls(title="ERP API")),
+    path('schema/', get_schema_view(
+        title="ERP API LIST",
+        description="API for all things …",
+        version="1.0.0"
+     ), name='openapi-schema'),
+
+   
+  
 
 
 
