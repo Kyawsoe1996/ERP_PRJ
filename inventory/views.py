@@ -216,6 +216,7 @@ class StockUploadCreateView(CreateView):
             mydataFrame = pd.DataFrame(skipped_row)
             print(mydataFrame)
             desktop = os.path.join(os.environ.get("HOME"), "Desktop/skipped_stock_import.xlsx")
+            
             mydataFrame.to_excel(desktop, index = False, header=True) 
             messages.info(self.request,"Skipped product list can found in Desktop") 
           
