@@ -54,15 +54,17 @@ class Stock(models.Model):
 
         verbose_name = 'Stock'
         verbose_name_plural = 'Stocks'
+        unique_together = ('location_id', 'product_id')
 
   
         
 
     def __str__(self):
+        warehouse = self.location_id.warehouse_id.name
         p_name =self.product_id.name
         qty = self.quantity
         location = self.location_id.name
-        name = f" {location}-{qty}-{p_name}"
+        name = f" {warehouse}-{location}-{qty}-{p_name}"
         return name
 
 class StockUpload(models.Model):

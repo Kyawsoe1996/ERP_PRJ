@@ -1,3 +1,4 @@
+from django.http.request import HttpRequest
 from product.models import Product
 from django.http.response import HttpResponse, HttpResponsePermanentRedirect
 from django.shortcuts import redirect, render
@@ -171,14 +172,59 @@ class StockUploadCreateView(CreateView):
 
     def form_valid(self, form):
         context = self.get_context_data()
-        import pdb;pdb.set_trace()
         csv_file = self.request.FILES['csv_file']
         df = pd.read_csv (csv_file)
+
+    
+        skipped_row = []
+        total_create_stock_count = 0
         for index, row in df.iterrows():
-            print (row["Product"], row["Location"])
+            stock_obj = Stock.objects.filter(location_id__name=row['Location'],product_id__name=row['Product'])
+            if stock_obj.exists():
+                row["issues"] = 'Stock ALready Exist'
+                skipped_row.append(row)
+                continue
+            else:
+                try:
+                    product_obj = Product.objects.get(name=row['Product'])
+                except:
+                    row["issues"] = 'Product Name Wrong'
+                    skipped_row.append(row)
+                    continue
+                    #location
+                try:
+                    location_obj = Location.objects.get(name=row['Location'])
+                    
+                except:
+                    row["issues"] = "Location Name Wrong"
+                    skipped_row.append(row)
+                    continue
+
+
+               
+                if location_obj.products.filter(id=product_obj.id).exists():
+                    Stock.objects.create(location_id=location_obj,product_id=product_obj,quantity=row['quantity'])
+                    total_create_stock_count +=1
+                else:
+                    row["issues"] =  "Pls add the product in location %s" %  location_obj.name
+                    skipped_row.append(row)
+                    continue
+
+                        
+        
+        if len(skipped_row) > 0:
+            mydataFrame = pd.DataFrame(skipped_row)
+            print(mydataFrame)
+            desktop = os.path.join(os.environ.get("HOME"), "Desktop/skipped_stock_import.xlsx")
+            mydataFrame.to_excel(desktop, index = False, header=True) 
+            messages.info(self.request,"Skipped product list can found in Desktop") 
+          
+
+           
+          
       
-        return redirect("inventory:location-list")
-        # return super(StockUploadCreateView, self).form_valid(form)
+        # return redirect("inventory:location-list")
+        return super(StockUploadCreateView, self).form_valid(form)
         
 
 
