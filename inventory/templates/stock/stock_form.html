@@ -1,8 +1,72 @@
+{% extends "layouts/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %} Page Blank {% endblock %} 
 
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-       <span>Get Stock Sample Import</span> <a href="{% url 'imp-exp:stock' %}">HERE</a>
-    {{ form.as_p }}
-    <input type="submit" value="Save">
-</form>
+{% endblock stylesheets %}
+
+{% block content %}
+    <h1>Stock Import Page</h1>
+    <div class="auth-wrapper">
+        <div class="auth-content">
+            <div class="auth-bg">
+                <span class="r"></span>
+                <span class="r s"></span>
+                <span class="r s"></span>
+                <span class="r"></span>
+            </div>
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="mb-4">
+                        <i class="feather icon-user-plus auth-icon"></i>
+                    </div>
+                    <h3 class="mb-2">Import Stock</h3>
+    
+                    <span class="mb-0 text-muted">
+                        <!-- {% if msg %}
+                            {{ msg | safe }}
+                        {% else %}
+                            Add your credentials
+                        {% endif %}  -->
+                        
+                       
+                            
+                    </span>
+    
+                    <br />
+                    <br />
+    
+                    <form role="form" method="post" action="" enctype="multipart/form-data">
+    
+                        {% csrf_token %}                    
+                        <span >Click Sample <a  style="color:blue" href="{% url 'imp-exp:stock' %}">HERE</a></span> 
+                        <div class="col-md-12 mt-3">
+                            <label>{{form.csv_file.label}}</label>
+                        </div>
+                        <div class="input-group mb-3">
+                            
+                            {{form.csv_file}}
+                        </div>
+                       
+    
+                       
+    
+                        
+                        
+                       
+                        <button type="submit" name="Import" class="btn btn-primary shadow-2 mb-4">Import</button>
+    
+                    </form>
+    
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

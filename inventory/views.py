@@ -144,8 +144,21 @@ class LocationCreateView(CreateView):
         messages.info(self.request,"Wrong data in the  Desktop... Check")
 
         return redirect("/")
-        
-       
+
+
+    def get_form(self, form_class=None):
+        if form_class is None:
+            form_class = self.get_form_class()
+        form = super(LocationCreateView, self).get_form(form_class)
+        for i in form.fields:
+            form.fields[i].widget.attrs.update({'class':'form-control'})
+        form.fields['name'].label = "Enter Name:"
+        form.fields['warehouse_id'].empty_label = "Select Warehouse"
+
+        # form.fields['name'].widget = forms.TextInput(attrs={'placeholder': 'Enter name','class':'form-control'})
+        return form
+    
+    
 
 
     # def get_form(self, form_class=None):
@@ -226,6 +239,18 @@ class StockUploadCreateView(CreateView):
       
         # return redirect("inventory:location-list")
         return super(StockUploadCreateView, self).form_valid(form)
+        
+    def get_form(self, form_class=None):
+        if form_class is None:
+            form_class = self.get_form_class()
+        form = super(StockUploadCreateView, self).get_form(form_class)
+        for i in form.fields:
+            form.fields[i].widget.attrs.update({'class':'form-control'})
+       
+        # form.fields['warehouse_id'].empty_label = "Select Warehouse"
+
+        # form.fields['name'].widget = forms.TextInput(attrs={'placeholder': 'Enter name','class':'form-control'})
+        return form
         
 
 
