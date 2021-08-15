@@ -1,0 +1,38 @@
+header{
+    height: 100px;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+
+
+ul{
+    display: flex;
+    list-style-type: none;
+    align-items: center;
+}
+
+ul li a {
+    padding: 0px 20px;
+    text-decoration:none ;
+    color: #3a3a3a;
+    display: inline-block;
+
+}
+
+li a::after{
+    content:'';
+    display: block;
+    width: 0;
+    height: 4px;
+    background: #c4c4f7;
+    transition: all .5s;
+}
+
+li a:hover:after{
+    width: 100%;
+}
+

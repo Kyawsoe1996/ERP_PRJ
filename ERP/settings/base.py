@@ -67,7 +67,8 @@ INSTALLED_APPS = [
     'purchase',
     'invoice',
     'import_export', #this is module
-    'imp_exp'       #this is custom app
+    'imp_exp',       #this is custom app
+    'frontend'       #for user frontend
 
 ]
 

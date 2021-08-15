@@ -64,6 +64,18 @@ urlpatterns = [
         version="1.0.0"
      ), name='openapi-schema'),
 
+
+
+
+    #frontend
+    path('frontend/',include('frontend.urls',namespace="frontend")),
+
+
+
+
+
+     
+
    
   
 

@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'user-frontend/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'user-frontend/css/navigation.css' %}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    
+   
+
+
+    {% include 'user-frontend/include/navbar.html' %}
+    <main>
+        <div class="content-left">
+            <h1>online</h1>
+            <h2>shopping</h2>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam distinctio temporibus nemo odit consequatur cum provident 
+                laboriosam tempora. Tenetur aspernatur repellendus dicta nostrum.</p>
+               <a  class="cta" href="#" >Learn More</a>
+        </div>
+        
+
+        <div class="content-right">
+            <img class="hero-img" src="{% static 'user-frontend/images/img.png' %}" alt="Arrow Img">
+        </div>
+       
+    </main>
+
+   
+
+    
+    <h1>User Frontend</h1>
+    
+    
+    {% block content %}
+        
+    {% endblock content %}
+        
+
+
+
+    {% include 'user-frontend/include/script.html' %}
+
+    <!-- extra script -->
+    {% block javascripts %}{% endblock javascripts %}
+
+</body>
+</html>
