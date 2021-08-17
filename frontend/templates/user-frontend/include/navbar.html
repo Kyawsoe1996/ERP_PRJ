@@ -1,17 +1,216 @@
 {% load static %}
-<header>
+<!-- <header>
     <div class="logo">
         <img src="{% static 'user-frontend/images/arrow.jpeg' %}" alt="Arrow Img" width="150px">
     </div>
     <nav>
-        <ul>
+        <ul class="list">
             <li><a href="#">Home</a></li>
             <li><a href="#">Service</a></li>
             <li><a href="#">About</a></li>
             <li><a href="#">Contact</a></li>
             <li><a href="#" class="signup-btn">Sign Up</a></li>
-            <li><a href="#"><i class="fas fa-user"></i></a></li>
+            <li><a href="#"><i class="fas fa-user">Shamu</i></a></li>
+
             
         </ul>
     </nav>
-</header>
+</header> -->
+
+<!-- ................................ -->
+
+<div class="navbar navbar-default navbar-static-top ">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#"><img alt="Logo" src="{% static 'user-frontend/images/arrow.jpeg' %}" height="70px"></a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="#">Home</a></li>
+          <li class="dropdown menu-large">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Products <b class="caret"></b> </a>
+            <ul class="dropdown-menu megamenu">
+              <li class="row">
+                <div class="col-sm-6 col-md-3">
+                  <a href="#" class="thumbnail">
+                    <img src="http://placehold.it/150x120" />
+                  </a>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                  <a href="#" class="thumbnail">
+                    <img src="http://placehold.it/150x120" />
+                  </a>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                  <a href="#" class="thumbnail">
+                    <img src="http://placehold.it/150x120" />
+                  </a>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                  <a href="#" class="thumbnail">
+                    <img src="http://placehold.it/150x120" />
+                  </a>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                  <a href="#" class="thumbnail">
+                    <img src="http://placehold.it/150x120" />
+                  </a>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                  <a href="#" class="thumbnail">
+                    <img src="http://placehold.it/150x120" />
+                  </a>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                  <a href="#" class="thumbnail">
+                    <img src="http://placehold.it/150x120" />
+                  </a>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                  <a href="#" class="thumbnail">
+                    <img src="http://placehold.it/150x120" />
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown menu-large " style="list-style: none;">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Product Categories <b class="caret"></b></a>
+            <ul class="dropdown-menu megamenu row">
+                
+                {% for cat in categories %}
+                    
+            
+                    
+            <li class="col-sm-3">
+                <ul>
+                    
+                
+            
+                    <li class="dropdown-header">{{cat.name}}</li>
+                    
+                    {% for sub in cat.get_children_category  %}
+                        <li class="dropdown-header"><a href="#">{{sub.name}}</a>
+                        
+                            <ul style="list-style: none;">
+                                
+                                {% for second in sub.get_children_category  %}
+                                    
+                            
+                                <!-- third categories   -->
+                                <li class="dropdown-header"><a href="#">{{second.name}}</a>
+                                        <ul>
+                                            
+                                            {% for third  in second.get_children_category  %}
+                                                
+                                        
+                                                
+                                        <li class="dropdown-header"><a href="#">--{{third.name}}</a>
+                                            {% endfor %}
+                                        
+                                        </ul>
+                                
+                                
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        
+                        </li>
+    
+                        <li class="divider"></li>
+                        
+                    
+                            
+                    {% endfor %}
+                        
+                    
+                    
+                    
+                    
+                    </a>
+                
+                        
+                
+                
+                </ul>
+            </li>
+            {% endfor %}
+        
+            </ul>
+          </li>
+          <li class="dropdown menu-large">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Services <b class="caret"></b></a>
+            <ul class="dropdown-menu megamenu row">
+              <li class="col-sm-3">
+                <ul>
+                  <li class="dropdown-header">Web Design</li>
+                  <li><a href="#">HTML5</a></li>
+                  <li class="disabled"><a href="#">CSS</a></li>
+                  <li><a href="#">JavaScript</a></li>
+                  <li class="divider"></li>
+                  <li class="dropdown-header">Web Development</li>
+                  <li><a href="#">Websites</a></li>
+                  <li><a href="#">Mobile Apps</a></li>
+                  <li><a href="#">Responsive</a></li>
+                  <li><a href="#">Web Apps</a></li>
+                </ul>
+              </li>
+              <li class="col-sm-3">
+                <ul>
+                  <li class="dropdown-header">Graphic Design</li>
+                  <li><a href="#">PSD</a></li>
+                  <li><a href="#">Images</a></li>
+                  <li><a href="#">Logos</a></li>
+                  <li><a href="#"></a></li>
+                  <li><a href="#">Vertical variation</a></li>
+                  <li class="divider"></li>
+                  <li class="dropdown-header">Database Design</li>
+                  <li><a href="#">Single button dropdowns</a></li>
+                </ul>
+              </li>
+              <li class="col-sm-3">
+                <ul>
+                  <li class="dropdown-header">UI/UX Design</li>
+                  <li><a href="#">User Interface</a></li>
+                  <li><a href="#">User Experience</a></li>
+                  <li><a href="#">Web Designers</a></li>
+                  <li class="divider"></li>
+                  <li class="dropdown-header">Digital Marketing</li>
+                  <li><a href="#">Paid</a></li>
+                  <li><a href="#">Social</a></li>
+                  <li><a href="#">Content Marketing</a></li>
+                </ul>
+              </li>
+              <li class="col-sm-3">
+                <ul>
+                  <li class="dropdown-header">Project Management</li>
+                  <li><a href="#">Initiating</a></li>
+                  <li><a href="#">Planning</a></li>
+                  <li><a href="#">Executing</a></li>
+                  <li><a href="#">Monitoring</a></li>
+                  <li><a href="#">Controlling</a></li>
+                  <li><a href="#">Closing</a></li>
+                  <li><a href="#">PM Systems</a></li>
+                  <li><a href="#">Best Practices</a></li>
+                  <li><a href="#">Project Manager</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+
+          <!-- service -->
+          <li><a href="#">About</a></li>
+          <li><a href="#" class="signup-btn">Sign Up</a></li>
+          <li class="float-right"><a href="#" ><i class="fas fa-user">Shamu</i></a></li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+
+

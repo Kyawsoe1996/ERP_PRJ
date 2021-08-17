@@ -1,8 +1,32 @@
+
 {% extends 'user-frontend/base.html' %}
-
-
+{% load static %}
 
 {% block content %}
-    <p>This is inherit from base apk</p>
+
+
+
+<div class="card1">
+
+    {% for product in product_lists %}
+    <div class="card-item">
+
+    <a href="#"><img src="{{product.image.url}}" width="200px" height="100px"></a>
+    <p>{{product.name}}</p>
+    <p>Category:{{product.category.name}}</p>
+    <p>Price: {{product.sale_price}}</p>
+    <p class="card-text">Some quick example text tod's content.</p>
+    <a href="#" class="view-btn" style="display: block;">View</a>
+    </div>
+   
+  
+    {% endfor %}
+</div>
+
+
 {% endblock content %}
-    
+
+
+
+
+

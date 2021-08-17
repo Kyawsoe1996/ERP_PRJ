@@ -37,16 +37,20 @@ class ProductUOM(models.Model):
 class ProductCategory(models.Model):
     
     name = models.CharField(max_length=50)
-    
-
+    category_parent = models.ForeignKey('self', blank=True, null=True, related_name='children',on_delete=models.CASCADE)
     class Meta:
         
 
         verbose_name = 'ProductCategory'
         verbose_name_plural = 'ProductCategories'
 
+    
+
     def __str__(self):
         return self.name
+
+    def get_children_category(self):
+        return self.children.all()
 
 
 class Product(models.Model):
