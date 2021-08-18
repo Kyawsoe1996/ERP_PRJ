@@ -92,10 +92,10 @@
                     
                 
             
-                    <li class="dropdown-header">{{cat.name}}</li>
+                    <li class="dropdown-header"><a class="sub"  href="{% url 'frontend:category-related-product' cat.id %}">{{cat.name}}</a></li>
                     
                     {% for sub in cat.get_children_category  %}
-                        <li class="dropdown-header"><a href="#">{{sub.name}}</a>
+                        <li class="dropdown-header"><a class="sub" href="{% url 'frontend:category-related-product' sub.id %}">{{sub.name}}</a>
                         
                             <ul style="list-style: none;">
                                 
@@ -103,14 +103,14 @@
                                     
                             
                                 <!-- third categories   -->
-                                <li class="dropdown-header"><a href="#">{{second.name}}</a>
+                                <li class="dropdown-header"><a class="sub" href="{% url 'frontend:category-related-product' second.id %}">{{second.name}}</a>
                                         <ul>
                                             
                                             {% for third  in second.get_children_category  %}
                                                 
                                         
                                                 
-                                        <li class="dropdown-header"><a href="#">--{{third.name}}</a>
+                                        <li class="dropdown-header"><a class="sub" href="{% url 'frontend:category-related-product' third.id %}">--{{third.name}}</a>
                                             {% endfor %}
                                         
                                         </ul>

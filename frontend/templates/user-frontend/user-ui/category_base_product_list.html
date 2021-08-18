@@ -1,0 +1,55 @@
+{% extends 'user-frontend/base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<div class="category-base">
+
+    
+    <div class="hola">
+
+        {% for product in product_lists %}
+        <div class="hola-item">
+            <p class="text-center"><span class="badge badge-success">{{product.category.name}}</span></p>
+        <a href="#"><img src="{{product.image.url}}" width="200px" height="100px"></a>
+        <p>{{product.name}}</p>
+        <p>Category:{{product.category.name}}</p>
+        <p>Price: {{product.sale_price}}</p>
+        <p class="card-text">Some quick example text tod's content.</p>
+        <a href="{% url 'frontend:p-detail' product.id %}" class="view-btn" style="display: block;">View</a>
+        </div>
+    
+    
+        {% endfor %}
+    </div>
+
+    <div class="category-right">
+        
+            <p class="badge badge-success">Feature Product Categories</p>
+            
+            {% for cat  in category_lists %}
+            <ul>
+                <li><a href="{% url 'frontend:category-related-product' cat.id %}">{{cat.name}}</a></li>
+            </ul>
+            {% endfor %}
+                
+            
+         
+    </div>
+</div>
+
+   
+
+
+
+
+{% endblock content %}
+    
+
+
+
+{% block javascripts %}
+    
+{% endblock javascripts %}
+    

@@ -5,18 +5,41 @@
 {% block content %}
 
 
+<main>
+    <div class="content-left">
+        <h1>online</h1>
+        <h2>shopping</h2>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam distinctio temporibus nemo odit consequatur cum provident 
+            laboriosam tempora. Tenetur aspernatur repellendus dicta nostrum.</p>
+           <a class="cta" href="{% url 'frontend:p-list' %}" >Start shopping</a>
+    </div>
+    
+
+    <div class="content-right">
+        <img class="hero-img" src="{% static 'user-frontend/images/img.png' %}" alt="Arrow Img">
+    </div>
+   
+</main>
+
+
+
+
+<h1 class="myh1">User Frontend</h1>
+
+
+<a href="#" id="ggwp">CLICK TO GET</a>
 
 <div class="card1">
 
     {% for product in product_lists %}
     <div class="card-item">
-
+        <p class="text-center"><span class="badge badge-success">{{product.category.name}}</span></p>
     <a href="#"><img src="{{product.image.url}}" width="200px" height="100px"></a>
     <p>{{product.name}}</p>
     <p>Category:{{product.category.name}}</p>
     <p>Price: {{product.sale_price}}</p>
     <p class="card-text">Some quick example text tod's content.</p>
-    <a href="#" class="view-btn" style="display: block;">View</a>
+    <a href="{% url 'frontend:p-detail' product.id %}" class="view-btn" style="display: block;">View</a>
     </div>
    
   
@@ -25,6 +48,77 @@
 
 
 {% endblock content %}
+
+
+{% block javascripts %}
+    <!-- <script>
+        console.log("Index Called")
+        var listName = [];
+            $(".sub").click(function(){
+            //    $(".sub").each(function(){
+            //        listName.push($(this).attr('href'))
+                   
+            //    })
+              var myhref=  $(this).attr('href')
+              var data =  myhref.split("/");
+              var idNumber = data[2]
+                var link = '/rango/like_category/{idNumber}'
+                alert("YOYO")
+            alert(link)
+             
+              alert(typeof(data))
+            //   alert(data[length(data) ])
+                var NewURL =  'http://localhost:8000/frontend/' + idNumber 
+                alert(NewURL)
+               var urls = "{% url 'frontend:category-related-product' 24  %}" 
+               alert(urls) 
+
+            //  alert(myhref)
+
+             $.ajax({
+                 type:'GET',
+                 url:NewURL,
+
+                 success:function(response){
+                     console.log(response)
+                     alert(response)
+                     alert(urls)
+                 },
+
+                 error:function(response){
+                     console.log(response)
+                 }
+                  
+             })
+            })
+
+        $("#ggwp").click(function(e){
+            
+            
+
+            $.ajax({
+            type:'GET',
+            url: "http://localhost:8000/frontend/21/",
+            
+            success:function(response){
+                console.log(response)
+            },
+
+            error:function(respose){
+                console.log(respose)
+            }
+
+
+
+        })
+
+       
+
+        
+        
+        })
+    </script> -->
+{% endblock javascripts %}
 
 
 

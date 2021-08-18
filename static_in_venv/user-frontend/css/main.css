@@ -171,6 +171,57 @@ main p {
 }
 
 
+/* 
+.product_categories {
+  display: flex;
+  border: 2px solid black;
+  justify-content: center;
+  
+} */
+
+/* ........................................................ */
+
+
+/* CSS for Categorybase Product Showing Page */
+
+.categorybases{
+  background-color: gray;
+  border: 2px solid red;
+  height: 30px;
+  width: 140px;
+}
+.porn {
+  color:red;
+}
+
+
+/* ..................................................... */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
