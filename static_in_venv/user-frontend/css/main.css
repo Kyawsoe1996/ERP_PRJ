@@ -171,32 +171,212 @@ main p {
 }
 
 
-/* 
-.product_categories {
-  display: flex;
-  border: 2px solid black;
-  justify-content: center;
-  
-} */
 
-/* ........................................................ */
 
 
 /* CSS for Categorybase Product Showing Page */
 
-.categorybases{
-  background-color: gray;
-  border: 2px solid red;
+.category-base{
+  display: flex;
+  justify-content:space-between;
+}
+
+.hola {
+  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:center;
+  /* border:1px solid brown; */
+}
+
+/* hola-item and .card-item are the same */
+.hola-item{
+    border:1px solid #ebecf0;
+    align-items: center;
+    justify-content: center;
+    flex-basis: 20%; 
+    border-radius: 10px;
+    background-color: transparent;
+    padding: 15px;
+    box-sizing: border-box;
+    transition: transform .5s;
+    transform: translateZ(0);
+    margin:5px 5px;
+    background-color: rgb(248, 245, 245);
+}
+
+
+.hola-item image {
+  color: transparent;
+  vertical-align: middle;
+}
+.hola-item a{
+  text-decoration: none;
+}
+.hola-item a img {
+  border: none;
+}
+
+.hola-item p {
+  text-align: center;
+}
+
+.hola-item img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  
+}
+
+
+.category-right {
+  height: auto;
+  /* border: 1px solid red; */
+  
+}
+
+.category-right ul {
+  list-style-type: square;
+}
+
+
+
+.category-right ul li a {
+  color:blue;
+  line-height: 50px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+/* .................................................. */
+
+
+
+/* Product Detail Design */
+
+.product-detail{
+
+  display: flex;
+  justify-content: space-around;
+  margin-top:50px;
+}
+
+
+.detail-content{
+  display: flex;
+  justify-content: space-around;
+}
+
+
+.buy-btn {
+  padding:10px 20px;
+  background: #c4c4f7;
+  color:rgb(156, 103, 103)156, 103, 103);
+  outline: none;
+  border: none;
+  font-weight: 700;
+  border-radius: 50px;
+  
+}
+
+.small-description a {
+  text-decoration: none;
+}
+
+.minus-btn, .plus-btn{
+  line-height: 1;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   height: 30px;
-  width: 140px;
+  width: 30px;
+  color: white;
+  border-color:#6b6969;
+  min-height: initial;
+  max-height: initial;
+  min-width: initial;
+  max-width: initial;
+  font-size: 15px;
+  
+  border-style: solid;
+  border-width: 1px;
+  transition: none;
+  border-radius: 5px;
+  background: blue;
 }
-.porn {
-  color:red;
+
+.small-description input{
+  line-height: 1;
+  background: none;
+  text-align: center;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 31px;
+  width: 55px;
+  border-color:#6b6969;
+  box-shadow: none;
+  font-size: 15px;
+  
+ 
+  border:1px solid blue;
+  border-radius: 5px;
 }
 
 
-/* ..................................................... */
+.add-to-wish-list{
+  display: block;
+  text-decoration: none;
+  border: 1px solid #ccc;
+  padding: 2px 20px;
+  margin-bottom: 15px;
+  margin-top:10px;
+  text-align: center;
+  /* display: inline-block; */
 
+}
+
+
+.detail-feature-product {
+  height: auto;
+  /* border: 1px solid red; */
+  
+}
+
+.detail-feature-product ul {
+  list-style-type: none;
+}
+
+
+.detail-feature-product ul li a {
+  color:blue;
+  line-height: 50px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.detail-feature-product span{
+    color: blue;
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+.feature-product{
+  
+  text-decoration: none;
+  border: 1px solid #ccc;
+  padding: 2px 30px;
+  margin-bottom: 15px;
+  line-height: 40px;
+  display: inline-block;
+  color: blue;
+  background: rgb(184, 184, 184);
+  text-transform: uppercase;
+}
+
+/* .................................. */
 
 
 

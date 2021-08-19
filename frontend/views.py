@@ -2,6 +2,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse,HttpResponse
 from django.shortcuts import render
 from product.models import Product,ProductCategory
+from django.shortcuts import get_object_or_404
 # Create your views here.
 
 
@@ -55,7 +56,16 @@ def GetCategoryRelatedProduct(request,category):
 
 def ProductDetail(request,product):
 
-    return HttpResponse("Coming to Fking Detail")
+    product_obj = get_object_or_404(Product, pk=product)
+    product_lists = Product.objects.exclude(id=product)[:3]
+    context = {
+        "product":product_obj,
+        "product_lists":product_lists,
+    }
+
+    return render(request,"user-frontend/user-ui/product_detail.html",context)
+    
+
 
 
 
