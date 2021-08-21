@@ -376,10 +376,51 @@ main p {
   text-transform: uppercase;
 }
 
+.main-carousel {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  
+}
+
+.promotion-banner{
+  background:rgb(167, 190, 167);
+  border:rgb(167, 190, 167);
+  border-radius: 5px;
+  padding: 5px 20px;
+  color: white;
+}
+
+
+.alert  {
+  background:green  ;
+}
+.alert-primary{
+  background-color: green;
+}
+
+
+
 /* .................................. */
 
 
 
+/* Navbar */
+
+.badge-danger {
+  background-color: red;
+}
+.badge-success {
+  background:green;
+}
+
+.user-icon-right {
+  /* margin-right: auto; */
+  margin-left: 80px;
+  
+}
+
+/* .......... */
 
 
 
