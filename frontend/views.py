@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 from customer.models import Customer
 from sale.models import SaleOrder,SaleOrderLine
 import datetime
+#method for creating ref number 
+from sale.views import  create_so_num
 # Create your views here.
 
 
@@ -77,7 +79,18 @@ def AddtoCart(request,product):
     if not request.user.is_authenticated:
         return JsonResponse({"error":"Login First"})
  
+    return JsonResponse({"data":"Add to Cart Called"})
+
+def BuyProduct(request,product):
+
+   
+
+    if not request.user.is_authenticated:
+        return JsonResponse({"error":"Login First"})
+ 
     product_id = request.POST.get('productid')
+    qty = request.POST.get('quantity')
+    qty = int(qty)
 
     
     product_id = int(product_id)
@@ -86,23 +99,57 @@ def AddtoCart(request,product):
 
 
     user_obj = request.user
-    customer_obj = Customer.objects.get(user=user_obj)
-    so_obj = SaleOrder.objects.get_or_create(ref="AJAX",customer=customer_obj,order_date=datetime.datetime.today())
+    try:
+        customer_obj = Customer.objects.get(user=user_obj)
+    except:
+        return JsonResponse({"error":"The requested customer does not exist in db"})
+    so_obj = SaleOrder.objects.get_or_create(customer=customer_obj,order_date=datetime.datetime.today())
+    so_obj = so_obj[0]
+    so_obj.ref = create_so_num()
+    so_obj.save()
+   
     
-    print(so_obj[0].so_lines.all())
-    print(so_obj)
+
+    so_line_obj = SaleOrderLine.objects.filter(sale_order=so_obj,product=product_obj)
+    print(so_line_obj)
+    if so_line_obj.exists():
+        so_line_obj= so_line_obj[0]
+        so_line_obj.quantity += qty
+        so_line_obj.sub_total = so_line_obj.get_subtotal()
+
+        so_line_obj.save()
+
+        #update the sale order total price in Sale order object
+        so_obj = so_line_obj.sale_order
+        so_obj.total_price = so_obj.sale_order_total()
+        so_obj.save() 
+        return JsonResponse({"data":"Already Exist and Quantity Updated"})
+    else:
+        so_line_obj = SaleOrderLine.objects.create(sale_order=so_obj,product=product_obj,quantity=qty)
+        so_line_obj.sub_total = so_line_obj.get_subtotal()
+        so_line_obj.save()
+
+        #update the sale order total price in Sale order object
+        
+        so_obj = so_line_obj.sale_order
+        so_obj.total_price = so_obj.sale_order_total()
+        so_obj.save()
 
 
-    data = {
-        "name":product_obj.name,
-        "category":product_obj.category.name,
-        "sprice":product_obj.sale_price,
-        "user":request.user.username
-    }
+        
 
-    # raise ValidationError("WEW")
+        #updating on the cart Navbar Count
 
-    return JsonResponse(data)
+         
+
+
+
+    return JsonResponse({"data":"created","count":1})
+
+        
+        
+
+   
     
 
 

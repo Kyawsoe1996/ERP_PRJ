@@ -22,15 +22,19 @@
             <p>{{product.sale_price}} KS</p>
             <form>
               {% csrf_token %}
-            <button class="minus-btn">-</button>
-            <input type="number" value="1">
+            <!-- <button class="minus-btn">-</button> -->
+            <input type="button" data-id="{{product.id}}" value="-" class="plus-btn" />
+
+            <input id="quantity" type="number"  min="0" value="1">
             <!-- <button id="plus" class="plus-btn" data-id="{{product.id}}">+</button> -->
-            <input type="button" id="plus" data-id="{{product.id}}" value="ATC" class="btn btn-primary" />
+            <input type="button" id="plus" data-id="{{product.id}}" value="+" class="plus-btn" />
             <!-- <input type="button" id="btnsave" value="save" class="btn btn-success btn-sm " /> -->
+            <input type="button" id="buyproduct" data-id="{{product.id}}" value="Buy" class="plus-btn" />
+
           </form>
 
 
-            <a  href="#" class="buy-btn">Buy</a>
+          
 
             <a href="#" class="add-to-wish-list">  <i class="fa fa-heart" aria-hidden="true"></i>Add to wish list</a>
             <p></p>
@@ -71,7 +75,13 @@
     $("#plus").click(function(){
       var dataId = $(this).attr('data-id')
       var intdataId = parseInt(dataId)
-      console.log(intdataId)
+
+      
+      var qty = $("#quantity").val()
+      var qty =  parseInt(qty)
+      $("#quantity").val(qty+1)
+     
+     
       var url = "{% url 'frontend:add-to-cart' 24  %}" 
       var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val()
       mydata = {csrfmiddlewaretoken:csrfmiddlewaretoken, productid:intdataId}
@@ -81,7 +91,9 @@
         data:mydata,
 
         success:function(response){
-          console.log(response)
+          console.log(response,'########')
+          
+          
         },
         error:function(error){
           console.log(error)
@@ -92,7 +104,54 @@
      
 
     })
-    
+
+
+    // after click buy product
+
+    $("#buyproduct").click(function(){
+      var dataId = $(this).attr('data-id')
+      var intdataId = parseInt(dataId)
+      // console.log(intdataId)
+
+      var qty = $("#quantity").val()
+      var qty =  parseInt(qty)
+
+      // console.log(qty)
+
+      
+
+      var url = "{% url 'frontend:buy-product' 24  %}" 
+      var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val()
+      mydata = {csrfmiddlewaretoken:csrfmiddlewaretoken, productid:intdataId,quantity:qty}
+
+      
+
+
+      $.ajax({
+        method:'POST',
+        url:url,
+        data:mydata,
+
+        success:function(response){
+          console.log(response)
+          if(response.count ===1 ){
+              var currentCount = $("#navbarCount").html()
+              var intcurrentCount = parseInt(currentCount)
+              console.log(intcurrentCount)
+              $("#navbarCount").html(intcurrentCount + response.count)
+              
+              
+          }
+        },
+        error:function(error){
+          console.log(error)
+        }
+
+
+      })
+     
+    })
+     
   </script>
 
 

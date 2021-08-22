@@ -1,4 +1,5 @@
 {% load static %}
+{% load cart_template_tags %}
 <!-- <header>
     <div class="logo">
         <img src="{% static 'user-frontend/images/arrow.jpeg' %}" alt="Arrow Img" width="150px">
@@ -206,7 +207,9 @@
           <!-- service -->
           <li><a href="#">About</a></li>
           <li><a href="#" class="signup-btn">Sign Up</a></li>
-          <li><a href="#" class="signup-btn"> Cart<i class="fa fa-shopping-cart" aria-hidden="true"><sup class="badge badge-danger">1</sup></i></a></li>
+          <!-- <li><a href="#" class="signup-btn"> Cart<i class="fa fa-shopping-cart" aria-hidden="true"><sup class="badge badge-danger">{{request.user|cart_item_count}}</sup></i></a></li> -->
+
+          <li><a href="#" class="signup-btn"> Cart<i class="fa fa-shopping-cart" aria-hidden="true"><sup id="navbarCount" class="badge badge-danger">{{request.user | cart_item_count}}</sup></i></a></li>
 
          
 

@@ -283,7 +283,7 @@ main p {
   text-decoration: none;
 }
 
-.minus-btn, .plus-btn{
+/* .plus-btn{
   line-height: 1;
   display: inline-block;
   margin: 0;
@@ -291,7 +291,7 @@ main p {
   box-sizing: border-box;
   height: 30px;
   width: 30px;
-  color: white;
+  color: black;
   border-color:#6b6969;
   min-height: initial;
   max-height: initial;
@@ -303,12 +303,16 @@ main p {
   border-width: 1px;
   transition: none;
   border-radius: 5px;
-  background: blue;
-}
+  background-color: blue;
+} */
+
+
+
+
 
 .small-description input{
   line-height: 1;
-  background: none;
+  background:#c4c4f7;
   text-align: center;
   vertical-align: middle;
   margin: 0;
@@ -316,13 +320,17 @@ main p {
   box-sizing: border-box;
   height: 31px;
   width: 55px;
-  border-color:#6b6969;
+  border-color:#c4c4f7;
   box-shadow: none;
-  font-size: 15px;
+  font-size: 14px;
   
  
-  border:1px solid blue;
-  border-radius: 5px;
+  border:1px solid #c4c4f7;
+  border-radius: 15px;
+  color:rgb(148, 131, 207);
+  font-weight: bold;
+  text-align:center;
+
 }
 
 
