@@ -81,6 +81,7 @@ def AddtoCart(request,product):
  
     return JsonResponse({"data":"Add to Cart Called"})
 
+
 def BuyProduct(request,product):
 
    
@@ -102,7 +103,7 @@ def BuyProduct(request,product):
     try:
         customer_obj = Customer.objects.get(user=user_obj)
     except:
-        return JsonResponse({"error":"The requested customer does not exist in db"})
+        return JsonResponse({"error":"Not a Customer"})
     so_obj = SaleOrder.objects.get_or_create(customer=customer_obj,order_date=datetime.datetime.today())
     so_obj = so_obj[0]
     so_obj.ref = create_so_num()
@@ -123,7 +124,7 @@ def BuyProduct(request,product):
         so_obj = so_line_obj.sale_order
         so_obj.total_price = so_obj.sale_order_total()
         so_obj.save() 
-        return JsonResponse({"data":"Already Exist and Quantity Updated"})
+        return JsonResponse({"data":"Qty Updated"})
     else:
         so_line_obj = SaleOrderLine.objects.create(sale_order=so_obj,product=product_obj,quantity=qty)
         so_line_obj.sub_total = so_line_obj.get_subtotal()
@@ -138,7 +139,7 @@ def BuyProduct(request,product):
 
         
 
-        #updating on the cart Navbar Count
+        #updating on the cart Navbar Count,So i return count to the client
 
          
 

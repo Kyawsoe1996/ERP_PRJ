@@ -283,6 +283,8 @@ main p {
   text-decoration: none;
 }
 
+
+
 /* .plus-btn{
   line-height: 1;
   display: inline-block;
@@ -400,12 +402,6 @@ main p {
 }
 
 
-.alert  {
-  background:green  ;
-}
-.alert-primary{
-  background-color: green;
-}
 
 
 
@@ -428,9 +424,44 @@ main p {
   
 }
 
+.so-lists {
+  display: none;
+  position: absolute;
+  left: 900px;
+  top: 50px;
+  z-index: -1;
+  width: 300px;
+ 
+ 
+  color:rgb(97, 97, 204);
+}
+
+.so-lists ul {
+  list-style: none;
+  background-color:white;
+  border-radius: 15px;
+  border:2px solid rgb(236, 230, 230);
+}
+
+.so-lists ul li {
+  padding: 10px 20px;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+
+
 /* .......... */
 
-
+@media (max-width: 768px) {
+  .so-lists {
+    left:130px;
+    top:50px;
+  }
+}
 
 
 

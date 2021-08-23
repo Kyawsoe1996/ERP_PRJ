@@ -20,6 +20,11 @@
 
 <!-- ................................ -->
 
+<div id="AtttoCardError" class="alert alert-info alert-dismissible" style="display: none;">
+  <a href="#"  class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <p>HAHA</p>
+</div>
+
 <div class="navbar navbar-default navbar-static-top ">
     <div class="container">
       <div class="navbar-header">
@@ -209,15 +214,88 @@
           <li><a href="#" class="signup-btn">Sign Up</a></li>
           <!-- <li><a href="#" class="signup-btn"> Cart<i class="fa fa-shopping-cart" aria-hidden="true"><sup class="badge badge-danger">{{request.user|cart_item_count}}</sup></i></a></li> -->
 
-          <li><a href="#" class="signup-btn"> Cart<i class="fa fa-shopping-cart" aria-hidden="true"><sup id="navbarCount" class="badge badge-danger">{{request.user | cart_item_count}}</sup></i></a></li>
+          <li><a href="#"  class="signup-btn onCardShow"> Cart<i class="fa fa-shopping-cart" aria-hidden="true"><sup id="navbarCount" class="badge badge-danger">{{request.user | cart_item_count}}</sup></i></a></li>
 
-         
+          <div class="so-lists">
+              <ul>
+              
+                <!-- to refresh getting the current page -->
+                    <!-- {{ request.path }}
+                    {{ request.get_full_path }} -->
+                <a href="  {{ request.path }}"><i class="fas fa-sync"><sup>Refresh to see qty updated in cart</sup></i></a>
+                {% if cart_count %}
+                  
+                  {% for so_line in cart_count  %}
+                  <li>
+                    <!-- making flex for li -->
+                    <div>
+                    <img src="{{so_line.product.image.url}}" width="100px">
 
-          <li class="user-icon-right"><a href="#" ><i class="fas fa-user">Shamu</i></a></li>
+                    </div> 
+                    <div>
+                      <p> Name: {{so_line.product.name}}</p>
+
+                      <p> Price: {{so_line.product.sale_price}}</p>
+                      <p> Into :{{so_line.quantity}} +++ KS {{so_line.product.sale_price}}</p>
+                      <p>Total Price: {{so_line.sub_total}}</p>
+                    </div>
+                    
+                   
+
+
+
+                  </li>
+                  <hr />
+                  {% endfor %}
+                    
+                  
+                {% endif %}
+                  
+              
+              </ul>
+          </div>
+
+          <li class="user-icon-right"><a href="#" ><i class="fas fa-user">{{request.user.username}}</i></a></li>
 
         </ul>
       </div>
     </div>
   </div>
+
+
+
+  {% include 'user-frontend/include/script.html' %}
+
+    <script type="text/javascript">
+        // $(".onCardShow").hover(function(){
+        //   $(".so-lists").show();
+        // })
+        // $("#onCardShow").mouseleave(function(){
+        //   $(".so-lists").hide();
+        // })
+
+      
+
+
+      //   $(document).on({
+      //     mouseenter: function() {
+      //         $(".so-lists").show();
+      //     },
+      //     click: function() {
+      //         $(".so-lists").hide();
+      //     }
+      // }, ".onCardShow");
+
+
+        $(document).ready(function() {
+            $(".onCardShow").on("mouseenter", function() {
+              $(".so-lists").show();
+            });
+            $(".so-lists").on("mouseleave", function() {
+              $(this).hide();  //or $('.overlay').hide()
+            });
+        },);
+          </script>
+  {% block javascripts %}{% endblock javascripts %}
 
 
