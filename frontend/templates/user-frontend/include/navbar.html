@@ -214,7 +214,7 @@
           <li><a href="#" class="signup-btn">Sign Up</a></li>
           <!-- <li><a href="#" class="signup-btn"> Cart<i class="fa fa-shopping-cart" aria-hidden="true"><sup class="badge badge-danger">{{request.user|cart_item_count}}</sup></i></a></li> -->
 
-          <li><a href="#"  class="signup-btn onCardShow"> Cart<i class="fa fa-shopping-cart" aria-hidden="true"><sup id="navbarCount" class="badge badge-danger">{{request.user | cart_item_count}}</sup></i></a></li>
+          <li><a href="{% url 'frontend:view-cart' %}"  class="signup-btn onCardShow"> Cart<i class="fa fa-shopping-cart" aria-hidden="true"><sup id="navbarCount" class="badge badge-danger">{{request.user | cart_item_count}}</sup></i></a></li>
 
           <div class="so-lists">
               <ul>

@@ -1,0 +1,192 @@
+{% extends 'user-frontend/base.html' %}
+{% load static %}
+
+
+
+
+
+{% block content %}
+<h1 class="text text-center text-primary"> View Cart</h1>
+    <div class="viewcart-main">
+        <div class="viewcart-content-left">
+            <h1>Content Right</h1>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Imag</th>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Subtotal</th>
+
+
+
+                  </tr>
+                </thead>
+                <tbody>
+                 
+                 {% if cart_count == 0 %}
+                     
+                 <tr>
+                     <td colspan="5"> <p class="text text-primary text-center" >No item</p></td>
+                 </tr>
+                 {% else %}
+
+                  
+                  {% for so_line in cart_count %}
+                      
+                 
+                  <form>         
+                  <tr>
+                   
+                    <th>{{forloop.counter}}</th>
+                    <td><img src="{{so_line.product.image.url}}" width="50px"></td>
+                    <td>{{so_line.product.name}}</td>
+                 
+                    <td>
+                        <input type="button"  data-id="{{so_line.product.id}}" value="-" class="plus-btn minus-{{so_line.product.name}}" />
+                        
+                        <input class="{{so_line.product.id}}"  type="number" data-id={{so_line.product.id}}  min="0" value="{{so_line.quantity}}">
+                        <!-- <button id="plus" class="plus-btn" data-id="{{product.id}}">+</button> -->
+                        <input type="button" id="plus" data-id="{{so_line.product.id}}" value="+" class="plus-btn" />
+                         <!-- <input type="button" id="btnsave" value="save" class="btn btn-success btn-sm " /> -->
+                    </td>
+                    <td>{{so_line.product.sale_price}}</td>
+                    <td>{{so_line.sub_total}}</td>
+                    
+                    
+                  </tr>
+                  {% endfor %}
+
+                 
+
+
+                  {% endif %}
+                 
+                </tbody>
+                <tr>
+                    <td colspan="5" > <p class="text-right text-primary">Net total:</p></td>
+                    <td>{{cart_count.0.sale_order.total_price}}</td>
+                </tr>
+
+                <tr>
+                  <td colspan="5" ><button class="updatecart btn btn-primary" disabled>Update Cart</button></td>
+                 
+              </tr>
+            </form>
+              </table>
+        </div>
+        
+        
+        <div class="viewcart-content-right">
+            <h1>Content Left</h1>
+        </div>
+    </div>    
+{% endblock content %}
+
+
+
+
+{% block javascripts %}
+   <script type="text/javascript"> 
+
+      var url = "{% url 'frontend:update-cart'   %}" 
+      var ProductsIDs= []
+      $(".updatecart").click(function(e){
+        e.preventDefault()
+        
+        $("input[type='number']").each(function(i, obj) {
+          
+              
+              let productId = obj.getAttribute("data-id")
+              
+             
+              ProductsIDs.push(productId)
+              
+              
+              
+             
+          });
+      console.log(ProductsIDs)
+       
+      var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val()
+      // mydata = {csrfmiddlewaretoken:csrfmiddlewaretoken, productid:intdataId}
+
+        
+      })
+
+
+      // + or - button clicked
+      $(document).ready(function(){
+        $("input[type='button']").click(function(){
+
+         
+
+
+          if($(this).val() === "-"){
+            console.log($(this))
+           var dataId = $(this).attr('data-id')
+           console.log(dataId)
+           var cls ="."+dataId
+
+          //  $(".updatecart").attr("href",url);
+          //  $(".updatecard").addClass("text text-danger");
+          $(".updatecart").removeAttr("disabled");
+
+           if($(cls).val() == "1"){
+                $(this).prop('disabled', true);
+           }
+
+           var qtyval = $(cls).val()
+           var qtyval = parseInt(qtyval)
+           $(cls).val(qtyval-1)
+           $(cls).attr("value",qtyval+1)
+
+          }
+          if($(this).val() === "+"){
+            $(".updatecart").removeAttr("disabled");
+            
+            var dataId = $(this).attr('data-id')
+            console.log(dataId)
+           var cls ="."+dataId
+          
+           var qtyval = $(cls).val()
+           var qtyval = parseInt(qtyval)
+           $(cls).val(qtyval+1)
+           $(cls).attr("value",qtyval+1)
+          }
+          //   console.log($(this))
+          //  var dataId = $(this).attr('data-id')
+          //  console.log(dataId)
+          //  var cls ="."+dataId
+          
+          //  var qtyval = $(cls).val()
+          //  var qtyval = parseInt(qtyval)
+          //  $(cls).val(qtyval+1)
+
+
+       
+           
+            
+
+
+         
+        })
+      })
+
+        $(".minus").click(function(){
+       
+            // console.log($(this))
+            // if($("input[type='number']").val() == "1"){
+            //     $("input[type='number']").prop('disabled', true);
+            // }else{
+            var qty = $(".quantity").val()
+            var qty =  parseInt(qty)
+            $(".quantity").val(qty-1)
+            // }
+})
+   </script>
+{% endblock javascripts %}
+    
+    

@@ -147,6 +147,18 @@ def BuyProduct(request,product):
 
     return JsonResponse({"data":"created","count":1})
 
+
+def ViewAddtoCartItem(request):
+
+    return render(request,"user-frontend/user-ui/view_add_to_cart.html")
+
+
+
+
+def UpdateCart(request):
+    data ={"success":"Update Cart"}
+    return JsonResponse(data)
+
         
         
 
