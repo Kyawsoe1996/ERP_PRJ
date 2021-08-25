@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.fields import related
+from django.db.models.fields import CommaSeparatedIntegerField, related
 from customer.models import Customer
 from product.models import Product
 import  datetime
@@ -34,6 +34,8 @@ class SaleOrder(models.Model):
             subtotal = so_line.sub_total
             total += subtotal
         return total
+    
+    
 
     class Meta:
        
@@ -62,6 +64,31 @@ class SaleOrderLine(models.Model):
 
     def get_subtotal(self):
         return self.quantity * self.product.sale_price
+
+    
+    def add_to_cart_update_qty_and_subtotal_so_price(self,**kwargs):
+        """
+            qty => getting the updated Qty
+        """
+        updated_qty_count = kwargs.get('qty')
+        self.quantity =  updated_qty_count
+        self.sub_total = self.get_subtotal()
+        self.save()
+        self.sale_order.total_price = self.sale_order.sale_order_total()
+        self.sale_order.save()
+    
+    def remove_from_cart(self):
+        """
+            Remove from cart and update subtotal
+        """
+        self.sale_order.total_price -= self.sub_total
+        self.sale_order.save()
+        self.delete()
+        
+
+
+
+       
 
 
      

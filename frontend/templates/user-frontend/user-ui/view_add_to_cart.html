@@ -13,6 +13,7 @@
             <table class="table">
                 <thead>
                   <tr>
+                    <th></th>
                     <th>#</th>
                     <th>Imag</th>
                     <th>Product</th>
@@ -37,9 +38,10 @@
                   {% for so_line in cart_count %}
                       
                  
-                  <form>         
+                  <form> 
+                    {% csrf_token %}        
                   <tr>
-                   
+                    <td><a class="removefromcart" href="{% url 'frontend:remove-from-cart' so_line.product.id %}">Remove</a></td>
                     <th>{{forloop.counter}}</th>
                     <td><img src="{{so_line.product.image.url}}" width="50px"></td>
                     <td>{{so_line.product.name}}</td>
@@ -90,9 +92,11 @@
 
 {% block javascripts %}
    <script type="text/javascript"> 
-
+      var NewRedirectURL = "{% url 'frontend:view-cart'   %}" 
       var url = "{% url 'frontend:update-cart'   %}" 
       var ProductsIDs= []
+      var ProductIdsNquantity = []
+     
       $(".updatecart").click(function(e){
         e.preventDefault()
         
@@ -100,18 +104,52 @@
           
               
               let productId = obj.getAttribute("data-id")
-              
+              let qty = obj.getAttribute("value")
+
+              // ProductsIDs.push(productId)
+              var dict ={}
+              dict[productId] = qty
+              ProductIdsNquantity.push(dict)  
              
-              ProductsIDs.push(productId)
+              
+              
               
               
               
              
           });
+
       console.log(ProductsIDs)
+      console.log(ProductIdsNquantity)
+      console.log(JSON.stringify(ProductIdsNquantity))
+      // console.log(url)
        
       var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val()
-      // mydata = {csrfmiddlewaretoken:csrfmiddlewaretoken, productid:intdataId}
+      //25-08-2021 at home 5:20pm
+      // https://stackoverflow.com/questions/37698371/passing-a-dict-of-dict-with-ajax/37701514
+      mydata = {csrfmiddlewaretoken:csrfmiddlewaretoken, products:JSON.stringify(ProductIdsNquantity)}
+      
+      $.ajax({
+        method:'POST',
+        url:url,
+        data:mydata,
+
+        success:function(response){
+            console.log(response)
+            console.log(NewRedirectURL)
+            
+            window.location.href = NewRedirectURL
+
+          // window.location(redirectURL)
+          
+          
+        },
+        error:function(error){
+          console.log(error)
+        }
+
+
+      })
 
         
       })
@@ -141,7 +179,7 @@
            var qtyval = $(cls).val()
            var qtyval = parseInt(qtyval)
            $(cls).val(qtyval-1)
-           $(cls).attr("value",qtyval+1)
+           $(cls).attr("value",qtyval-1)
 
           }
           if($(this).val() === "+"){
@@ -175,17 +213,7 @@
         })
       })
 
-        $(".minus").click(function(){
-       
-            // console.log($(this))
-            // if($("input[type='number']").val() == "1"){
-            //     $("input[type='number']").prop('disabled', true);
-            // }else{
-            var qty = $(".quantity").val()
-            var qty =  parseInt(qty)
-            $(".quantity").val(qty-1)
-            // }
-})
+     
    </script>
 {% endblock javascripts %}
     

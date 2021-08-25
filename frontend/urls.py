@@ -8,6 +8,7 @@ from .views import (
     BuyProduct,
     ViewAddtoCartItem,
     UpdateCart,
+    RemovefromCart,
 )
 
 app_name="frontend"
@@ -21,6 +22,8 @@ urlpatterns = [
     path('buy-product/<int:product>/',BuyProduct,name="buy-product"), #create so and qty update
     path('cart/',ViewAddtoCartItem,name="view-cart"),
     path('update-cart/',UpdateCart,name="update-cart"),
+    path('removefromcart/<int:product>/',RemovefromCart,name="remove-from-cart"),
+
 
 
 
