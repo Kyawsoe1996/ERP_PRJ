@@ -9,6 +9,7 @@ from .views import (
     ViewAddtoCartItem,
     UpdateCart,
     RemovefromCart,
+    CheckoutView,
 )
 
 app_name="frontend"
@@ -23,6 +24,8 @@ urlpatterns = [
     path('cart/',ViewAddtoCartItem,name="view-cart"),
     path('update-cart/',UpdateCart,name="update-cart"),
     path('removefromcart/<int:product>/',RemovefromCart,name="remove-from-cart"),
+    path('checkout/',CheckoutView.as_view(),name="checkout-view"),
+
 
 
 

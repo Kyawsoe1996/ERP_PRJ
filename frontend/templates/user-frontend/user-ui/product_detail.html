@@ -176,12 +176,14 @@
 
           //if customer is not in the db
           if(response.error == "Not a Customer"){
-             
+              $("#AtttoCardError p").html("Not a customer")
+              $("#AtttoCardError").show()
               alert("The requested user is not in the customer list")
               
           }
           if(response.data == "Qty Updated"){
-             
+            $("#AtttoCardError p").html("Qty Updated")
+            $("#AtttoCardError").show()
              alert("Qty updated")
              
          }

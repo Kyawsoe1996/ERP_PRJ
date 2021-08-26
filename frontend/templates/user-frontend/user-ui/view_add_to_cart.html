@@ -12,7 +12,7 @@
             <h1>Content Right</h1>
             <table class="table">
                 <thead>
-                  <tr>
+                  <tr class="text-center">
                     <th></th>
                     <th>#</th>
                     <th>Imag</th>
@@ -47,7 +47,7 @@
                     <td>{{so_line.product.name}}</td>
                  
                     <td>
-                        <input type="button"  data-id="{{so_line.product.id}}" value="-" class="plus-btn minus-{{so_line.product.name}}" />
+                        <input type="button"  data-id="{{so_line.product.id}}" value="-" class="minus-btn" />
                         
                         <input class="{{so_line.product.id}}"  type="number" data-id={{so_line.product.id}}  min="0" value="{{so_line.quantity}}">
                         <!-- <button id="plus" class="plus-btn" data-id="{{product.id}}">+</button> -->
@@ -73,8 +73,8 @@
                 </tr>
 
                 <tr>
-                  <td colspan="5" ><button class="updatecart btn btn-primary" disabled>Update Cart</button></td>
-                 
+                  <td colspan="5" ><button class="updatecart btn btn-primary" disabled>Update Cart <i class="fa fa-shopping-cart" aria-hidden="true"></i></button></td>
+                  
               </tr>
             </form>
               </table>

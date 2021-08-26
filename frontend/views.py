@@ -11,6 +11,8 @@ import datetime
 from sale.views import  create_so_num
 # Create your views here.
 import json 
+from django.views.generic import View
+from frontend.forms import CheckoutForm
 
 
 def IndexView(request):
@@ -237,6 +239,53 @@ def RemovefromCart(request,product):
 
 
     return redirect("frontend:view-cart")
+
+
+class CheckoutView(View):
+    def get(self, request, *args, **kwargs):
+        context = {
+            'form': CheckoutForm()
+        }
+
+        return render(self.request,"user-frontend/user-ui/checkout.html",context)
+
+    
+   
+    def post(self, request, *args, **kwargs):
+        form = CheckoutForm(self.request.POST or None)
+        
+        if form.is_valid():
+            print("Form valid..........")
+            shipping_address = form.cleaned_data.get('shipping_address')
+            shipping_address2 = form.cleaned_data.get('shipping_address2')
+            shipping_country = form.cleaned_data.get('shipping_country')
+            shipping_zip = form.cleaned_data.get('shipping_zip')
+            same_billing_address = form.cleaned_data.get('same_billing_address')
+            set_default_shipping = form.cleaned_data.get('set_default_shipping')
+
+
+
+
+            billing_address  = form.cleaned_data.get('billing_address')
+            billing_address2 = form.cleaned_data.get('billing_address2')
+            billing_country = form.cleaned_data.get('billing_country')
+            billing_zip  = form.cleaned_data.get('billing_zip')
+            set_default_billing = form.cleaned_data.get('set_default_billing')
+            
+
+
+
+
+
+
+            
+
+
+            # print(request.POST['use'])
+        return JsonResponse({"data":"Posted"})
+    
+    
+
 
         
         

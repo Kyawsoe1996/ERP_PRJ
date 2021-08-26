@@ -11,6 +11,12 @@ from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 from django.conf import settings
 
+
+ADDRESS_CHOICES = (
+    ('B', 'Billing'),
+    ('S', 'Shipping'),
+)
+
 class Customer(models.Model):
     
     user = models.OneToOneField(User,related_name="customer", on_delete=models.CASCADE)
@@ -21,6 +27,10 @@ class Customer(models.Model):
     is_vendor =models.BooleanField(default=False)
     country = CountryField(multiple=False)
     image = models.ImageField()
+    shipping_address = models.ForeignKey(
+        'Addr', related_name='shipping_address', on_delete=models.SET_NULL, blank=True, null=True)
+    billing_address = models.ForeignKey(
+        'Addr', related_name='billing_address', on_delete=models.SET_NULL, blank=True, null=True)
 
 
    
@@ -56,4 +66,23 @@ def create_customer_when_create_user(sender, instance, created, **kwargs):
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
+
+
+
+#addresss Model
+class Addr(models.Model):
+    customer = models.ForeignKey(Customer,
+                             on_delete=models.CASCADE)
+    street_address = models.CharField(max_length=1000)
+    apartment_address = models.CharField(max_length=1000)
+    country = CountryField(multiple=False)
+    zip = models.CharField(max_length=100)
+    address_type = models.CharField(max_length=1, choices=ADDRESS_CHOICES)
+    default = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.customer.name
+    
+    class Meta:
+        verbose_name_plural ='Addresses'
 
