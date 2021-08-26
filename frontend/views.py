@@ -135,7 +135,7 @@ def BuyProduct(request,product):
         return JsonResponse({"data":"Qty Updated"})
     else:
         so_line_obj = SaleOrderLine.objects.create(sale_order=so_obj,product=product_obj,quantity=qty)
-        so_line_obj.add_to_cart_update_qty_and_subtotal_so_price(qty=1)
+        so_line_obj.add_to_cart_update_qty_and_subtotal_so_price(qty=qty)
         
         
         # so_line_obj.sub_total = so_line_obj.get_subtotal()
