@@ -16,7 +16,7 @@ DEBUG = env('DEBUG')
 # SECRET_KEY = env('SECRET_KEY')
 
 
-ALLOWED_HOSTS =['mydjangoerpapp.herokuapp.com']
+ALLOWED_HOSTS =['mydjangoerpapp.herokuapp.com','127.0.0.1']
 
 
 # For Heroku Production

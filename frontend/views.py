@@ -335,6 +335,24 @@ class CheckoutView(View):
             shipping_address_obj = customer_obj.get_default_shipping_address()
             billing_address_obj = customer_obj.get_default_billing_address()
 
+            #found error after update on heroku and test that if this two
+            #options select show error
+            if use_default_shipping  and same_billing_address:
+                so_obj.shipping_address = shipping_address_obj
+                so_obj.save()
+
+
+                shipping_address_obj.pk = None
+                billing_addr_obj = shipping_address_obj
+                billing_addr_obj.address_type= 'B'
+                #if Shiping Addr and Set to trure, Bill also set to true, You can
+                # add false as below for billing addresss setting
+                # billing_addr_obj.default = False
+                billing_addr_obj.save()
+                so_obj.billing_address = billing_addr_obj
+                so_obj.save()
+                return JsonResponse({"description":"Two check option"})
+
             if use_default_shipping:
                 print("Yes...............")
                 so_obj.shipping_address = shipping_address_obj
