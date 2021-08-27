@@ -14,7 +14,7 @@
           <h4>Shipping Address</h4>
           <div class="hideable_shipping_form">
             <label for="shipping_address">Address:</label>
-            <input type="text" class="form-control" name="shipping_address" id="shipping_address" placeholder="1234 Main St" required="">
+            <input type="text" class="form-control" name="shipping_address" id="shipping_address" placeholder="1234 Main St">
            
             <label for="shipping_address2">Address 2 <span class="text-muted">(Optional)</span></label>
             <input type="text" name="shipping_address2"  class="form-control" id="shipping_address2" placeholder="Apartment or suite">
@@ -24,29 +24,31 @@
 
               
             <label for="shipping_zip">Zip:</label>
-            <input type="text" class="form-control" name="shipping_zip" id="shipping_zip" placeholder="Enter Zip" required="">
+            <input type="text" class="form-control" name="shipping_zip" id="shipping_zip" placeholder="Enter Zip" >
             
+            <div class="d_billing_form">
             <input type="checkbox" class="custom-control-input" id="same_billing_address" name="same_billing_address">
-            <label for="same_billing_address">Billing address is the same as my shipping address</label>
-             
+            <label for="same_billing_address"><small>Billing address is the same as my shipping address</small></label> <br>
+            </div> 
             
             <input type="checkbox" class="custom-control-input" id="set_default_shipping" name="set_default_shipping">
-            <label class="custom-control-label" for="set_default_shipping">Save this information for next time</label> <br/>
-             
-            {% if default_shipping_address  %}
-            
-                <input type="checkbox" class="custom-control-input" id="use_default_shipping" name="use_default_shipping">
-                <label class="custom-control-label" for="use_default_shipping">Use default shipping address: {{ default_shipping_address.street_address|truncatechars:10 }}</label>
-           
-            {% endif %}
+            <label class="custom-control-label" for="set_default_shipping"><small>Save this information for next time</small></label>
            
           </div>
+            
+          {% if default_shipping_address  %}
+            
+          <input type="checkbox" class="custom-control-input" id="use_default_shipping" name="use_default_shipping">
+          <label class="custom-control-label" for="use_default_shipping"><small>Use default shipping address:</small> <span class="text text-primary">{{ default_shipping_address }}</span></label>
+     
+         {% endif %}
+     
 
           <hr>
           <h4>Billing address</h4>
           <div class="hideable_billing_form">
             <label for="billing_address">Address:</label>
-            <input type="text" class="form-control" name="billing_address" id="billing_address" placeholder="1234 Main St" required="">
+            <input type="text" class="form-control" name="billing_address" id="billing_address" placeholder="1234 Main St" >
            
             <label for="billing_address2">Address 2 <span class="text-muted">(Optional)</span></label>
             <input type="text" name="billing_address2"  class="form-control" id="billing_address2" placeholder="Apartment or suite">
@@ -56,23 +58,23 @@
 
               
             <label for="billing_zip">Zip:</label>
-            <input type="text" class="form-control" name="billing_zip" id="billing_zip" placeholder="Enter Zip" required=""> <br>
+            <input type="text" class="form-control" name="billing_zip" id="billing_zip" placeholder="Enter Zip"> <br>
             
             <input type="checkbox" class="custom-control-input" id="set_default_billing" name="set_default_billing">
-            <label class="custom-control-label" for="set_default_billing">Save this information for next time</label>
+            <label class="custom-control-label" for="set_default_billing"><small>Save this information for next time</small></label>
              
-          
-            {% if default_billing_address %}   
-            <input type="checkbox" class="custom-control-input" id="use_default_billing" name="use_default_billing">
-            <label class="custom-control-label" for="use_default_billing">Use default Billing Address:{{ default_billing_address.street_address|truncatechars:10 }}</label>
-            {% endif %}
-                
-           
           </div>
+
+          {% if default_billing_address %}
+            <div class="use-default-billing-adddress">
+            <input type="checkbox" class="custom-control-input" id="use_default_billing" name="use_default_billing">
+            <label class="custom-control-label" for="use_default_billing"><small>Use default Billing Address: </small><span class="text text-primary">{{ default_billing_address}}</span class="text text-primary"></label>
+            </div>
+            {% endif %}
           <button class="btn btn-primary btn-sm btn-block" type="submit">Continue to checkout</button>
         </form>
 
-        
+        {{so.shipping_address.country}}
   
       <!-- ............................. -->
 
@@ -100,9 +102,25 @@
 
 var hideable_shipping_form = $('.hideable_shipping_form');
 var hideable_billing_form = $('.hideable_billing_form');
+var d_billing_form = $('.d_billing_form');
+
 
 var use_default_shipping = document.querySelector("input[name=use_default_shipping]");
 var use_default_billing = document.querySelector("input[name=use_default_billing]");
+var same_billing_address =  document.querySelector("input[name=same_billing_address]");
+
+$("#same_billing_address").click(function(){
+  if(this.checked){
+    $(".hideable_billing_form").hide()
+    $(".use-default-billing-adddress").hide()
+  }
+  else {
+    $(".hideable_billing_form").show()
+    $(".use-default-billing-adddress").show()
+
+
+  }
+})
 
 use_default_shipping.addEventListener('change', function() {
   if (this.checked) {
@@ -119,6 +137,9 @@ use_default_billing.addEventListener('change', function() {
     hideable_billing_form.show();
   }
 })
+
+
+
 </script>    
 
 

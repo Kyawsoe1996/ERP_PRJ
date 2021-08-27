@@ -43,6 +43,8 @@ class CheckoutForm(forms.Form):
 
         for i in self.fields:
             self.fields[i].widget.attrs.update({'class':'form-control'})
+        
+       
        
 
 

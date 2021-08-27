@@ -1,10 +1,12 @@
+from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.http import JsonResponse,HttpResponse
 from django.shortcuts import redirect, render
+from django.utils import tree
 from product.models import Product,ProductCategory
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
-from customer.models import Customer
+from customer.models import Addr, Customer
 from sale.models import SaleOrder,SaleOrderLine
 import datetime
 #method for creating ref number 
@@ -241,11 +243,37 @@ def RemovefromCart(request,product):
     return redirect("frontend:view-cart")
 
 
+def blank_value_check_into_form(data):
+    for checklist in data:
+        if checklist == '':
+            return False
+    
+    return True
+
+
+
 class CheckoutView(View):
     def get(self, request, *args, **kwargs):
+       
+
         context = {
-            'form': CheckoutForm()
+            'form': CheckoutForm(),
+            
         }
+
+        shipping_addr_obj = request.user.customer.get_default_shipping_address()
+        if shipping_addr_obj:
+            default_shipping_address = shipping_addr_obj.street_address +", " + shipping_addr_obj.country.name
+            context.update({"default_shipping_address":default_shipping_address})
+           
+
+       
+        billing_addr_obj = request.user.customer.get_default_billing_address()
+        if billing_addr_obj:
+            default_billing_address = billing_addr_obj.street_address +", " + billing_addr_obj.country.name  
+            context.update({"default_billing_address":default_billing_address})
+         
+ 
 
         return render(self.request,"user-frontend/user-ui/checkout.html",context)
 
@@ -253,35 +281,111 @@ class CheckoutView(View):
    
     def post(self, request, *args, **kwargs):
         form = CheckoutForm(self.request.POST or None)
-        
+        customer_obj = request.user.customer
+        try:
+            so_obj = SaleOrder.objects.filter(customer=request.user.customer, status='q')
+            so_obj = so_obj [0]
+        except:
+            return JsonResponse({"error":"You don't have the active order"})
+
         if form.is_valid():
-            print("Form valid..........")
+
             shipping_address = form.cleaned_data.get('shipping_address')
             shipping_address2 = form.cleaned_data.get('shipping_address2')
             shipping_country = form.cleaned_data.get('shipping_country')
             shipping_zip = form.cleaned_data.get('shipping_zip')
             same_billing_address = form.cleaned_data.get('same_billing_address')
             set_default_shipping = form.cleaned_data.get('set_default_shipping')
-
-
+            use_default_shipping = form.cleaned_data.get('use_default_shipping')
 
 
             billing_address  = form.cleaned_data.get('billing_address')
             billing_address2 = form.cleaned_data.get('billing_address2')
             billing_country = form.cleaned_data.get('billing_country')
             billing_zip  = form.cleaned_data.get('billing_zip')
+            use_default_billing = form.cleaned_data.get('use_default_billing')
             set_default_billing = form.cleaned_data.get('set_default_billing')
             
 
+           
+            #27.8.2021 Home 11:26 am
+            # https://stackoverflow.com/questions/1571570/can-a-dictionary-be-passed-to-django-models-on-create
 
+            shipping_data = {
+                        "customer":customer_obj,
+                        "street_address":shipping_address,
+                        "apartment_address":shipping_address2,
+                        "country": shipping_country,
+                        "zip":shipping_zip,
+                        "address_type":'S',
 
+                        }
 
+            billing_data = {
+                "customer":request.user.customer,
+                "street_address":billing_address,
+                "apartment_address":billing_address2,
+                "country": billing_country,
+                "zip":billing_zip,
+                "address_type":'B',
 
+                    }
 
-            
+            #getting default addresses from Customer model method
+            shipping_address_obj = customer_obj.get_default_shipping_address()
+            billing_address_obj = customer_obj.get_default_billing_address()
 
+            if use_default_shipping:
+                print("Yes...............")
+                so_obj.shipping_address = shipping_address_obj
+                so_obj.save()
+            else:
+                print("User is entering new shipping address")
+                shipping_check_lists = [shipping_address,shipping_address2,shipping_country,shipping_zip]
+                all_field_check = blank_value_check_into_form(shipping_check_lists)
+                if all_field_check:
+                    shipping_addr_obj = Addr.objects.create(**shipping_data)
+                    so_obj.shipping_address = shipping_addr_obj
+                    so_obj.save()
 
-            # print(request.POST['use'])
+                    if set_default_shipping:
+                        shipping_addr_obj.default = True
+                        shipping_addr_obj.save()  
+                else:
+                    messages.info(self.request,"Fill all information in Shipping Form")
+                    return redirect("frontend:checkout-view")
+            if same_billing_address:
+                shipping_addr_obj.pk = None
+                billing_addr_obj = shipping_addr_obj
+                billing_addr_obj.address_type= 'B'
+                #if Shiping Addr and Set to trure, Bill also set to true, You can
+                # add false as below for billing addresss setting
+                # billing_addr_obj.default = False
+                billing_addr_obj.save()
+                so_obj.billing_address = billing_addr_obj
+                so_obj.save()
+
+            elif use_default_billing:
+                so_obj.billing_address = billing_address_obj
+                so_obj.save()
+                print("Using Default Billing")
+            else:
+                
+                print("Entering new billing address")
+                billing_check_lists = [billing_address,billing_address2,billing_country,billing_zip]
+                all_field_check = blank_value_check_into_form(billing_check_lists)
+                if all_field_check:
+                    billing_addr_obj = Addr.objects.create(**billing_data)
+                    so_obj.billing_address = billing_addr_obj
+                    so_obj.save()
+                    
+                    if set_default_billing:
+                        billing_addr_obj.default = True
+                        billing_addr_obj.save()
+                else:
+                    messages.info(self.request,"Fill all information in Billing Form")
+                    return redirect("frontend:checkout-view")
+
         return JsonResponse({"data":"Posted"})
     
     

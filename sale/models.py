@@ -3,6 +3,7 @@ from django.db.models.fields import CommaSeparatedIntegerField, related
 from customer.models import Customer
 from product.models import Product
 import  datetime
+from customer.models import Addr
 
 # Create your models here.
 
@@ -27,6 +28,12 @@ class SaleOrder(models.Model):
     created_date = models.DateTimeField(auto_now=True)
     status = models.CharField(choices=STATUS,default='q',max_length=2)
     total_price = models.FloatField(blank=True,null=True)
+    shipping_address = models.ForeignKey(
+        Addr, related_name='shipping_address', on_delete=models.SET_NULL, blank=True, null=True)
+    billing_address = models.ForeignKey(
+        Addr, related_name='billing_address', on_delete=models.SET_NULL, blank=True, null=True)
+
+
 
     def sale_order_total(self):
         total = 0

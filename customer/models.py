@@ -27,12 +27,7 @@ class Customer(models.Model):
     is_vendor =models.BooleanField(default=False)
     country = CountryField(multiple=False)
     image = models.ImageField()
-    shipping_address = models.ForeignKey(
-        'Addr', related_name='shipping_address', on_delete=models.SET_NULL, blank=True, null=True)
-    billing_address = models.ForeignKey(
-        'Addr', related_name='billing_address', on_delete=models.SET_NULL, blank=True, null=True)
-
-
+   
    
 
     class Meta:
@@ -54,6 +49,26 @@ class Customer(models.Model):
         return reverse('customer:customer-detail', kwargs={'id' : self.id})
 
 
+    def get_default_shipping_address(self):
+        
+        default_shipping_address = self.addresses.filter(address_type='S',default=True)
+        if default_shipping_address.exists():
+            return default_shipping_address[0]
+        else:
+            return False
+
+    
+    def get_default_billing_address(self):
+ 
+        default_billing_address = self.addresses.filter(address_type='B',default=True)
+        if default_billing_address.exists():
+            return default_billing_address[0]
+        else:
+            return False
+        
+        
+
+
 @receiver(post_save, sender=User)
 def create_customer_when_create_user(sender, instance, created, **kwargs):
     if created:
@@ -71,7 +86,7 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 
 #addresss Model
 class Addr(models.Model):
-    customer = models.ForeignKey(Customer,
+    customer = models.ForeignKey(Customer, related_name="addresses",
                              on_delete=models.CASCADE)
     street_address = models.CharField(max_length=1000)
     apartment_address = models.CharField(max_length=1000)
@@ -85,4 +100,9 @@ class Addr(models.Model):
     
     class Meta:
         verbose_name_plural ='Addresses'
+
+    
+    def get_default_shipping_address(self):
+
+        pass
 
