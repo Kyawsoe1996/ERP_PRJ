@@ -49,7 +49,7 @@
 
                             <td class="float-right" >
                                 <a class="btn btn-primary btn-sm" href="{% url 'purchase:purchase-detail' po.id %}">View</a>
-                                <a class="btn btn-secondary btn-sm" href="{% url 'purchase:purchase-update' po.id %}">Edit</a>
+                                <a class="btn btn-secondary btn-sm po-edit" href="{% url 'purchase:purchase-update' po.id %}">Edit</a>
                                 
                                 <!-- <a class="btn btn-success btn-sm" href="#">Edit</a>
                                 <a class="btn btn-danger btn-sm" href="#">Delete</a> -->
@@ -69,5 +69,16 @@
 {% endblock content %}
 
 
+
 <!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+<script type="text/javascript">
+    $(".po-edit").click(function(){
+        console.log("Btn clicked")
+        
+        var  url="{% url 'purchase:purchase-list'   %}"
+        console.log(window.location)
+
+    })
+</script>
+{% endblock javascripts %}

@@ -1,3 +1,7 @@
+
+import django
+from product.models import Product
+from customer.models import Customer
 from django import forms
 from django.db.models import fields
 from .models import PurchaseOrderLine,PurchaseOrder
@@ -14,18 +18,39 @@ import datetime
 class DateInput(forms.DateInput):
     input_type = 'date'
 
+from django.forms import BaseInlineFormSet
+
+class BasePurchaseOrderLine(BaseInlineFormSet):
+    def __init__(self, other_model_queryset, *args, **kwargs):
+        super(BasePurchaseOrderLine, self).__init__(*args, **kwargs)
+        for form in self.forms:
+            form.fields['product'].queryset = other_model_queryset
 
 class PurchaseOrderLineForm(forms.ModelForm):
 
     class Meta:
         model = PurchaseOrderLine
         exclude = ()
+    
+    def __init__(self, *args, **kwargs):
+        super(PurchaseOrderLineForm, self).__init__(*args, **kwargs)
+        
+        # customer_obj = Customer.objects.get(id=24)
+        # self.fields["product"].queryset = Product.objects.filter(vendor=customer_obj)
 
+      
+
+
+
+
+
+#passing formset additionally to work with inline formset 
 
 PurchaseOrderLineFormSet = inlineformset_factory(
     PurchaseOrder, PurchaseOrderLine, form=PurchaseOrderLineForm,
-    fields=['product', 'quantity'], extra=1, can_delete=True
+    fields=['product', 'quantity'], extra=1, can_delete=True,formset=BasePurchaseOrderLine
     )
+
 
 
 class PurchaseOrderForm(forms.ModelForm):

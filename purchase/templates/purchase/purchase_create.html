@@ -49,8 +49,125 @@
 
 
     <script>
+        //https://stackoverflow.com/questions/19491336/how-to-get-url-parameter-using-jquery-or-plain-javascript
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
 
-   
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+            return false;
+        };
+        
+        console.log("Called Method")
+       
+        $(document).ready(function() {
+        var  purchase_url="{% url 'purchase:purchase-order'   %}"
+       
+        if (window.location.pathname == purchase_url ) {
+            console.log("Equaul")
+            $("select[name='vendor']").change(function(e) {
+            var vendorId = $(this).val();
+            $(this).val(vendorId)
+            vendorId = parseInt(vendorId)
+            console.log(vendorId)
+            $("select[name='vendor']").val(vendorId)
+            // var url = 'http://localhost:8000/purchase/'
+            var  url="{% url 'purchase:purchase-order'   %}"
+            console.log(window.location.href)
+            var RedirectURL = url + '?' + 'vendor='+vendorId
+            // 'http://localhost:8000/purchase/?' + 'vendor='+ vendorId
+            var mydata = {vendor:vendorId}
+            //checking whether create or update URL
+       
+                $.ajax({
+                method:"GET",
+                url:url,
+                data:mydata,
+                success:function(response){
+                    console.log("success")
+                    window.location.href =RedirectURL
+                    
+                    $("select[name='vendor']").val(vendorId)
+                    console.log($("select[name='vendor']").val(vendorId))
+                }
+
+
+
+            })
+          
+           
+            
+        });
+        }
+        else {
+           var pathname = window.location.pathname
+            var array = pathname.split('/')
+            var editedId = array[3]
+            
+           console.log(editedId)
+           var purchaseUpdateUrl = "{% url 'purchase:purchase-update' 1   %}"
+            purchaseUpdateUrl  =purchaseUpdateUrl.replace('1',editedId)
+          
+       
+           $("select[name='vendor']").change(function(e) {
+            var vendorId = $(this).val();
+            $(this).val(vendorId)
+            vendorId = parseInt(vendorId)
+            console.log(vendorId)
+            $("select[name='vendor']").val(vendorId)
+            
+            var  url=purchaseUpdateUrl
+            var RedirectURL = url + '?' + 'vendor='+vendorId
+            
+            // var RedirectURL = url + '?' + 'vendor='+vendorId
+            
+            var mydata = {vendor:vendorId}
+          
+                $.ajax({
+                method:"GET",
+                url:url,
+                data:mydata,
+                success:function(response){
+                    console.log("success")
+                    window.location.href =RedirectURL
+                    
+                    $("select[name='vendor']").val(vendorId)
+                    
+                }
+
+
+
+            })
+          
+           
+            
+        });
+
+
+           
+        }
+
+
+         
+        // var  updateURL="{% url 'purchase:purchase-order'   %}"
+        // if (window.location.href== updateURL) {
+        //     console.log("Update URL calling")
+        // }
+       
+        // after document ready, pass the vendor id and set in option
+        var tech = getUrlParameter('vendor');
+        console.log(tech)
+        $("select[name='vendor']").val(tech)
+       
+    })
 
         
  

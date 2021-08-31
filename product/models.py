@@ -7,6 +7,7 @@ import barcode                      # additional imports
 from barcode.writer import ImageWriter
 from io import BytesIO
 from django.core.files import File
+from customer.models import Customer
 
 # Create your models here.
 
@@ -65,6 +66,7 @@ class Product(models.Model):
     # barcode = models.IntegerField(blank=True,null=True)
     sale_price = models.FloatField(blank=True,null=True)
     purchase_price = models.FloatField(blank=True,null=True)
+    vendor = models.ForeignKey(Customer,related_name="products",on_delete=models.CASCADE,blank=True,null=True)
 
 
     class Meta:
@@ -79,6 +81,9 @@ class Product(models.Model):
     def get_absolute_url(self):
         
         return reverse('product:product-detail', kwargs={'id': self.id})
+
+    
+    
 
 
    

@@ -1,3 +1,5 @@
+from django.db.models import query
+from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
 from .models import PurchaseOrder,PurchaseOrderLine
 from .forms import PurchaseOrderLineForm,PurchaseOrderLineFormSet,PurchaseOrderForm
@@ -10,6 +12,9 @@ from django import forms
 import datetime
 from django.forms import widgets
 from .models import STATUS
+from product.models import Product
+from customer.models import Customer
+
 
 
 
@@ -51,10 +56,30 @@ class PurchaseOrderCreate(CreateView):
    
     def get_context_data(self, **kwargs):
         data = super(PurchaseOrderCreate, self).get_context_data(**kwargs)
-        if self.request.POST:
-            data['titles'] = PurchaseOrderLineFormSet(self.request.POST)
+        vendor = self.request.GET.get('vendor')
+        if vendor is not None:
+            vendor = int(vendor)
+            print(vendor)
+            # vendor = int(vendor)
+            # print(vendor,"Integer")
+           
+            
+            customer_obj = Customer.objects.get(id=vendor)
+            queryset = Product.objects.filter(vendor=customer_obj)
+        
+            if self.request.POST:
+                data['titles'] = PurchaseOrderLineFormSet(queryset,self.request.POST)
+            else:
+                if self.request.is_ajax:
+                    data['titles'] = PurchaseOrderLineFormSet(queryset)
         else:
-            data['titles'] = PurchaseOrderLineFormSet()
+            if self.request.POST:
+                data['titles'] = PurchaseOrderLineFormSet(self.request.POST)
+            else:
+            #https://stackoverflow.com/questions/19305964/change-queryset-of-model-field-in-inlineformset-of-non-parent-model 
+
+                queryset = Product.objects.all()
+                data['titles'] = PurchaseOrderLineFormSet(queryset)
         return data
 
     def form_valid(self, form):
@@ -101,11 +126,29 @@ class PurchaseUpdateView(UpdateView):
 
 
     def get_context_data(self, **kwargs):
+        vendor = self.request.GET.get('vendor')
+        print(vendor,"#########")
         data = super(PurchaseUpdateView, self).get_context_data(**kwargs)
-        if self.request.POST:
-            data['titles'] = PurchaseOrderLineFormSet(self.request.POST, instance=self.object)
+        if vendor is not None:
+            vendor = int(vendor)
+            print(vendor)
+            # vendor = int(vendor)
+            # print(vendor,"Integer")
+           
+            
+            customer_obj = Customer.objects.get(id=vendor)
+            queryset = Product.objects.filter(vendor=customer_obj)
+       
+            if self.request.POST:
+                data['titles'] = PurchaseOrderLineFormSet(queryset,self.request.POST, instance=self.object)
+            else:
+                data['titles'] = PurchaseOrderLineFormSet(queryset,instance=self.object)
         else:
-            data['titles'] = PurchaseOrderLineFormSet(instance=self.object)
+            if self.request.POST:
+                data['titles'] = PurchaseOrderLineFormSet(self.request.POST, instance=self.object)
+            else:
+                queryset = Product.objects.all()
+                data['titles'] = PurchaseOrderLineFormSet(queryset,instance=self.object)
         return data
 
     
@@ -131,4 +174,12 @@ class PurchaseUpdateView(UpdateView):
           
         return super(PurchaseUpdateView, self).form_valid(form)
 
+
+def CallMethod(request):
+
+    print ("Called")
+   
+    
+   
+    return JsonResponse({"data":"EZ"})
    

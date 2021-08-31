@@ -8,7 +8,9 @@ from .views import(
         # WarehouseCreateView,
         # WarehouseDetailView,
         # WarehouseUpdateView,
-        # WarehouseDeleteView
+        # WarehouseDeleteView,
+
+        CallMethod
 
 ) 
 
@@ -21,6 +23,7 @@ urlpatterns = [
     path("detail/<int:pk>/",PurchaseDetailView.as_view(),name="purchase-detail"),
     path("update/<int:pk>/",PurchaseUpdateView.as_view(),name="purchase-update"),
 
+    path('gg/',CallMethod,name="called")
 
     
 
