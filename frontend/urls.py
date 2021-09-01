@@ -1,4 +1,6 @@
 from django.urls import path,include
+from django.contrib.auth.decorators import login_required
+
 from .views import (
     IndexView,
     GetCategoryRelatedProduct,
@@ -10,6 +12,7 @@ from .views import (
     UpdateCart,
     RemovefromCart,
     CheckoutView,
+    SearchView,
 )
 
 app_name="frontend"
@@ -25,6 +28,9 @@ urlpatterns = [
     path('update-cart/',UpdateCart,name="update-cart"),
     path('removefromcart/<int:product>/',RemovefromCart,name="remove-from-cart"),
     path('checkout/',CheckoutView.as_view(),name="checkout-view"),
+    path('search/',SearchView,name="search-view"),
+
+
 
 
 

@@ -1,0 +1,41 @@
+
+<div>
+    <button id="hidesearchList" class="btn btn-sm btn-danger" ><i class="fa fa-times" aria-hidden="true"></i></button>
+<h5 class="text-center  text-primary" >Search Results List</h5>
+
+
+
+
+
+<div class="card1">
+    
+    {% if product_lists.count > 0 %}
+        {% for product in product_lists %}
+        <div class="card-item">
+            <p class="text-center"><span class="badge badge-success">{{product.category.name}}</span></p>
+        <a href="#"><img src="{{product.image.url}}" width="200px" height="100px"></a>
+        <p>{{product.name}}</p>
+        <p>Category:{{product.category.name}}</p>
+        <p>Price: {{product.sale_price}}</p>
+        <p class="card-text">Some quick example text tod's content.</p>
+        <a href="{% url 'frontend:p-detail' product.id %}" class="view-btn" style="display: block;">View</a>
+        </div>
+    
+    
+        {% endfor %}
+    {% else %}
+    <h3 class="text text-center">No Products Found 
+        <i style="color:silver; font-size: 20px;" class="fa fa-frown-open" aria-hidden="true"></i>
+        <i style="color:silver; font-size: 30px;" class="fa fa-heart-broken" aria-hidden="true"></i>
+        <i style="color:silver; font-size: 40px;" class="fa fa-sad-cry" aria-hidden="true"></i>
+        
+    </h3>
+    {% endif %}
+        
+   
+</div>
+</div>
+<hr>
+
+    
+

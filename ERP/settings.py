@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+from ERP.ERP import urls
 from pathlib import Path
 import os
 from django.core.exceptions import ImproperlyConfigured
@@ -170,6 +171,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
 
 
 

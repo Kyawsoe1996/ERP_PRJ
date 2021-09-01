@@ -118,21 +118,30 @@ main p {
 }
 
 .card-item {
-    border:1px solid #ebecf0;
+    border: 2px solid white;
+    box-shadow: 0 2px 7px rgb(0 0 0 / 0.2);
+    background:white;
     align-items: center;
     justify-content: center;
     flex-basis: 20%; 
-    border-radius: 30px;
-    background-color: transparent;
+    border-radius: 10px;
+    /* background-color: transparent; */
     padding: 15px;
     box-sizing: border-box;
     transition: transform .5s;
     transform: translateZ(0);
     margin:5px 5px;
-    background-color: rgb(248, 245, 245);
+    /* background-color: rgb(197, 88, 88); */
    
     
 }
+
+
+
+
+
+
+
 .card-item image {
     color: transparent;
     vertical-align: middle;
@@ -599,7 +608,7 @@ main p {
     color: #333333;
     white-space: normal;
   }
-  .megamenu> li ul > li > a:hover,
+  .megamenu> li ul > li > a:,
   .megamenu> li ul > li > a:focus {
     text-decoration: none;
     color: #262626;
@@ -647,3 +656,45 @@ main p {
 
 
 /* ................................... */
+
+
+/* ...............Seach.............. */
+.search {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+
+}
+.search .search-btn{
+ 
+
+
+
+  padding:10px 40px;
+  background: #c4c4f7;
+ 
+  outline: none;
+  border: none;
+  font-weight: 700;
+  border-radius: 17px;
+  color:white;
+  
+}
+
+
+.search .search-input {
+  padding: 10px 40px;
+  background:white;
+  border-radius: 7px;
+  box-shadow: 0 2px 7px rgb(0 0 0 / 0.2);
+  border: 1px solid #f5e9e6;
+  
+}
+
+.search-input:focus{
+   
+    color: blue;
+    
+}
+
+/* .......................... */

@@ -127,7 +127,6 @@ class PurchaseUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         vendor = self.request.GET.get('vendor')
-        print(vendor,"#########")
         data = super(PurchaseUpdateView, self).get_context_data(**kwargs)
         if vendor is not None:
             vendor = int(vendor)

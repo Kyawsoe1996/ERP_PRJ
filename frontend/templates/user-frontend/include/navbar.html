@@ -274,31 +274,25 @@
       </div>
     </div>
   </div>
+  <div class="search">
+    <div>
+      <form method="post">
+        {% csrf_token %}
+      <input type="text" name="search" class="search-input"/>
+      <input type="submit" value="search" class="search-btn" />
+    </form>
+  </div> 
+  </div>
+  <div id="SearchData">
+
+  </div>
 
 
 
   {% include 'user-frontend/include/script.html' %}
 
     <script type="text/javascript">
-        // $(".onCardShow").hover(function(){
-        //   $(".so-lists").show();
-        // })
-        // $("#onCardShow").mouseleave(function(){
-        //   $(".so-lists").hide();
-        // })
-
-      
-
-
-      //   $(document).on({
-      //     mouseenter: function() {
-      //         $(".so-lists").show();
-      //     },
-      //     click: function() {
-      //         $(".so-lists").hide();
-      //     }
-      // }, ".onCardShow");
-
+     
 
         $(document).ready(function() {
             $(".onCardShow").on("mouseenter", function() {
@@ -307,6 +301,49 @@
             $(".so-lists").on("mouseleave", function() {
               $(this).hide();  //or $('.overlay').hide()
             });
+
+            // onclick search btn
+            $(".search-btn").click(function(e){
+                $("#SearchData").show()
+                var url = "{% url 'frontend:search-view' %}" 
+                e.preventDefault()
+                var searchVal = $(".search-input").val()
+                console.log(searchVal)
+                if(searchVal === ''){
+                  alert("Type something to search")
+                }
+                else {
+                  var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val()
+                  mydata = {csrfmiddlewaretoken:csrfmiddlewaretoken,search:searchVal}
+
+
+                  $.ajax({
+                    method:'POST',
+                    data:mydata,
+                    url:url,
+                    success:function(res){
+                        $("#SearchData").html(res)
+                        $("#hidesearchList").click(function(){
+                          $("#SearchData").hide()
+                       
+
+
+                        })
+                    },
+                    error:function(error){
+                      console.log(error)
+                    }
+                    
+
+                  })
+                }
+
+              
+
+
+               
+            })
+
         },);
           </script>
   {% block javascripts %}{% endblock javascripts %}

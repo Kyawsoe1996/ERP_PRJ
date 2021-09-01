@@ -15,6 +15,8 @@ from sale.views import  create_so_num
 import json 
 from django.views.generic import View
 from frontend.forms import CheckoutForm
+# from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 def IndexView(request):
@@ -252,7 +254,8 @@ def blank_value_check_into_form(data):
 
 
 
-class CheckoutView(View):
+class CheckoutView(LoginRequiredMixin,View):
+    login_url = '/login/'
     def get(self, request, *args, **kwargs):
        
 
@@ -405,6 +408,20 @@ class CheckoutView(View):
                     return redirect("frontend:checkout-view")
 
         return JsonResponse({"data":"Posted"})
+
+
+def SearchView(request):
+    search_value = request.POST.get('search')
+    product_lists = Product.objects.filter(name__icontains=search_value)
+  
+
+    context = {
+        "product_lists":product_lists
+    }
+
+    return render(request,"user-frontend/user-ui/search_results.html",context)
+
+    # return JsonResponse({"search":"success"})
     
     
 
