@@ -21,8 +21,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 def IndexView(request):
     product_lists = Product.objects.all()
+    vendor_lists = Customer.objects.filter(is_vendor=True)
     context = {
         "product_lists": product_lists,
+        "vendor_lists":vendor_lists
        
     }
     return render(request,"user-frontend/user-ui/index.html",context)

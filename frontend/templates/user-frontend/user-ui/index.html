@@ -28,12 +28,37 @@
 
 
 <a href="#" id="ggwp">CLICK TO GET</a>
+<h3 class="promotion-banner">Official Stores</h3>
+
+
+    
+
+    
+<div class="official-store-card1">
+    {% for vendor  in vendor_lists %}
+    <div class="official-store-card-item">
+    
+            <a href="#"><img src="{{vendor.image.url}}"  class="img-center" width="150px" height="80px"></a>
+            <p>{{vendor.name}}</p>
+           
+            
+        
+        
+        
+
+    </div>
+   {% endfor %} 
+  
+   
+</div>
+<hr>
+
 
 <div class="card1">
 
     {% for product in product_lists %}
     <div class="card-item">
-        <p class="text-center"><span class="badge badge-success">{{product.category.name}}</span></p>
+        <p class="text-center"><span class="badge badge-success"></span></p>
     <a href="#"><img src="{{product.image.url}}" width="200px" height="100px"></a>
     <p>{{product.name}}</p>
     <p>Category:{{product.category.name}}</p>

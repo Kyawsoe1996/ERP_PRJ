@@ -278,7 +278,7 @@
     <div>
       <form method="post">
         {% csrf_token %}
-      <input type="text" name="search" class="search-input"/>
+      <input type="text" name="search" class="search-input" placeholder="Search Product ..."/>
       <input type="submit" value="search" class="search-btn" />
     </form>
   </div> 
@@ -305,6 +305,7 @@
             // onclick search btn
             $(".search-btn").click(function(e){
                 $("#SearchData").show()
+              
                 var url = "{% url 'frontend:search-view' %}" 
                 e.preventDefault()
                 var searchVal = $(".search-input").val()
@@ -325,6 +326,8 @@
                         $("#SearchData").html(res)
                         $("#hidesearchList").click(function(){
                           $("#SearchData").hide()
+                          $(".search-input").val('')
+                         
                        
 
 

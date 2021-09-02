@@ -529,7 +529,56 @@ main p {
 
 
 
+/* Index Page Official Store ...... */
 
+.official-store-card1 {
+  display: flex;
+  
+
+  
+  
+}
+
+.official-store-card-item{
+  border: 2px solid white;
+  box-shadow: 0 2px 7px rgb(0 0 0 / 0.2);
+  background:white;
+  align-items: center;
+  justify-content: center;
+  flex-basis: 15%;
+  border-radius: 10px;
+  /* background-color: transparent; */
+  padding: 15px;
+  box-sizing: border-box;
+  transition: transform .5s;
+  transform: translateZ(0);
+  margin:5px 5px;
+  
+}
+
+.official-store-card-item image {
+  color: transparent;
+  vertical-align: middle;
+}
+
+.official-store-card-item a img {
+  border: none;
+}
+
+.official-store-card-item p {
+  text-align: center;
+  text-transform: uppercase;
+}
+
+
+
+.official-store-card-item .img-center {
+  display: block;
+  width: 50%;
+}
+  
+
+/* ....................................... */
 
 
 
