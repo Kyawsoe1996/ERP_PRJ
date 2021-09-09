@@ -424,7 +424,28 @@ def SearchView(request):
     return render(request,"user-frontend/user-ui/search_results.html",context)
 
     # return JsonResponse({"search":"success"})
-    
+
+
+#9-9-2021
+class VendorDetailView(View):
+    def get(self, request, *args, **kwargs):
+        vendor_id = kwargs.get("id")
+        try:
+            vendor_obj = Customer.objects.get(id=vendor_id)
+        except:
+            context = {
+            "page":"Official Store Detail",
+            "detail":"The related official store can't be found"
+            }
+            return render(request,"page-404.html",context)
+        context = {
+            "vendor":vendor_obj,
+        }
+        return render(request,"user-frontend/user-ui/vendor_detail.html",context)
+
+
+    def post(self, request, *args, **kwargs):
+        return HttpResponse('POST request!')
     
 
 

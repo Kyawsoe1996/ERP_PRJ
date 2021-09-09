@@ -1,0 +1,35 @@
+{% extends 'user-frontend/base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+   <div class="os-top-banner">
+      <div class="on-top">
+            <img src="{{vendor.image.url}}">
+            <div>
+                <h4>{{vendor.name}}</h4> 
+                <p class="badge badge-primary">Official Store</p>
+                <p> 96% rating from customer</p>
+            </div>
+            <p class="border-add-follower">1000 Followers</p>
+      </div>
+   </div>
+   <hr>
+   <div class="list-den">
+      
+         <ul>
+            <li><a href="#">HomePage</a></li>
+            <li><a href="#">All Products</a></li>
+
+         </ul>
+    
+     
+   </div>
+{% endblock content %}
+
+
+{% block javascripts %}
+    
+{% endblock javascripts %}
+    

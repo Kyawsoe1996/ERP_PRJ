@@ -31,14 +31,83 @@
 <h3 class="promotion-banner">Official Stores</h3>
 
 
+
+
+<!-- .......Carousel With Official Store......... -->
+
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+  
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+      
+    <div class="item active">
+      <div class="official-store-card1">
+          {% for vendor  in vendor_lists %}
+          <div class="official-store-card-item">
+          
+                  <a href="{% url 'frontend:vendor-detail' vendor.id %}"><img src="{{vendor.image.url}}"  class="img-center" width="150px" height="80px"></a>
+                  <p>{{vendor.name}}</p>
+                 
+                  
+              
+              
+              
+      
+          </div>
+         {% endfor %} 
+        
+         
+      </div>
+    </div>
+    <div class="item">
+      <div class="official-store-card1">
+        {% for vendor  in vendor_lists %}
+        <div class="official-store-card-item">
+        
+                <a href="{% url 'frontend:vendor-detail' vendor.id %}"><img src="{{vendor.image.url}}"  class="img-center" width="150px" height="80px"></a>
+                <p>{{vendor.name}}</p>
+               
+                
+            
+            
+            
     
+        </div>
+       {% endfor %} 
+      
+       
+    </div>
+
+    </div>
+  
+    
+  </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left text-primary" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right text-primary" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+<!-- .......................... -->
+
 
     
 <div class="official-store-card1">
     {% for vendor  in vendor_lists %}
     <div class="official-store-card-item">
     
-            <a href="#"><img src="{{vendor.image.url}}"  class="img-center" width="150px" height="80px"></a>
+            <a href="{% url 'frontend:vendor-detail' vendor.id %}"><img src="{{vendor.image.url}}"  class="img-center" width="150px" height="80px"></a>
             <p>{{vendor.name}}</p>
            
             
@@ -52,6 +121,12 @@
    
 </div>
 <hr>
+
+
+
+
+
+
 
 
 <div class="card1">
@@ -143,6 +218,8 @@
         
         })
     </script> -->
+
+
 {% endblock javascripts %}
 
 

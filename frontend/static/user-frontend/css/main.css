@@ -426,6 +426,9 @@ main p {
 .badge-success {
   background:green;
 }
+.badge-primary {
+  background:blue;
+}
 
 .user-icon-right {
   /* margin-right: auto; */
@@ -581,6 +584,67 @@ main p {
 /* ....................................... */
 
 
+
+/* ............Official Store Detail Page.............. */
+  .os-top-banner {
+    display: flex;
+    background-image: url(../images/banner1.jpg) ;
+    /* background:green; */
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .on-top {
+    flex-basis: 40%;
+    display: flex;
+    border: 1px solid white;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 0.2);
+    background:white;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    transition: transform .5s;
+    transform: translateZ(0); 
+    z-index: 2;
+    margin-top: 25px;
+    margin-bottom: 0;
+  }
+  .on-top img {
+    height: 60px;
+    width: 140px;
+   
+  }
+  .on-top h4 {
+    text-transform: uppercase;
+  }
+  .border-add-follower {
+    border-left: 1px solid blue;
+    height: 50px;
+  }
+
+  .list-den ul {
+    display: flex;
+    margin:20px
+    
+  }
+
+  .list-den ul li a {
+    text-decoration: none;
+    color:black
+  }
+
+  .list-den ul li  {
+    padding: 10px 20px;
+    list-style-type: none;
+    
+  }
+
+
+
+
+/* ...................................................... */
 
 
 
@@ -747,3 +811,15 @@ main p {
 }
 
 /* .......................... */
+
+
+
+
+
+.carousel-control.right{
+  background-image: none;
+}
+.carousel-control.left{
+  background-image: none;
+}
+
