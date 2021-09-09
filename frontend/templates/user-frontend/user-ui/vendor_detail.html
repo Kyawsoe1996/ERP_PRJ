@@ -16,15 +16,149 @@
       </div>
    </div>
    <hr>
+   
    <div class="list-den">
       
          <ul>
-            <li><a href="#">HomePage</a></li>
             <li><a href="#">All Products</a></li>
+            <li><a href="#">Profile</a></li>
 
          </ul>
     
      
+   </div>
+
+   <div class="os-main-content">
+      <div class="os-side-bar">
+         <form>
+         <h1>SideBar</h1>
+         <p>Related Categories</p>
+               <ul>
+                  <!-- https://docs.djangoproject.com/en/3.2/ref/templates/builtins/ -->
+                  {% for category in vendor.related_categories  %}
+                  <li><a href="#" class="{{category.name |slugify}}">{{category.name}}</a></li>
+                  {% empty %}
+                  <li>No Categories</li>
+                  {% endfor %}
+                     
+               
+               </ul>
+               <hr>
+
+               <div class="os-price">
+                  <p>Price</p> <br>
+                  <div class="os-price-input-lists">
+                     <input type="number" min="0" placeholder="Min" value pattern="[0-9]*" class="os-input-price"> <p>-</p> 
+                     <input type="number" min="0" placeholder="Max" value pattern="[0-9]*" class="os-input-price"> 
+                     <!-- <button><i class="fas fa-arrow-right"></i></button> -->
+                     <button><i class="far fa-caret-square-right"></i></button>
+                     
+                  </div>
+               </div>
+               <hr>
+
+               <div class="os-brand">
+                  <p>Brand</p>
+                  <input type="checkbox"> <span>Vendor</span>
+               </div>
+               <hr>
+
+               <div class="os-service">
+                  <p>Service</p>
+                  <input type="checkbox"> <span>Cash on Delivery</span> <br/>
+                  <input type="checkbox"> <span>Free Shipping</span> <br/>
+                  <input type="checkbox"> <span>Malle</span>
+
+               </div>
+               <hr>
+
+               <div class="os-location">
+                  <p>Location</p>
+                  <input type="checkbox"> <span>Myanmar</span>
+               </div>
+               <hr>
+
+
+               <div class="os-rating">
+                  <p>Rating</p>
+                  <div class="5-star">
+                     <i class="far fa-star full-star"></i>
+                     <i class="far fa-star full-star"></i> 
+                     <i class="far fa-star full-star"></i> 
+                     <i class="far fa-star full-star"></i> 
+                     <i class="far fa-star full-star"></i> 
+
+                  </div> 
+                  <div class="4-star">
+                     <i class="far fa-star full-star"></i>
+                     <i class="far fa-star full-star"></i> 
+                     <i class="far fa-star full-star"></i> 
+                     <i class="far fa-star full-star"></i>
+                     <i class="far fa-star"></i> 
+ 
+                    
+
+                  </div> 
+                  <div class="3-star">
+                     <i class="far fa-star full-star"></i>
+                     <i class="far fa-star full-star"></i> 
+                     <i class="far fa-star full-star"></i> 
+                     <i class="far fa-star"></i> 
+                     <i class="far fa-star"></i> 
+
+                  </div>
+
+                  <div class="2-star">
+                     <i class="far fa-star full-star"></i>
+                     <i class="far fa-star full-star"></i> 
+                     <i class="far fa-star"></i> 
+                     <i class="far fa-star"></i> 
+                     <i class="far fa-star"></i> 
+
+                  </div>
+
+                  <div class="1-star">
+                     <i class="far fa-star full-star"></i>
+                     <i class="far fa-star"></i> 
+                     <i class="far fa-star"></i> 
+                     <i class="far fa-star"></i> 
+                     <i class="far fa-star"></i> 
+
+                  </div>
+                  
+                  
+
+               </div>  
+               <hr>
+
+
+               <div class="os-warranty">
+                  <p>Warranty</p>
+                  <input type="checkbox"> <span>Warranty</span>
+               </div>
+               <hr>
+
+
+               <div class="os-color-family">
+                  <p>Color Family</p>
+                  <input type="checkbox"> <span>Black</span> <br/>
+                  <input type="checkbox"> <span>Yellow</span> <br/>
+                  <input type="checkbox"> <span>Green</span> <br/>
+                  <input type="checkbox"> <span>Red</span> <br/>
+                  <input type="checkbox"> <span>Silver</span> <br/>
+
+               </div>
+               <hr>
+
+
+              
+            
+         </form>
+         
+      </div>
+      <div class="os-product-lists">
+         <h1>All Product Lists</h1>
+      </div>
    </div>
 {% endblock content %}
 

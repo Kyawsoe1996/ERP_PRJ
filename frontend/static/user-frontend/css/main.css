@@ -641,6 +641,66 @@ main p {
     
   }
 
+  /* ......OS Main Content...... */
+    .os-main-content {
+      display: flex;
+      margin-left: 100px;
+    }
+
+    .os-side-bar  {
+      
+      flex-basis: 30%;
+    }
+
+    .os-product-lists {
+      display: flex;
+      flex-basis: 70%;
+    }
+
+    .os-side-bar ul li {
+      list-style-type: none;
+    }
+    .os-side-bar ul li a {
+      text-decoration: none;
+    }
+
+    .os-price-input-lists {
+      display: flex;
+     
+    }
+    .os-price-input-lists button {
+     
+      height: 30px;
+      padding: 0 7px;
+      border-radius: 3px;
+      outline: 0;
+      margin-left: 4px;
+      color: #fff;
+      background-color: #f57224;
+      border-color: #f57224;
+      
+    }
+    .os-input-price {
+     
+     
+      width: 70px;
+      height: 30px;
+      padding: 0 7px;
+      text-align: left;
+      color: #404040;
+      border: 1px solid #a8a8a8;
+      border-radius: 3px;
+      outline: 0;
+      background-color: #fff;
+      margin-left:4px;
+    }
+
+    .full-star {
+      background: #f57224;
+      
+    }
+  /* .................. */
+    
 
 
 

@@ -66,6 +66,20 @@ class Customer(models.Model):
         else:
             return False
         
+    def related_categories(self):
+        all_category_obj_of_this_vendor = []
+        products_lists = self.products.all()
+        for product in products_lists:
+            all_category_obj_of_this_vendor.append(product.category)
+       
+        #getting the unique category from set
+        #https://www.freecodecamp.org/news/python-unique-list-how-to-get-all-the-unique-values-in-a-list-or-array/
+        unique_categories = list(set(all_category_obj_of_this_vendor))
+       
+
+        return unique_categories
+        
+        
         
 
 
