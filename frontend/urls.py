@@ -14,6 +14,8 @@ from .views import (
     CheckoutView,
     SearchView,
     VendorDetailView,
+    #filtering on vendor detail  page
+    getVendorRelatedCategoryProducts
 )
 
 app_name="frontend"
@@ -31,6 +33,9 @@ urlpatterns = [
     path('checkout/',CheckoutView.as_view(),name="checkout-view"),
     path('search/',SearchView,name="search-view"),
     path('vendor/<int:id>/',VendorDetailView.as_view(),name="vendor-detail"),
+    path('get-related-product/',getVendorRelatedCategoryProducts,name="vendor-related-category-product"),
+
+
 
 
 

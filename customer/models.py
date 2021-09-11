@@ -78,6 +78,11 @@ class Customer(models.Model):
        
 
         return unique_categories
+    
+    def get_all_products_for_vendor(self):
+
+        return self.products.all()
+
         
         
         

@@ -429,23 +429,45 @@ def SearchView(request):
 #9-9-2021
 class VendorDetailView(View):
     def get(self, request, *args, **kwargs):
-        vendor_id = kwargs.get("id")
-        try:
-            vendor_obj = Customer.objects.get(id=vendor_id)
-        except:
+        if request.is_ajax():
+            print(request.GET,"REquest GETTING............")
+            return render(request,"user-frontend/user-ui/filter_search_on_vendor.html")
+        else:
+
+            vendor_id = kwargs.get("id")
+            try:
+                vendor_obj = Customer.objects.get(id=vendor_id)
+            except:
+                context = {
+                "page":"Official Store Detail",
+                "detail":"The related official store can't be found"
+                }
+                return render(request,"page-404.html",context)
             context = {
-            "page":"Official Store Detail",
-            "detail":"The related official store can't be found"
+                "vendor":vendor_obj,
             }
-            return render(request,"page-404.html",context)
-        context = {
-            "vendor":vendor_obj,
-        }
-        return render(request,"user-frontend/user-ui/vendor_detail.html",context)
+            return render(request,"user-frontend/user-ui/vendor_detail.html",context)
 
 
     def post(self, request, *args, **kwargs):
         return HttpResponse('POST request!')
+
+def getVendorRelatedCategoryProducts(request):
+    print(request.GET,"############")
+    return render(request,"user-frontend/user-ui/filter_search_on_vendor.html")
+    
+    
+    # search_value = request.GET.get('vendor')
+    # product_lists = Product.objects.filter(name__icontains=search_value)
+  
+
+    # context = {
+    #     "product_lists":product_lists
+    # }
+
+    # return render(request,"user-frontend/user-ui/search_results.html",context)
+
+
     
 
 

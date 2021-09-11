@@ -31,9 +31,9 @@
    <div class="os-main-content">
       <div class="os-side-bar">
          <form>
-         <h1>SideBar</h1>
-         <p>Related Categories</p>
-               <ul>
+        
+         <p class="os-sidebar-highlight">Related Categories</p>
+               <ul class="all-ul-lists">
                   <!-- https://docs.djangoproject.com/en/3.2/ref/templates/builtins/ -->
                   {% for category in vendor.related_categories  %}
                   <li><a href="#" class="{{category.name |slugify}}">{{category.name}}</a></li>
@@ -46,7 +46,7 @@
                <hr>
 
                <div class="os-price">
-                  <p>Price</p> <br>
+                  <p class="os-sidebar-highlight">Price</p> <br>
                   <div class="os-price-input-lists">
                      <input type="number" min="0" placeholder="Min" value pattern="[0-9]*" class="os-input-price"> <p>-</p> 
                      <input type="number" min="0" placeholder="Max" value pattern="[0-9]*" class="os-input-price"> 
@@ -58,13 +58,13 @@
                <hr>
 
                <div class="os-brand">
-                  <p>Brand</p>
+                  <p class="os-sidebar-highlight">Brand</p>
                   <input type="checkbox"> <span>Vendor</span>
                </div>
                <hr>
 
                <div class="os-service">
-                  <p>Service</p>
+                  <p class="os-sidebar-highlight">Service</p>
                   <input type="checkbox"> <span>Cash on Delivery</span> <br/>
                   <input type="checkbox"> <span>Free Shipping</span> <br/>
                   <input type="checkbox"> <span>Malle</span>
@@ -73,14 +73,14 @@
                <hr>
 
                <div class="os-location">
-                  <p>Location</p>
+                  <p class="os-sidebar-highlight">Location</p>
                   <input type="checkbox"> <span>Myanmar</span>
                </div>
                <hr>
 
 
                <div class="os-rating">
-                  <p>Rating</p>
+                  <p class="os-sidebar-highlight">Rating</p>
                   <div class="5-star">
                      <i class="far fa-star full-star"></i>
                      <i class="far fa-star full-star"></i> 
@@ -133,14 +133,14 @@
 
 
                <div class="os-warranty">
-                  <p>Warranty</p>
+                  <p class="os-sidebar-highlight">Warranty</p>
                   <input type="checkbox"> <span>Warranty</span>
                </div>
                <hr>
 
 
                <div class="os-color-family">
-                  <p>Color Family</p>
+                  <p class="os-sidebar-highlight">Color Family</p>
                   <input type="checkbox"> <span>Black</span> <br/>
                   <input type="checkbox"> <span>Yellow</span> <br/>
                   <input type="checkbox"> <span>Green</span> <br/>
@@ -156,8 +156,44 @@
          </form>
          
       </div>
+
+
       <div class="os-product-lists">
-         <h1>All Product Lists</h1>
+         <h3>{{vendor.name}}</h3>
+         <div id="relatedProduct">
+
+         </div>
+         <div class="os-product-lists-card">
+            <div class="os-card">
+
+               {% for product in vendor.get_all_products_for_vendor %}
+               <div class="os-card-item">
+                   <p class="text-center"><span class="badge badge-success">{{product.category.name}}</span></p>
+               <a href="{% url 'frontend:p-detail' product.id %}"><img src="{{product.image.url}}" width="200px" height="100px"></a>
+               <p class="badge badge-primary">Official Store</p>
+               <p>{{product.name}}</p>
+              
+               <p>Price: {{product.sale_price}}</p>
+               <p><small><del>Ks {{product.get_10_percent_discount}}</del> -10%  <span class="free">FREE</span></small></p>
+               <div class="5-star">
+                  <i class="far fa-star full-star"></i>
+                  <i class="far fa-star full-star"></i> 
+                  <i class="far fa-star full-star"></i> 
+                  <i class="far fa-star full-star"></i> 
+                  <i class="far fa-star full-star"></i> 
+                  <span>(1)</span>
+               </div>
+               <p><small>Myanmar[Burma]</small></p>
+                 
+               
+               </div>
+              
+              
+             
+               {% endfor %}
+           </div>
+         </div>
+
       </div>
    </div>
 {% endblock content %}
@@ -165,5 +201,77 @@
 
 {% block javascripts %}
     
+   <script type="text/javascript">
+
+         var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+            return false;
+        };
+
+
+      var data = $(".all-ul-lists li a")
+      var categories_listing= []
+      for (let index = 0; index < data.length; index++) {
+         const element = data[index];
+         // console.log(element.getAttribute('class'))
+         categories_listing.push(element.getAttribute('class'))
+         
+      }
+      console.log(categories_listing)
+    
+      $(".all-ul-lists li a").click(function(){
+            $("#relatedProduct").show()
+           
+            var originLocation =  window.location.href
+            // var category = $(this).attr('class')
+            var category = $(this).html()
+            var vendorId = "{{vendor.id}}"
+             
+            //var url ="{% url 'frontend:vendor-detail' 24%}" 
+            var url = originLocation
+          
+            
+            console.log("Url",url)
+            var GetURL ="{% url 'frontend:vendor-related-category-product'%}"
+            var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val()
+            
+            mydata = {category:category,vendor:vendorId}
+            var FinalUrl = url + '?'+'vendor='+ vendorId+'&'+'category='+category
+            
+            $.ajax({
+               method:'GET',
+               url:FinalUrl,
+               data:mydata,
+               success:function(res){
+                  
+                  $("#relatedProduct").html(res)
+                 
+                  
+                  console.log(res)
+                  
+               },
+               error:function(err){
+                  console.log(err)
+               }
+
+            })
+
+            
+
+            
+      })
+      
+   </script>
 {% endblock javascripts %}
     

@@ -83,7 +83,11 @@ class Product(models.Model):
         return reverse('product:product-detail', kwargs={'id': self.id})
 
     
-    
+    #for just showing on the official store detail vendor page
+    def get_10_percent_discount(self):
+        percentage = self.sale_price / 10
+        new_price =  percentage + self.sale_price   
+        return new_price
 
 
    
