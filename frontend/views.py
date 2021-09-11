@@ -430,8 +430,14 @@ def SearchView(request):
 class VendorDetailView(View):
     def get(self, request, *args, **kwargs):
         if request.is_ajax():
-            print(request.GET,"REquest GETTING............")
-            return render(request,"user-frontend/user-ui/filter_search_on_vendor.html")
+            vendor_id =request.GET.get('vendor')
+            category_name =  request.GET.get('category')
+            vendor_obj = Customer.objects.get(id=int(vendor_id))
+            product_lists = Product.objects.filter(vendor=vendor_obj,category__name=category_name)
+            context = {
+                'product_lists':product_lists
+            }
+            return render(request,"user-frontend/user-ui/filter_search_on_vendor.html",context)
         else:
 
             vendor_id = kwargs.get("id")
@@ -450,22 +456,26 @@ class VendorDetailView(View):
 
 
     def post(self, request, *args, **kwargs):
-        return HttpResponse('POST request!')
+        if request.is_ajax():
+            min_price = request.POST.get('minPrice')
+            max_price = request.POST.get('maxPrice')
+            vendor_id = request.POST.get('vendorId')
+           
+            vendor_obj = Customer.objects.get(id=int(vendor_id))
+            # product_lists = Product.objects.filter(vendor=vendor_obj,sale_price__gte=int(min_price),sale_price__lte=int(max_price))
+            product_lists = Product.objects.filter(vendor=vendor_obj,sale_price__range=(int(min_price),int(max_price)))
+            
+            print(product_lists)
 
-def getVendorRelatedCategoryProducts(request):
-    print(request.GET,"############")
-    return render(request,"user-frontend/user-ui/filter_search_on_vendor.html")
-    
-    
-    # search_value = request.GET.get('vendor')
-    # product_lists = Product.objects.filter(name__icontains=search_value)
-  
 
-    # context = {
-    #     "product_lists":product_lists
-    # }
+            context = {
+                'product_lists':product_lists
+            }
+            return render(request,"user-frontend/user-ui/filter_search_on_vendor.html",context)
+        else:
 
-    # return render(request,"user-frontend/user-ui/search_results.html",context)
+            return HttpResponse('POST request!')
+
 
 
     

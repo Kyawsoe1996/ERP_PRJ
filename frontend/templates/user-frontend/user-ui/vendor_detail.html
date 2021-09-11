@@ -30,8 +30,8 @@
 
    <div class="os-main-content">
       <div class="os-side-bar">
-         <form>
-        
+         <form method="post">
+            {% csrf_token %}
          <p class="os-sidebar-highlight">Related Categories</p>
                <ul class="all-ul-lists">
                   <!-- https://docs.djangoproject.com/en/3.2/ref/templates/builtins/ -->
@@ -48,10 +48,10 @@
                <div class="os-price">
                   <p class="os-sidebar-highlight">Price</p> <br>
                   <div class="os-price-input-lists">
-                     <input type="number" min="0" placeholder="Min" value pattern="[0-9]*" class="os-input-price"> <p>-</p> 
-                     <input type="number" min="0" placeholder="Max" value pattern="[0-9]*" class="os-input-price"> 
+                     <input type="number" min="0" placeholder="Min" value pattern="[0-9]*" id="minPrice" class="os-input-price"> <p>-</p> 
+                     <input type="number" min="0" placeholder="Max" value pattern="[0-9]*" id="maxPrice" class="os-input-price"> 
                      <!-- <button><i class="fas fa-arrow-right"></i></button> -->
-                     <button><i class="far fa-caret-square-right"></i></button>
+                     <button id="submitPrice"><i class="far fa-caret-square-right"></i></button>
                      
                   </div>
                </div>
@@ -160,10 +160,11 @@
 
       <div class="os-product-lists">
          <h3>{{vendor.name}}</h3>
+
          <div id="relatedProduct">
 
          </div>
-         <div class="os-product-lists-card">
+         <div class="os-product-lists-card" id="hidableAllProduct">
             <div class="os-card">
 
                {% for product in vendor.get_all_products_for_vendor %}
@@ -203,23 +204,6 @@
     
    <script type="text/javascript">
 
-         var getUrlParameter = function getUrlParameter(sParam) {
-            var sPageURL = window.location.search.substring(1),
-                sURLVariables = sPageURL.split('&'),
-                sParameterName,
-                i;
-
-            for (i = 0; i < sURLVariables.length; i++) {
-                sParameterName = sURLVariables[i].split('=');
-
-                if (sParameterName[0] === sParam) {
-                    return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
-                }
-            }
-            return false;
-        };
-
-
       var data = $(".all-ul-lists li a")
       var categories_listing= []
       for (let index = 0; index < data.length; index++) {
@@ -228,7 +212,16 @@
          categories_listing.push(element.getAttribute('class'))
          
       }
-      console.log(categories_listing)
+
+      //https://www.py4u.net/discuss/930274
+      function setQueryStringParameter(name, value, append=false) {
+            const url = new URL(window.document.URL);
+            if (append) url.searchParams.append(name, value);
+            else url.searchParams.set(name, value);
+            window.history.replaceState(null, "", url.toString());
+         }
+      
+     
     
       $(".all-ul-lists li a").click(function(){
             $("#relatedProduct").show()
@@ -240,25 +233,34 @@
              
             //var url ="{% url 'frontend:vendor-detail' 24%}" 
             var url = originLocation
-          
-            
-            console.log("Url",url)
-            var GetURL ="{% url 'frontend:vendor-related-category-product'%}"
             var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val()
             
             mydata = {category:category,vendor:vendorId}
-            var FinalUrl = url + '?'+'vendor='+ vendorId+'&'+'category='+category
+          
             
             $.ajax({
                method:'GET',
-               url:FinalUrl,
+               url:url,
                data:mydata,
                success:function(res){
                   
                   $("#relatedProduct").html(res)
+                  setQueryStringParameter('category',decodeURIComponent(category),append=false)
+                  $("#hidableAllProduct").hide()
+                  $("#hidesearchList").click(function(){
+                          $("#relatedProduct").hide(function(){
+                           var pageUrl = originLocation
+                           
+                           window.history.pushState('', '', pageUrl);
+                          })
+                          $("#hidableAllProduct").show()
+
+                        })
+
                  
-                  
-                  console.log(res)
+                 
+                
+                 
                   
                },
                error:function(err){
@@ -271,7 +273,54 @@
 
             
       })
+
+
       
-   </script>
+
+      $("#submitPrice").click(function(e){
+         $("#relatedProduct").show()
+         e.preventDefault()
+         console.log("Btn Submit")
+         var minPrice = $("#minPrice").val()
+         var maxPrice = $("#maxPrice").val()
+         var originLocation =  window.location.href
+         var url = originLocation
+         var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val()
+         var vendorId = "{{vendor.id}}"
+            
+         mydata = {minPrice:minPrice,maxPrice:maxPrice,vendorId:vendorId,csrfmiddlewaretoken:csrfmiddlewaretoken}
+         
+         $.ajax({
+            method:'POST',
+            url:url,
+            data:mydata,
+            success:function(res){
+               $("#relatedProduct").html(res)
+                  setQueryStringParameter('minprice',decodeURIComponent(minPrice),append=false)
+                  setQueryStringParameter('maxprice',decodeURIComponent(maxPrice),append=false)
+                  $("#hidableAllProduct").hide()
+                  $("#hidesearchList").click(function(){
+                          $("#relatedProduct").hide(function(){
+                           var pageUrl = originLocation
+                           
+                           window.history.pushState('', '', pageUrl);
+                          })
+                          $("#hidableAllProduct").show()
+
+                        })
+            },
+            error:function(err){
+               console.log(err)
+            }
+
+
+         })
+      })
+
+      
+      
+
+
+  </script>
 {% endblock javascripts %}
     

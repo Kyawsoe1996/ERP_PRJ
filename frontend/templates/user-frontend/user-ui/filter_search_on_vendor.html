@@ -1,3 +1,47 @@
-<h1>Hello Related Product Results</h1>
-    
+{% load static %}
+<div>
+    <!-- <img class="loadimg" src="{% static 'user-frontend/images/img.png' %}" height="300px"> -->
+    <button id="hidesearchList" class="btn btn-sm btn-danger" ><i class="fa fa-times" aria-hidden="true"></i></button>
+<h5 class="text-center  text-primary" >Filter Result Lists</h5>
+    <div class="os-product-lists-card">
+        <div class="os-card">
+            {% if product_lists.count > 0 %}
+                {% for product in product_lists %}
+            <div class="os-card-item">
+                <p class="text-center"><span class="badge badge-success">{{product.category.name}}</span></p>
+            <a href="{% url 'frontend:p-detail' product.id %}"><img src="{{product.image.url}}" width="200px" height="100px"></a>
+            <p class="badge badge-primary">Official Store</p>
+            <p>{{product.name}}</p>
+        
+            <p>Price: {{product.sale_price}}</p>
+            <p><small><del>Ks {{product.get_10_percent_discount}}</del> -10%  <span class="free">FREE</span></small></p>
+            <div class="5-star">
+            <i class="far fa-star full-star"></i>
+            <i class="far fa-star full-star"></i> 
+            <i class="far fa-star full-star"></i> 
+            <i class="far fa-star full-star"></i> 
+            <i class="far fa-star full-star"></i> 
+            <span>(1)</span>
+            </div>
+            <p><small>Myanmar[Burma]</small></p>
+            
+            
+            </div>
+        
+        
+        
+            {% endfor %}
+            {% else %}
+           
+            <h3 class="text text-center">No Products Found 
+                <i style="color:silver; font-size: 20px;" class="fa fa-frown-open" aria-hidden="true"></i>
+                <i style="color:silver; font-size: 30px;" class="fa fa-heart-broken" aria-hidden="true"></i>
+                <i style="color:silver; font-size: 40px;" class="fa fa-sad-cry" aria-hidden="true"></i>
+                
+            </h3>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<hr>
 
