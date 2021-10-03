@@ -74,7 +74,7 @@
           <button class="btn btn-primary btn-sm btn-block" type="submit">Continue to checkout</button>
         </form>
 
-        {{so.shipping_address.country}}
+       
   
       <!-- ............................. -->
 
@@ -102,12 +102,20 @@
             </div>
           </div>
         {% endfor %}
-        <p class="order-total"><b>ORDER TOTAL : {{so.total_price}}</b></p>
+        <div class="order-total">
+        <p ><b>ORDER TOTAL : {{so.sale_order_total}}</b></p>
+        
+        {% if so.coupon %}
+          <p>Apply Coupon Amount : {{so.coupon.amount}}</p>
+        {% endif %}
+          
+        
+        </div>
         <div>
           <form class="coupon-form">
             <label>Coupon Code:</label>
-            <input type="text" placeholder="Enter Coupon Code"/>
-            <button class="coupon-btn">Add</button>
+            <input type="text" placeholder="Enter Coupon Code" class="coupon-value" value=""/>
+            <button class="coupon-btn" type="submit">Add</button>
             
           </form>
       </div>
@@ -150,25 +158,65 @@ $("#same_billing_address").click(function(){
   }
 })
 
-use_default_shipping.addEventListener('change', function() {
+if(use_default_shipping) {
+  use_default_shipping.addEventListener('change', function() {
   if (this.checked) {
     hideable_shipping_form.hide();
   } else {
     hideable_shipping_form.show();
   }
 })
+}
 
-use_default_billing.addEventListener('change', function() {
+if(use_default_billing){
+  use_default_billing.addEventListener('change', function() {
   if (this.checked) {
     hideable_billing_form.hide();
   } else {
     hideable_billing_form.show();
   }
 })
+}
+
+
 
 $(".coupon-btn").click(function(e){
   e.preventDefault()
-  console.log("CLICKED")
+  console.log("ADD COUPON BUTTON CLICKED")
+  var coupon_val = $(".coupon-value").val()
+  currentLocation = window.location.href
+  var url = "{% url 'frontend:add-coupon-view'  %}" 
+  var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val()
+  mydata = {csrfmiddlewaretoken:csrfmiddlewaretoken,coupon:coupon_val}
+  $.ajax({
+        method:'POST',
+        url:url,
+        data:mydata,
+
+        success:function(response){
+            
+            if(response.err){
+              
+              alert(response.err)
+              $(".coupon-value").val("")
+              
+            }
+            else {
+              if(response.success){
+                alert(response.success)
+                window.location.href= currentLocation
+              }
+            }
+          
+          
+        },
+        error:function(error){
+          console.log(error)
+        }
+
+
+      })
+
 })
 
 

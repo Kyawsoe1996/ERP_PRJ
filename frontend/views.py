@@ -7,7 +7,7 @@ from product.models import Product,ProductCategory
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from customer.models import Addr, Customer
-from sale.models import SaleOrder,SaleOrderLine
+from sale.models import SaleOrder,SaleOrderLine,Coupon
 import datetime
 #method for creating ref number 
 from sale.views import  create_so_num
@@ -259,28 +259,34 @@ def blank_value_check_into_form(data):
 class CheckoutView(LoginRequiredMixin,View):
     login_url = '/login/'
     def get(self, request, *args, **kwargs):
-       
+        print(request.user.customer,"########")
+        customer_obj = request.user.customer
+        so_obj = SaleOrder.objects.filter(customer=customer_obj,status='q')
+        if so_obj.exists():
 
-        context = {
-            'form': CheckoutForm(),
+            context = {
+                'form': CheckoutForm(),
+                
+            }
+
+            shipping_addr_obj = request.user.customer.get_default_shipping_address()
+            if shipping_addr_obj:
+                default_shipping_address = shipping_addr_obj.street_address +", " + shipping_addr_obj.country.name
+                context.update({"default_shipping_address":default_shipping_address})
             
-        }
 
-        shipping_addr_obj = request.user.customer.get_default_shipping_address()
-        if shipping_addr_obj:
-            default_shipping_address = shipping_addr_obj.street_address +", " + shipping_addr_obj.country.name
-            context.update({"default_shipping_address":default_shipping_address})
-           
-
-       
-        billing_addr_obj = request.user.customer.get_default_billing_address()
-        if billing_addr_obj:
-            default_billing_address = billing_addr_obj.street_address +", " + billing_addr_obj.country.name  
-            context.update({"default_billing_address":default_billing_address})
         
-    
+            billing_addr_obj = request.user.customer.get_default_billing_address()
+            if billing_addr_obj:
+                default_billing_address = billing_addr_obj.street_address +", " + billing_addr_obj.country.name  
+                context.update({"default_billing_address":default_billing_address})
+            
+        
 
-        return render(self.request,"user-frontend/user-ui/checkout.html",context)
+            return render(self.request,"user-frontend/user-ui/checkout.html",context)
+        else:
+            messages.info(self.request,"You do not have active order to checkout")
+            return redirect("frontend:p-list")
 
     
    
@@ -475,6 +481,42 @@ class VendorDetailView(View):
         else:
 
             return HttpResponse('POST request!')
+
+def get_coupon_exist_or_not(coupon):
+    try:
+        coupon = Coupon.objects.get(code=coupon)
+    except Coupon.DoesNotExist:
+        return False
+
+    if coupon:
+        return coupon
+
+
+def AddCoupon(request):
+    coupon = request.POST.get('coupon')
+    coupon = get_coupon_exist_or_not(coupon)
+    user_obj = request.user
+    if coupon:
+         
+        try:
+            customer_obj = Customer.objects.get(user=user_obj)
+        except:
+            return JsonResponse({"err":"Not a Customer"})
+        
+        so_obj = SaleOrder.objects.get(customer=customer_obj,status='q')
+        if so_obj.coupon:
+            return JsonResponse({"success":"Already added a coupon"})
+        so_obj.coupon = coupon
+        so_obj.save()
+        return JsonResponse({"success":"Successfully added coupon"})
+
+
+        
+
+        
+            
+
+    return JsonResponse({"err":"Wrong Coupon Code"})
 
 
 

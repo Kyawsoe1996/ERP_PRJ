@@ -12,6 +12,7 @@ urlpatterns = [
     path("fr",frontend,name="frontend"),
     path("list/",SOListView,name="so-list"),
     path("detail/<int:id>/",SODetialView,name="so-detail"),
+    
 
     
 

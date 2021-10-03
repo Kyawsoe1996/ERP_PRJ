@@ -19,6 +19,22 @@ STATUS = (
     
   
 )
+class Coupon(models.Model):
+    
+    code = models.CharField(max_length=50)
+    amount = models.IntegerField()
+
+
+    class Meta:
+        verbose_name = ("Coupon")
+        verbose_name_plural = ("Coupons")
+
+    def __str__(self):
+        return f'{self.code} - {self.amount}'
+
+    # def get_absolute_url(self):
+    #     return reverse("Coupon_detail", kwargs={"pk": self.pk})
+    
 
 class SaleOrder(models.Model):
     
@@ -28,6 +44,7 @@ class SaleOrder(models.Model):
     created_date = models.DateTimeField(auto_now=True)
     status = models.CharField(choices=STATUS,default='q',max_length=2)
     total_price = models.FloatField(blank=True,null=True)
+    coupon = models.ForeignKey(Coupon,on_delete=models.SET_NULL,blank=True,null=True,related_name="sale_orders")
     shipping_address = models.ForeignKey(
         Addr, related_name='shipping_address', on_delete=models.SET_NULL, blank=True, null=True)
     billing_address = models.ForeignKey(
@@ -40,6 +57,9 @@ class SaleOrder(models.Model):
         for so_line in self.so_lines.all():
             subtotal = so_line.sub_total
             total += subtotal
+        
+        if self.coupon:
+            total = total - self.coupon.amount
         return total
     
     
@@ -108,6 +128,9 @@ class SaleOrderLine(models.Model):
 
     def __str__(self):
         return self.sale_order.ref
+
+
+
        
 
 

@@ -14,6 +14,7 @@ from .views import (
     CheckoutView,
     SearchView,
     VendorDetailView,
+    AddCoupon,
    
 )
 
@@ -32,6 +33,8 @@ urlpatterns = [
     path('checkout/',CheckoutView.as_view(),name="checkout-view"),
     path('search/',SearchView,name="search-view"),
     path('vendor/<int:id>/',VendorDetailView.as_view(),name="vendor-detail"),
+    path('add-coupon',AddCoupon,name="add-coupon-view"),
+
    
 
 
