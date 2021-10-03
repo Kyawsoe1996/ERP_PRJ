@@ -50,7 +50,7 @@
       </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-          <li><a href="#">Home</a></li>
+          <li><a href="{% url 'frontend:frontend' %}">Home</a></li>
           <li class="dropdown menu-large">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Products <b class="caret"></b> </a>
             <ul class="dropdown-menu megamenu">
@@ -101,7 +101,7 @@
           <li class="dropdown menu-large " style="list-style: none;">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Product Categories <b class="caret"></b></a>
             <ul class="dropdown-menu megamenu row">
-                
+                <!-- from context  processor getting categories -->
                 {% for cat in categories %}
                     
             

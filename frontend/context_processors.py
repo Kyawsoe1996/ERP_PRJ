@@ -25,6 +25,15 @@ def config(request):
             #to get in the Checkout Page ... mean => Checkout Page
             so_obj = qs[0]
 
+            return {'categories':categories,"cart_count":value,"so":so_obj}
+        else:
+            return {'categories':categories,"cart_count":value}
+
+
+
+
+        
+
 
          
             
@@ -33,4 +42,6 @@ def config(request):
     
     
 
-    return {'categories':categories,"cart_count":value,"so":so_obj}
+    # return {'categories':categories,"cart_count":value,"so":so_obj}
+    #return {'categories':categories,"cart_count":value}
+

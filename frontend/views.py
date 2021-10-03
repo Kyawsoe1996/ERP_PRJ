@@ -277,8 +277,8 @@ class CheckoutView(LoginRequiredMixin,View):
         if billing_addr_obj:
             default_billing_address = billing_addr_obj.street_address +", " + billing_addr_obj.country.name  
             context.update({"default_billing_address":default_billing_address})
-         
- 
+        
+    
 
         return render(self.request,"user-frontend/user-ui/checkout.html",context)
 

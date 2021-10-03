@@ -6,7 +6,7 @@
 {% block content %}
 <div class="main-checkout">
     <div class="content-left">
-        <h1>Content Left</h1>
+       
 
       <!-- .........Checkout Form............ -->
         <form method="post">
@@ -81,8 +81,36 @@
     </div>
 
     <div class="content-right">
-        <h1>Content Right</h1>
-    </div>
+       
+       
+       {% for so_line in so.so_lines.all %}
+         
+       
+          <div class="data">
+            <div>
+              <img src="{{so_line.product.image.url}}" height="80px" width="80px" alt="">
+              <p>{{so_line.product.name}}</p>
+            </div>
+            <div>
+              <p>{{so_line.quantity}} 
+                <i class="fa fa-times" aria-hidden="true"> </i> 
+                <i class="fa fa-times" aria-hidden="true"> </i>
+                
+                {{so_line.product.sale_price}}</p>
+             
+              <p>Total: <b>{{so_line.sub_total}}</b></p>
+            </div>
+          </div>
+        {% endfor %}
+        <p class="order-total"><b>ORDER TOTAL : {{so.total_price}}</b></p>
+        <div>
+          <form class="coupon-form">
+            <label>Coupon Code:</label>
+            <input type="text" placeholder="Enter Coupon Code"/>
+            <button class="coupon-btn">Add</button>
+            
+          </form>
+      </div>
 
 </div>
 
@@ -136,6 +164,11 @@ use_default_billing.addEventListener('change', function() {
   } else {
     hideable_billing_form.show();
   }
+})
+
+$(".coupon-btn").click(function(e){
+  e.preventDefault()
+  console.log("CLICKED")
 })
 
 
