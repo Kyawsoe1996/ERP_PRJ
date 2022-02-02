@@ -44,4 +44,25 @@
     </div>
 </div>
 <hr>
+{% block javascripts %}
+<!-- for htmx color filter, to return to normal state, url -->
+<script>
+    
+
+                  $("#hidesearchList").click(function(){
+                       
+                        var originLocation= window.location.href
+                        var pageUrl = originLocation
+                        var gg =pageUrl.indexOf('?')
+                        var updatedLocation = pageUrl.split('?')
+                        console.log(updatedLocation[0])
+                        window.location.href=updatedLocation[0]
+                        
+                        
+                          
+
+                        })
+</script>
+  
+{% endblock javascripts %}
 

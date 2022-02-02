@@ -224,7 +224,7 @@
 
           <!-- service -->
           <li><a href="#">About</a></li>
-          <li><a href="#" class="signup-btn">Sign Up</a></li>
+          <li><a href="/register" class="signup-btn">Sign Up</a></li>
           <!-- <li><a href="#" class="signup-btn"> Cart<i class="fa fa-shopping-cart" aria-hidden="true"><sup class="badge badge-danger">{{request.user|cart_item_count}}</sup></i></a></li> -->
 
           <li><a href="{% url 'frontend:view-cart' %}"  class="signup-btn onCardShow"> Cart<i class="fa fa-shopping-cart" aria-hidden="true"><sup id="navbarCount" class="badge badge-danger">{{request.user | cart_item_count}}</sup></i></a></li>
@@ -268,7 +268,13 @@
               </ul>
           </div>
 
-          <li class="user-icon-right"><a href="#" ><i class="fas fa-user">{{request.user.username}}</i></a></li>
+          
+          {% if request.user %}
+          <li class="user-icon-right"><a href="/logout" ><i class="fas fa-user">{{request.user.username}}</i></a></li>
+          {% else %}
+          <li class="user-icon-right"><a href="/login" ><i class="fas fa-user">{{request.user.username}}</i></a></li>
+          {% endif %}
+            
 
         </ul>
       </div>

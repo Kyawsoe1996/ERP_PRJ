@@ -1,3 +1,5 @@
+from curses.ascii import HT
+from http.client import HTTPResponse
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.http import JsonResponse,HttpResponse
@@ -17,6 +19,7 @@ from django.views.generic import View
 from frontend.forms import CheckoutForm
 # from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from product.models import PRODUCT_COLORS
 
 
 def IndexView(request):
@@ -435,7 +438,27 @@ def SearchView(request):
 #9-9-2021
 class VendorDetailView(View):
     def get(self, request, *args, **kwargs):
-        if request.is_ajax():
+        #for color filtering in vendor detail page
+        color_check = request.GET.get('color_check',None)
+        vendor_id =request.GET.get('vendorId')
+        
+        if color_check is not None and vendor_id:
+            print("BOTH EXIST")
+            vendor_obj = Customer.objects.get(id=int(vendor_id))
+            product_lists=Product.objects.filter(vendor=vendor_obj,color=color_check)
+            context = {
+                'product_lists':product_lists
+            }
+            response= render(request,"user-frontend/user-ui/filter_search_on_vendor.html",context)
+            
+            current_url = request.path_info + '?'+'color='+color_check
+            print(current_url,"#######")
+            response['HX-Push'] = current_url
+            print(response)
+            return response
+        
+            
+        elif request.is_ajax():
             vendor_id =request.GET.get('vendor')
             category_name =  request.GET.get('category')
             vendor_obj = Customer.objects.get(id=int(vendor_id))
@@ -457,6 +480,7 @@ class VendorDetailView(View):
                 return render(request,"page-404.html",context)
             context = {
                 "vendor":vendor_obj,
+                "product_colors":PRODUCT_COLORS
             }
             return render(request,"user-frontend/user-ui/vendor_detail.html",context)
 
@@ -518,6 +542,12 @@ def AddCoupon(request):
 
     return JsonResponse({"err":"Wrong Coupon Code"})
 
+
+#tesst
+def htmx_test_view(request):
+    print(request.GET)
+   
+    return HttpResponse("HTMX TEST VIEW")
 
 
     

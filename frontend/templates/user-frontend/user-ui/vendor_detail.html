@@ -4,6 +4,7 @@
 
 
 {% block content %}
+
    <div class="os-top-banner">
       <div class="on-top">
             <img src="{{vendor.image.url}}">
@@ -139,7 +140,7 @@
                <hr>
 
 
-               <div class="os-color-family">
+               <!-- <div class="os-color-family">
                   <p class="os-sidebar-highlight">Color Family</p>
                   <input type="checkbox"> <span>Black</span> <br/>
                   <input type="checkbox"> <span>Yellow</span> <br/>
@@ -147,7 +148,30 @@
                   <input type="checkbox"> <span>Red</span> <br/>
                   <input type="checkbox"> <span>Silver</span> <br/>
 
+               </div> -->
+               <div class="os-color-family">
+                  <p class="os-sidebar-highlight">Color Family</p>
+                  {% for color_code,color in product_colors  %}
+                     <input type="checkbox" 
+                     name="color_check" 
+                     value="{{color_code}}"
+                     
+                     
+                        
+                     hx-get=  "{% url 'frontend:vendor-detail' vendor.id %}"
+                     hx-target="#hidableAllProduct"
+                     hx-trigger="click"
+                     hx-vals='{"vendorId": {{vendor.id}}}'
+                     hx-swap="innerHTML"
+                     > 
+                     
+                     <span>{{color}}</span> <br/>
+                  {% endfor %}
+                  
+                 
+
                </div>
+               
                <hr>
 
 
@@ -322,5 +346,14 @@
 
 
   </script>
+
+  <script>
+     
+     $("#hidesearchList").click(function(){
+        console.log("WEW")
+     })
+  </script>
 {% endblock javascripts %}
     
+
+

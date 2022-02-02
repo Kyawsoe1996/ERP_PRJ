@@ -1,4 +1,5 @@
 # from inventory.models import Stock
+from operator import mod
 from django.db import models
 
 from django.shortcuts import reverse
@@ -17,6 +18,24 @@ TYPE = (
     ('service', 'Service')
     
   
+)
+PRODUCT_COLORS = (
+    ('red','RED'),
+    ('green','GREEN'),
+    ('black','BLACK'),
+    ('yellow','YELLOW'),
+    ('silver','SILVER'),
+
+
+)
+PRODUCT_RATINGS= (
+    ('one',1),
+    ('two',2),
+    ('three',3),
+    ('four',4),
+    ('five',5),
+
+
 )
 
 class ProductUOM(models.Model):
@@ -67,7 +86,7 @@ class Product(models.Model):
     sale_price = models.FloatField(blank=True,null=True)
     purchase_price = models.FloatField(blank=True,null=True)
     vendor = models.ForeignKey(Customer,related_name="products",on_delete=models.CASCADE,blank=True,null=True)
-
+    color = models.CharField(choices=PRODUCT_COLORS,default='red',max_length=10,blank=True,null=True)
 
     class Meta:
         
@@ -120,3 +139,7 @@ class Product(models.Model):
         code = COD128(f'{self.name}', writer=ImageWriter()).write(rv)
         self.barcode.save(f'{self.name}.png', File(rv), save=False)
         return super().save(*args, **kwargs)
+
+    #1-2-2022
+    def get_colors(self):
+        return self.color
