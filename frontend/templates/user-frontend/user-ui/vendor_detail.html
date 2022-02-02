@@ -82,54 +82,55 @@
 
                <div class="os-rating">
                   <p class="os-sidebar-highlight">Rating</p>
-                  <div class="5-star">
-                     <i class="far fa-star full-star"></i>
-                     <i class="far fa-star full-star"></i> 
-                     <i class="far fa-star full-star"></i> 
-                     <i class="far fa-star full-star"></i> 
-                     <i class="far fa-star full-star"></i> 
+                  {% for rating,count in product_ratings  %}
+                  <div class="stars">
+                        
+                        {% if count == 1 %}
+                        {% include "user-frontend/user-ui/partial/rating_htmx_request_for_each.html" %}
+
+                        <i class="far fa-star full-star"></i>
+                     </div> 
+                        {% elif count == 2  %}
+                        {% include "user-frontend/user-ui/partial/rating_htmx_request_for_each.html" %}
+
+                       <i class="far fa-star full-star"></i> 
+                       <i class="far fa-star full-star"></i> 
+                       </div>
+                       {% elif count == 3  %}
+                       {% include "user-frontend/user-ui/partial/rating_htmx_request_for_each.html" %}
+
+                       <i class="far fa-star full-star"></i> 
+                       <i class="far fa-star full-star"></i> 
+                       <i class="far fa-star full-star"></i> 
+                     </div>
+                       {% elif count == 4  %}
+                       {% include "user-frontend/user-ui/partial/rating_htmx_request_for_each.html" %}
+
+                       <i class="far fa-star full-star"></i> 
+                       <i class="far fa-star full-star"></i> 
+                       <i class="far fa-star full-star"></i> 
+                       <i class="far fa-star full-star"></i> 
+                        </div>
+                       {% elif count == 5  %}
+                       {% include "user-frontend/user-ui/partial/rating_htmx_request_for_each.html" %}
+
+                       <i class="far fa-star full-star"></i> 
+                       <i class="far fa-star full-star"></i>
+                       <i class="far fa-star full-star"></i> 
+                       <i class="far fa-star full-star"></i> 
+                       <i class="far fa-star full-star"></i> 
+                     </div>
+
+                       
+                        {% endif %}
+                           
+                       
+                        
 
                   </div> 
-                  <div class="4-star">
-                     <i class="far fa-star full-star"></i>
-                     <i class="far fa-star full-star"></i> 
-                     <i class="far fa-star full-star"></i> 
-                     <i class="far fa-star full-star"></i>
-                     <i class="far fa-star"></i> 
- 
-                    
-
-                  </div> 
-                  <div class="3-star">
-                     <i class="far fa-star full-star"></i>
-                     <i class="far fa-star full-star"></i> 
-                     <i class="far fa-star full-star"></i> 
-                     <i class="far fa-star"></i> 
-                     <i class="far fa-star"></i> 
-
-                  </div>
-
-                  <div class="2-star">
-                     <i class="far fa-star full-star"></i>
-                     <i class="far fa-star full-star"></i> 
-                     <i class="far fa-star"></i> 
-                     <i class="far fa-star"></i> 
-                     <i class="far fa-star"></i> 
-
-                  </div>
-
-                  <div class="1-star">
-                     <i class="far fa-star full-star"></i>
-                     <i class="far fa-star"></i> 
-                     <i class="far fa-star"></i> 
-                     <i class="far fa-star"></i> 
-                     <i class="far fa-star"></i> 
-
-                  </div>
-                  
-                  
-
-               </div>  
+                           
+                  {% endfor %}
+                  </div>  
                <hr>
 
 
@@ -200,14 +201,7 @@
               
                <p>Price: {{product.sale_price}}</p>
                <p><small><del>Ks {{product.get_10_percent_discount}}</del> -10%  <span class="free">FREE</span></small></p>
-               <div class="5-star">
-                  <i class="far fa-star full-star"></i>
-                  <i class="far fa-star full-star"></i> 
-                  <i class="far fa-star full-star"></i> 
-                  <i class="far fa-star full-star"></i> 
-                  <i class="far fa-star full-star"></i> 
-                  <span>(1)</span>
-               </div>
+                  {% include "user-frontend/user-ui/partial/product_rating_template.html" %}
                <p><small>Myanmar[Burma]</small></p>
                  
                

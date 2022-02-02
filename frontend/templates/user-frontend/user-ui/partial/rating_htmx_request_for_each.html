@@ -1,0 +1,6 @@
+<div id="{{rating}}" 
+                       hx-get="{% url 'frontend:vendor-detail' vendor.id %}"
+                       hx-target="#hidableAllProduct"
+                       hx-trigger="click"
+                       hx-vals='{"vendorId": {{vendor.id}},"ratings": "{{rating}}"}'
+                       >

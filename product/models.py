@@ -1,5 +1,7 @@
 # from inventory.models import Stock
 from operator import mod
+from random import choices
+from statistics import mode
 from django.db import models
 
 from django.shortcuts import reverse
@@ -87,7 +89,8 @@ class Product(models.Model):
     purchase_price = models.FloatField(blank=True,null=True)
     vendor = models.ForeignKey(Customer,related_name="products",on_delete=models.CASCADE,blank=True,null=True)
     color = models.CharField(choices=PRODUCT_COLORS,default='red',max_length=10,blank=True,null=True)
-
+    product_ratings= models.CharField(choices=PRODUCT_RATINGS,default='one',max_length=10,blank=True,null=True)
+    
     class Meta:
         
 

@@ -1,0 +1,34 @@
+<div class="5-star">
+                  
+    {% if product.product_ratings == 'one' %}
+    <i class="far fa-star full-star"></i>
+    {% elif product.product_ratings == 'two' %}
+       <i class="far fa-star full-star"></i>
+       <i class="far fa-star full-star"></i>
+    
+    {% elif product.product_ratings == 'three' %}
+    <i class="far fa-star full-star"></i>
+    <i class="far fa-star full-star"></i>
+    <i class="far fa-star full-star"></i>
+
+
+    {% elif product.product_ratings == 'four' %}
+    <i class="far fa-star full-star"></i>
+    <i class="far fa-star full-star"></i>
+    <i class="far fa-star full-star"></i>
+    <i class="far fa-star full-star"></i>
+
+
+    {% elif product.product_ratings == 'five' %}
+    <i class="far fa-star full-star"></i>
+    <i class="far fa-star full-star"></i>
+    <i class="far fa-star full-star"></i>
+    <i class="far fa-star full-star"></i>
+    <i class="far fa-star full-star"></i>
+
+    {% endif %}
+       
+   
+ 
+    <span>(1)</span>
+ </div>

@@ -15,14 +15,8 @@
         
             <p>Price: {{product.sale_price}}</p>
             <p><small><del>Ks {{product.get_10_percent_discount}}</del> -10%  <span class="free">FREE</span></small></p>
-            <div class="5-star">
-            <i class="far fa-star full-star"></i>
-            <i class="far fa-star full-star"></i> 
-            <i class="far fa-star full-star"></i> 
-            <i class="far fa-star full-star"></i> 
-            <i class="far fa-star full-star"></i> 
-            <span>(1)</span>
-            </div>
+            {% include "user-frontend/user-ui/partial/product_rating_template.html" %}
+            
             <p><small>Myanmar[Burma]</small></p>
             
             

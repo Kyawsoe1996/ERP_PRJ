@@ -19,7 +19,7 @@ from django.views.generic import View
 from frontend.forms import CheckoutForm
 # from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from product.models import PRODUCT_COLORS
+from product.models import PRODUCT_COLORS,PRODUCT_RATINGS
 
 
 def IndexView(request):
@@ -441,9 +441,11 @@ class VendorDetailView(View):
         #for color filtering in vendor detail page
         color_check = request.GET.get('color_check',None)
         vendor_id =request.GET.get('vendorId')
+        product_rating= request.GET.get('ratings',None)
+       
         
         if color_check is not None and vendor_id:
-            print("BOTH EXIST")
+            
             vendor_obj = Customer.objects.get(id=int(vendor_id))
             product_lists=Product.objects.filter(vendor=vendor_obj,color=color_check)
             context = {
@@ -455,6 +457,21 @@ class VendorDetailView(View):
             print(current_url,"#######")
             response['HX-Push'] = current_url
             print(response)
+            return response
+        
+        elif product_rating is not None and vendor_id:
+            
+            vendor_obj = Customer.objects.get(id=int(vendor_id))
+            product_lists=Product.objects.filter(vendor=vendor_obj,product_ratings=product_rating)
+            context = {
+                'product_lists':product_lists
+            }
+            response= render(request,"user-frontend/user-ui/filter_search_on_vendor.html",context)
+            
+            current_url = request.path_info + '?'+'rating='+product_rating
+            
+            response['HX-Push'] = current_url
+            
             return response
         
             
@@ -480,7 +497,8 @@ class VendorDetailView(View):
                 return render(request,"page-404.html",context)
             context = {
                 "vendor":vendor_obj,
-                "product_colors":PRODUCT_COLORS
+                "product_colors":PRODUCT_COLORS,
+                "product_ratings":PRODUCT_RATINGS
             }
             return render(request,"user-frontend/user-ui/vendor_detail.html",context)
 
@@ -548,6 +566,9 @@ def htmx_test_view(request):
     print(request.GET)
    
     return HttpResponse("HTMX TEST VIEW")
+
+def rating_test(request):
+    return HttpResponse("Rating Test")
 
 
     

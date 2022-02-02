@@ -16,6 +16,7 @@ from .views import (
     VendorDetailView,
     AddCoupon,
     htmx_test_view,
+    rating_test
    
 )
 
@@ -36,6 +37,7 @@ urlpatterns = [
     path('vendor/<int:id>/',VendorDetailView.as_view(),name="vendor-detail"),
     path('add-coupon',AddCoupon,name="add-coupon-view"),
     path('test/',htmx_test_view,name="htmx-test"),
+    path('rating/',rating_test,name='rating-test')
 
     
 
